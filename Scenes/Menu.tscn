@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dyuylhe2x2enr"]
+
+[node name="Menu" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Network" type="Node" parent="."]
+
+[node name="Control" type="Control" parent="Network"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -192.0
+offset_top = -128.0
+offset_right = 192.0
+offset_bottom = 128.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Network/Control"]
+layout_mode = 0
+offset_right = 384.0
+offset_bottom = 256.0
