@@ -18,3 +18,34 @@ offset_bottom = 128.0
 layout_mode = 0
 offset_right = 384.0
 offset_bottom = 256.0
+
+[node name="StartServerButton" type="Button" parent="Network/Control/VBoxContainer"]
+layout_mode = 2
+text = "Create Lobby"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Network/Control/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Network/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LineEdit" type="LineEdit" parent="Network/Control/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+placeholder_text = "Room Code"
+alignment = 1
+max_length = 6
+
+[node name="MarginContainer2" type="MarginContainer" parent="Network/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="JoinServerButton" type="Button" parent="Network/Control/VBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Join Lobby"
+
+[node name="SettingsButton" type="Button" parent="Network/Control/VBoxContainer"]
+layout_mode = 2
+text = "Settings
+"

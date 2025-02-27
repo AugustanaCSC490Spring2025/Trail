@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://djbmyhaw0cx2u"]
+
+[sub_resource type="Gradient" id="Gradient_hlxad"]
+offsets = PackedFloat32Array(0, 0.0301205, 0.0722892)
+colors = PackedColorArray(0, 0, 0, 1, 0.0662651, 0.0662651, 0.0662651, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mqibi"]
+gradient = SubResource("Gradient_hlxad")
+
+[node name="Free Roam Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.00006, -1)
+scale = Vector2(1152, 646)
+texture = SubResource("GradientTexture1D_mqibi")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../SpawnedNodes")
+
+[node name="SpawnedNodes" type="Node2D" parent="."]

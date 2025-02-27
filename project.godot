@@ -11,5 +11,6 @@ config_version=5
 [application]
 
 config/name="Wacky West"
+run/main_scene="res://Scenes/free_roam_game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
