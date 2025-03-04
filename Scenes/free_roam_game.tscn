@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://djbmyhaw0cx2u"]
+[gd_scene load_steps=4 format=3 uid="uid://djbmyhaw0cx2u"]
+
+[ext_resource type="PackedScene" uid="uid://byqwsd2vi25ya" path="res://Scenes/Player.tscn" id="1_fsvvb"]
 
 [sub_resource type="Gradient" id="Gradient_hlxad"]
 offsets = PackedFloat32Array(0, 0.0301205, 0.0722892)
@@ -20,3 +22,5 @@ texture = SubResource("GradientTexture1D_mqibi")
 spawn_path = NodePath("../SpawnedNodes")
 
 [node name="SpawnedNodes" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_fsvvb")]
