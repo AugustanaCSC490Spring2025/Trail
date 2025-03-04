@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4qcijggwn06n"]
+
+[sub_resource type="Gradient" id="Gradient_0d0pp"]
+offsets = PackedFloat32Array(0, 0.277108, 0.704819, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.233334, 0, 1, 1, 0.083928, 0.784989, 0.570671, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8w0yt"]
+gradient = SubResource("Gradient_0d0pp")
+
+[node name="Lobby" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -2.50002)
+scale = Vector2(4.53125, 669)
+texture = SubResource("GradientTexture1D_8w0yt")
