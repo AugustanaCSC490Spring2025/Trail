@@ -1,12 +1,15 @@
-[gd_scene format=3 uid="uid://dyuylhe2x2enr"]
+[gd_scene load_steps=2 format=3 uid="uid://dyuylhe2x2enr"]
+
+[ext_resource type="Script" path="res://Scripts/network.gd" id="1_ui5cs"]
 
 [node name="Menu" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Network" type="Node" parent="."]
+script = ExtResource("1_ui5cs")
 
-[node name="Control" type="Control" parent="Network"]
+[node name="MenuUI" type="Control" parent="Network"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -192.0
@@ -14,38 +17,42 @@ offset_top = -128.0
 offset_right = 192.0
 offset_bottom = 128.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Network/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Network/MenuUI"]
 layout_mode = 0
 offset_right = 384.0
 offset_bottom = 256.0
 
-[node name="StartServerButton" type="Button" parent="Network/Control/VBoxContainer"]
+[node name="StartServerButton" type="Button" parent="Network/MenuUI/VBoxContainer"]
 layout_mode = 2
 text = "Create Lobby"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Network/Control/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Network/MenuUI/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Network/Control/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Network/MenuUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LineEdit" type="LineEdit" parent="Network/Control/VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="Code" type="LineEdit" parent="Network/MenuUI/VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 placeholder_text = "Room Code"
 alignment = 1
 max_length = 6
 
-[node name="MarginContainer2" type="MarginContainer" parent="Network/Control/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="Network/MenuUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="JoinServerButton" type="Button" parent="Network/Control/VBoxContainer/HBoxContainer/MarginContainer2"]
+[node name="JoinServerButton" type="Button" parent="Network/MenuUI/VBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 text = "Join Lobby"
 
-[node name="SettingsButton" type="Button" parent="Network/Control/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="Network/MenuUI/VBoxContainer"]
 layout_mode = 2
 text = "Settings
 "
+
+[connection signal="pressed" from="Network/MenuUI/VBoxContainer/StartServerButton" to="Network" method="startHost"]
+[connection signal="text_changed" from="Network/MenuUI/VBoxContainer/HBoxContainer/MarginContainer/Code" to="Network" method="_on_code_text_changed"]
+[connection signal="pressed" from="Network/MenuUI/VBoxContainer/HBoxContainer/MarginContainer2/JoinServerButton" to="Network" method="startClient"]

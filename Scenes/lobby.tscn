@@ -12,6 +12,30 @@ gradient = SubResource("Gradient_0d0pp")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-1, -2.50002)
 scale = Vector2(4.53125, 669)
 texture = SubResource("GradientTexture1D_8w0yt")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = -544.0
+offset_top = -296.0
+offset_right = -280.0
+offset_bottom = 296.0
+
+[node name="Player" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Player 1
+"
+
+[node name="Player2" type="Label" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Player 2
+"
