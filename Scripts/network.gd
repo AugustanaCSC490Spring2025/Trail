@@ -18,7 +18,7 @@ func startHost():
 
 func startClient():
 	var peer = ENetMultiplayerPeer.new()
-	peer.create_client(IPinput.text, int(portInput.text))
+	peer.create_client(IPinput, portInput)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.connected_to_server.connect(_connected_to_server)
 	multiplayer.connection_failed.connect(_connection_failed)
