@@ -41,10 +41,17 @@ text = "Player 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Control"]
 layout_mode = 0
-offset_left = 152.0
-offset_top = 68.0
-offset_right = 522.0
-offset_bottom = 289.0
+offset_left = 151.0
+offset_top = -319.0
+offset_right = 521.0
+offset_bottom = 298.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Character" type="ColorRect" parent="Control/VBoxContainer2/MarginContainer"]
+layout_mode = 2
+color = Color(0.41, 0.882, 1, 1)
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer2"]
 layout_mode = 2
@@ -79,6 +86,14 @@ text = "Name"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextEdit" type="LineEdit" parent="Control/VBoxContainer2/HBoxContainer/MarginContainer2"]
+[node name="Username" type="LineEdit" parent="Control/VBoxContainer2/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 placeholder_text = "Player"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Control/VBoxContainer2/MarginContainer2"]
+layout_mode = 2
+text = "Description"
