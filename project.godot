@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Wacky West"
-run/main_scene="res://Scenes/game.tscn"
+run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
+
+[autoload]
+
+Game="*res://Scripts/game.gd"
+Network="*res://Scripts/network.gd"
 
 [input]
 

@@ -12,7 +12,6 @@ gradient = SubResource("Gradient_0d0pp")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(-1, -2.50002)
 scale = Vector2(4.53125, 669)
 texture = SubResource("GradientTexture1D_8w0yt")

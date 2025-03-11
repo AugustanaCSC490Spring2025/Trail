@@ -1,3 +1,11 @@
-[gd_scene format=3 uid="uid://bx5b00epdo4y1"]
+[gd_scene load_steps=3 format=3 uid="uid://rsqnq8t4ocyv"]
+
+[ext_resource type="Script" path="res://Scripts/network.gd" id="1_hervg"]
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_mw6c7"]
 
 [node name="Game" type="Node2D"]
+visible = false
+script = ExtResource("1_mw6c7")
+
+[node name="Network" type="Node" parent="."]
+script = ExtResource("1_hervg")
