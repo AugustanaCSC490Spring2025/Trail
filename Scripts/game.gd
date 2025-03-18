@@ -1,7 +1,7 @@
 extends Node
 
-var scenes = [preload("res://Scenes/Menu.tscn"), preload("res://Scenes/Lobby.tscn"), preload("res://Scenes/FreeRoamGame.tscn")]
-var currentScene = scenes[0].instantiate()
+var scenes = [preload("res://scenes/menu.tscn"), preload("res://scenes/lobby.tscn")]
+var currentScene = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
