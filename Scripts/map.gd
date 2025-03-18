@@ -84,12 +84,12 @@ func generate_world():
 
 func _input(event):
 	if Input.is_action_just_pressed("zoom_in"):
-		var zoom_val =camera_2d.zoom.x + 0.1
+		var zoom_val = camera_2d.zoom.x * 1.1
 		camera_2d.zoom = Vector2(zoom_val, zoom_val)
 	elif Input.is_action_just_pressed("zoom_out"):
-		var zoom_val =camera_2d.zoom.x - 0.1
+		var zoom_val = camera_2d.zoom.x / 1.1
 		if zoom_val == 0:
-			zoom_val =camera_2d.zoom.x - 0.2
+			zoom_val = camera_2d.zoom.x - 0.2
 			
 		camera_2d.zoom = Vector2(zoom_val, zoom_val)
 		print(camera_2d.get_screen_center_position())

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4qcijggwn06n"]
+[gd_scene load_steps=6 format=3 uid="uid://b4qcijggwn06n"]
 
 [ext_resource type="Texture2D" uid="uid://dfoylyuv2gfax" path="res://Sprites/Character Portraits/Guy1.png" id="1_dgv81"]
+[ext_resource type="Script" path="res://Scripts/lobby.gd" id="1_lrd0j"]
 
 [sub_resource type="Gradient" id="Gradient_0d0pp"]
 offsets = PackedFloat32Array(0, 0.277108, 0.704819, 1)
@@ -26,6 +27,7 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [node name="Lobby" type="Node2D"]
+script = ExtResource("1_lrd0j")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -143,3 +145,6 @@ size_flags_horizontal = 3
 [node name="Description" type="Label" parent="Control/VBoxContainer2/MarginContainer2"]
 layout_mode = 2
 text = "Description"
+
+[connection signal="pressed" from="Control/VBoxContainer2/HBoxContainer2/MarginContainer/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer2/HBoxContainer2/MarginContainer2/Right" to="." method="_on_right_pressed"]
