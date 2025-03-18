@@ -1,9 +1,18 @@
 extends CharacterBody2D
 
-
+const SPAWN_RADIUS: float = 100
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+func _ready() -> void:
+	_set_random_spawn_pos()
+
+func _set_random_spawn_pos() -> void:
+	global_position = Vector2(-99,99
+		#randf_range(-SPAWN_RADIUS, SPAWN_RADIUS),
+		#randf_range(-SPAWN_RADIUS, SPAWN_RADIUS),
+	)
+	print(global_position)
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.

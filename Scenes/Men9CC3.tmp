@@ -52,4 +52,3 @@ text = "Settings
 "
 
 [connection signal="pressed" from="MenuUI/VBoxContainer/StartServerButton" to="." method="create_lobby"]
-[connection signal="pressed" from="MenuUI/VBoxContainer/HBoxContainer/MarginContainer2/JoinServerButton" to="." method="join_lobby"]

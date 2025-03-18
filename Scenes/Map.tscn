@@ -1124,3 +1124,4 @@ tile_set = SubResource("TileSet_emjxx")
 z_index = 3
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(3, 3)
