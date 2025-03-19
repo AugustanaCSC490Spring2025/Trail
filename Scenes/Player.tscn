@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://tefbmyd6ksk7" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Side Sheet.png" id="5_ss0l2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0kbtj"]
-size = Vector2(19, 34)
+size = Vector2(19, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtn5x"]
 atlas = ExtResource("2_3n4ot")
@@ -694,7 +694,7 @@ motion_mode = 1
 script = ExtResource("1_6r3fw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(-1, 14)
 shape = SubResource("RectangleShape2D_0kbtj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
