@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://wdthkol45mfc"]
+[gd_scene load_steps=18 format=3 uid="uid://wdthkol45mfc"]
 
 [ext_resource type="Script" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
@@ -25,12 +25,26 @@ colors = PackedColorArray(0, 0, 0.996078, 1, 1, 1, 1, 1)
 color_ramp = SubResource("Gradient_mxdjg")
 noise = SubResource("FastNoiseLite_5lue7")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pljqj"]
+size = Vector2(1, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_je7f0"]
+size = Vector2(100, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7th2"]
+size = Vector2(1, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygcue"]
+size = Vector2(100, 1)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s3bgt"]
 texture = ExtResource("1_w505k")
 41:1/size_in_atlas = Vector2i(6, 9)
 41:1/0 = 0
+41:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-47.0226, -72.1249, 1.41422, -72.1249, 46.6691, -70.3571, 47.0226, -22.981, 46.3155, 36.7696, 49.4975, 60.4576, 35.7089, 60.1041, 17.3241, 60.4576, 18.0312, 54.0937, 47.0226, 55.1543, 45.6084, 43.1335, 37.4767, 43.4871, 36.7696, 36.416, -37.1231, 35.7089, -37.156, 41.6038, -43.8406, 42.0729, -44.9013, 53.7401, -16.617, 54.8008, -17.6777, 60.4576, -35.3553, 60.1041, -47.0226, 59.397, -46.669, 43.1335, -47.0226, 35.3553, -48.4368, -25.8094)
 20:2/size_in_atlas = Vector2i(6, 8)
 20:2/0 = 0
+20:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-41.3657, -63.6396, 0.707108, -63.6396, 41.3658, -62.9325, 41.7193, -22.981, 47.0226, -22.981, 47.75, 15.75, 47.7297, 53.033, 16.9706, 53.3866, 13.7886, 45.9619, 46.3155, 46.3155, 45.2548, 29.3449, -44.9013, 29.3449, -44.9013, 45.9619, -16.2634, 44.1942, -16.617, 52.3259, -47.7297, 51.9724, -47.25, 16, -48.4368, -25.8094, -40.6586, -25.4558)
 37:10/0 = 0
 38:10/0 = 0
 39:10/0 = 0
@@ -40,6 +54,7 @@ texture = ExtResource("1_w505k")
 43:10/0 = 0
 15:11/size_in_atlas = Vector2i(6, 9)
 15:11/0 = 0
+15:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-48.4368, -70.7107, 0, -73.1856, -1.06065, -74.2462, 47.7297, -71.7713, 48.7904, 71.4178, -47.3761, 71.0642)
 37:11/0 = 0
 38:11/0 = 0
 39:11/0 = 0
@@ -242,6 +257,7 @@ texture = ExtResource("1_w505k")
 44:23/0 = 0
 46:23/0 = 0
 47:23/0 = 0
+47:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:24/0 = 0
 3:24/0 = 0
 5:24/0 = 0
@@ -277,9 +293,12 @@ texture = ExtResource("1_w505k")
 39:25/0 = 0
 40:25/0 = 0
 41:25/0 = 0
+41:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.09375, -8, 8, -8, 8, 8, -0.03125, 8)
 42:25/0 = 0
 43:25/0 = 0
+43:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -0.09375, -8, 0.09375, 8, -8, 8)
 44:25/0 = 0
+44:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 45:25/0 = 0
 46:25/0 = 0
 2:26/0 = 0
@@ -311,10 +330,14 @@ texture = ExtResource("1_w505k")
 34:26/0 = 0
 35:26/0 = 0
 38:26/0 = 0
+38:26/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 40:26/0 = 0
 41:26/0 = 0
+41:26/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.09375, -8, 8, -8, 8, 8, -0.03125, 8)
 43:26/0 = 0
+43:26/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -0.09375, -8, 0.09375, 8, -8, 8)
 44:26/0 = 0
+44:26/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 45:26/0 = 0
 46:26/0 = 0
 2:27/0 = 0
@@ -349,9 +372,12 @@ texture = ExtResource("1_w505k")
 39:27/0 = 0
 40:27/0 = 0
 41:27/0 = 0
+41:27/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.09375, -8, 8, -8, 8, 8, -0.03125, 8)
 42:27/0 = 0
 43:27/0 = 0
+43:27/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, -0.09375, -8, 0.09375, 8, -8, 8)
 44:27/0 = 0
+44:27/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 45:27/0 = 0
 46:27/0 = 0
 2:28/0 = 0
@@ -905,16 +931,22 @@ texture = ExtResource("1_w505k")
 43:40/0 = 0
 1:1/size_in_atlas = Vector2i(8, 9)
 1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-55.1543, -39.2444, 0.707108, -63.6396, 54.8008, -37.1231, 53.25, 4.75, 47.5, 3.75, 48.0833, 37.4767, -47.7297, 37.1231, -46.5, 2.75, -54, 6.5)
 9:1/size_in_atlas = Vector2i(11, 9)
 9:1/0 = 0
+9:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-22.5, -61.5, 24.5, -36, 75.5, -33.5, 75, 1, 71, 1.5, 72.1249, 37.1231, -72.832, 37.1231, -70.5, -2, -75.5, -3.5, -76, -34.5)
 27:1/size_in_atlas = Vector2i(6, 9)
 27:1/0 = 0
+27:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-47.0226, -68.5894, 1.76778, -68.2358, 47.7297, -69.65, 47.0226, -22.981, 46.75, 25.25, 47.0226, 61.1647, 16.617, 60.8112, 15.5564, 53.7401, 45.2548, 54.0937, 44.5477, 38.1838, -45.2548, 37.8302, -45.2548, 54.0937, -15.5564, 53.033, -16.2634, 61.8718, -49.1439, 60.4576, -47.25, 24.75, -48.4368, -25.8094)
 34:1/size_in_atlas = Vector2i(6, 9)
 34:1/0 = 0
+34:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-47.3761, -49.4975, 1.41422, -72.1249, 47.7297, -48.0833, 47.0226, -22.981, 48.0833, 37.4767, 47.3762, 61.5183, 16.617, 60.4576, 16.9706, 54.8008, 43.4871, 55.1543, 44.1942, 37.8302, 26.5165, 37.4767, -44.9013, 37.4767, -44.1942, 54.4472, -17.3241, 55.1543, -15.5564, 60.8112, -47.3761, 58.6899, -48.4368, -25.8094)
 1:12/size_in_atlas = Vector2i(14, 9)
 1:12/0 = 0
+1:12/0/physics_layer_0/polygon_0/points = PackedVector2Array(-48.0833, -48.7904, 0, -73.1856, -1.06065, -74.2462, 49.4975, -48.0833, 98.9949, -46.3155, 94.0452, 61.1647, 38.5373, 60.4576, 20.8597, 61.5183, 19.25, 47.5, 34.5, 47.5, 34.6482, 32.5269, -33.9411, 32.1734, -34.75, 47, -20.8596, 47.3762, -19.799, 62.2254, -94.7523, 60.4576, -99.3485, -6.01041, -98.6414, -46.3155)
 22:10/size_in_atlas = Vector2i(9, 11)
 22:10/0 = 0
+22:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-61.5183, -53.033, -22.6274, -71.4178, 0, -73.1856, -1.06065, -74.2462, 24.0416, -71.4178, 61.8718, -51.9724, 59.911, -38.884, 71.4178, -39.598, 71.7713, 30.052, 70.7107, 65.0538, 47.0226, 65.7609, 46.6691, 57.2757, -48.4368, 56.215, -47.7297, 63.6396, -71.4178, 63.9932, -71.0642, 30.4056, -70.7107, -39.2444, -60.8112, -38.5373)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5i587"]
 texture = ExtResource("3_me6m1")
@@ -1093,6 +1125,7 @@ texture_region_size = Vector2i(18, 16)
 0:2/1 = 1
 
 [sub_resource type="TileSet" id="TileSet_emjxx"]
+physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Grass"
 terrain_set_0/terrain_0/color = Color(0.996078, 0.0117647, 0.0117647, 1)
@@ -1108,6 +1141,24 @@ sources/1 = SubResource("TileSetAtlasSource_5i587")
 script = ExtResource("1_gxtgv")
 noise_texture = SubResource("NoiseTexture2D_d7lxr")
 tree_noise_texture = SubResource("NoiseTexture2D_uil6b")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="right_wall" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(50, 0)
+shape = SubResource("RectangleShape2D_pljqj")
+
+[node name="bottom_wall" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 50)
+shape = SubResource("RectangleShape2D_je7f0")
+
+[node name="left_wall" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-50, 0)
+shape = SubResource("RectangleShape2D_s7th2")
+
+[node name="up_wall" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -50)
+shape = SubResource("RectangleShape2D_ygcue")
 
 [node name="Dirt" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_emjxx")
