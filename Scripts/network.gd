@@ -5,7 +5,7 @@ const MAX_CLIENTS = 4
 @onready var networkUI = $MenuUI/VBoxContainer
 @onready var code = $MenuUI/VBoxContainer/HBoxContainer/MarginContainer/Code
 var portInput = 8080
-var IPinput = "localhost"
+var IPinput = "172.16.23.133" #"localhost"
 var localUsername = "Player"
 
 func _ready():
