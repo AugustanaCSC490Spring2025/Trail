@@ -24,7 +24,6 @@ func startClient():
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_client(IPinput, portInput)
 	multiplayer.multiplayer_peer = peer
-	
 	multiplayer.connected_to_server.connect(_connected_to_server)
 	multiplayer.connection_failed.connect(_connection_failed)
 	multiplayer.server_disconnected.connect(_server_disconnected)
@@ -45,4 +44,6 @@ func _server_disconnected():
 	print("Server disconnected.")
 
 func _on_code_text_changed(new_text):
-	pass # Replace with function body.
+	IPinput = new_text
+	if(IPinput == ""):
+		IPinput = "localhost"
