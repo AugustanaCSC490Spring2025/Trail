@@ -47,7 +47,7 @@ func _ready():
 	var rng: int = randi_range(0,100)
 	noise = noise_texture.noise
 	noise.set_seed(rng)
-	print("seed ", rng)
+	#print("seed ", rng)
 	tree_noise = tree_noise_texture.noise
 	generate_world()
 	
@@ -66,8 +66,8 @@ func generate_world():
 			grass_arr.append(Vector2(x,y))
 			tree_noise_val_arr.append(tree_noise_val)
 			
-	print("highest", tree_noise_val_arr.max())
-	print("lowest", tree_noise_val_arr.min())
+	#print("highest", tree_noise_val_arr.max())
+	#print("lowest", tree_noise_val_arr.min())
 	
 	grass_tilemaplayer.set_cells_terrain_connect(grass_arr, 0,0)
 	dirt_tilemaplayer.set_cells_terrain_connect(dirt_arr, 1,0)
@@ -82,7 +82,7 @@ func _input(event):
 			zoom_val =camera_2d.zoom.x - 0.2
 			
 		camera_2d.zoom = Vector2(zoom_val, zoom_val)
-		print(camera_2d.get_screen_center_position())
+		#print(camera_2d.get_screen_center_position())
 		
 func generate_wall(x, y):
 	var barrier_val: Vector2i
@@ -124,6 +124,6 @@ func generate_buildings(x,y):
 				if (item.distance_to(Vector2(x,y)) < 30 or ((x<-40 or x>40) or (y<-40 or y>40))):
 					building_eligible = false
 		if building_eligible == true and randi_range(1,10) == 1:
-			print("distance", Vector2(x,y))
+			#print("distance", Vector2(x,y))
 			building_arr.append(Vector2(x,y))
 			object_tilemaplayer.set_cell(Vector2(x,y), 0,house_atlas1.pick_random())

@@ -3,12 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://dfoylyuv2gfax" path="res://Sprites/Character Portraits/Guy1.png" id="1_dgv81"]
 [ext_resource type="Script" path="res://Scripts/lobby.gd" id="1_lrd0j"]
 
-[sub_resource type="Gradient" id="Gradient_0d0pp"]
+[sub_resource type="Gradient" id="Gradient_robt6"]
 offsets = PackedFloat32Array(0, 0.277108, 0.704819, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.233334, 0, 1, 1, 0.083928, 0.784989, 0.570671, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_8w0yt"]
-gradient = SubResource("Gradient_0d0pp")
+gradient = SubResource("Gradient_robt6")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bfsc"]
 bg_color = Color(0.2, 0.2, 0.2, 0.705882)
