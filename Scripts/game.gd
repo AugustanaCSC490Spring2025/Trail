@@ -1,6 +1,6 @@
 extends Node
 
-var scenes = [preload("res://Scenes/Menu.tscn"), preload("res://Scenes/Lobby.tscn")]
+var scenes = [preload("res://Scenes/Menu.tscn"), preload("res://Scenes/Lobby.tscn"), preload("res://Scenes/Map.tscn")]
 var currentScene = scenes[0].instantiate()
 
 # Called when the node enters the scene tree for the first time.

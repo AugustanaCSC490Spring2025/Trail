@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://byqwsd2vi25ya"]
+[gd_scene load_steps=81 format=3 uid="uid://byqwsd2vi25ya"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_6r3fw"]
 [ext_resource type="Texture2D" uid="uid://cuv6igowfg42r" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Angle 1 Sheet.png" id="2_3n4ot"]
@@ -689,6 +689,14 @@ states/walk_up/position = Vector2(361.625, 52)
 transitions = ["Start", "walk_up", SubResource("AnimationNodeStateMachineTransition_nas4x"), "walk_up", "End", SubResource("AnimationNodeStateMachineTransition_1uwuo")]
 graph_offset = Vector2(103.125, -1.43102e-05)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mhctf"]
+properties/0/path = NodePath(".:username")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:player_id")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_6r3fw")
@@ -711,3 +719,6 @@ libraries = {
 "": SubResource("AnimationLibrary_3gco8")
 }
 tree_root = SubResource("AnimationNodeStateMachine_s6lpp")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_mhctf")

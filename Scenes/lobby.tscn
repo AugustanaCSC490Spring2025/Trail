@@ -81,6 +81,10 @@ text = "Player 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Start" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="Control"]
 layout_mode = 0
 offset_left = 126.0
@@ -146,5 +150,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Description"
 
+[connection signal="pressed" from="Control/VBoxContainer/Start" to="." method="startGame"]
 [connection signal="pressed" from="Control/VBoxContainer2/HBoxContainer2/MarginContainer/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer2/HBoxContainer2/MarginContainer2/Right" to="." method="_on_right_pressed"]

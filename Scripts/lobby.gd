@@ -27,3 +27,6 @@ func _on_right_pressed():
 
 func changePortrait():
 	$Control/VBoxContainer2/MarginContainer/TextureRect.texture = characterProfiles[characterIndex]
+
+func startGame():
+	Game.changeScene(2)
