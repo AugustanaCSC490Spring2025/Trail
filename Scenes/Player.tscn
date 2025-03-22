@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bmknxe461lste" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Back Sheet.png" id="3_8jdqt"]
 [ext_resource type="Texture2D" uid="uid://iw3cv8rbcko" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Front Sheet.png" id="3_lefxi"]
 [ext_resource type="Texture2D" uid="uid://tefbmyd6ksk7" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Side Sheet.png" id="5_ss0l2"]
-[ext_resource type="PackedScene" uid="uid://cg8raeodv61nv" path="res://Scenes/Weapons/Colt1851.tscn" id="6_x73qf"]
+[ext_resource type="PackedScene" uid="uid://cg8raeodv61nv" path="res://Scenes/Weapons/ProjectileWeapon.tscn" id="6_x73qf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0kbtj"]
 size = Vector2(19, 6)
@@ -707,6 +707,7 @@ position = Vector2(-1, 14)
 shape = SubResource("RectangleShape2D_0kbtj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
 sprite_frames = SubResource("SpriteFrames_dlwk3")
 animation = &"idle_down"
 
@@ -724,8 +725,4 @@ tree_root = SubResource("AnimationNodeStateMachine_s6lpp")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_mhctf")
 
-[node name="Weapon Pivot" type="Node2D" parent="."]
-
-[node name="Colt" parent="Weapon Pivot" instance=ExtResource("6_x73qf")]
-position = Vector2(20.405, 3.96)
-scale = Vector2(0.42, 0.42)
+[node name="Weapon Pivot" parent="." instance=ExtResource("6_x73qf")]
