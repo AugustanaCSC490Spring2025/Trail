@@ -2,23 +2,23 @@ extends Node
 
 const MAX_CLIENTS = 4
 
+@onready var networkUI = $MenuUI/VBoxContainer
+@onready var code = $MenuUI/VBoxContainer/HBoxContainer/MarginContainer/Code
 var portInput = 8080
-var IPinput = "localhost"
+var IPinput = "172.16.23.133" #"localhost"
 var localUsername = "Player"
-var playerScene = preload("res://Scenes/Player.tscn")
-#@onready var spawnedNodes = $SpawnedNodes
 
 func _ready():
-	pass
-
+	pass # Replace with function body.
 
 func startHost():
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_server(portInput, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer
+	
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	_on_player_connected(multiplayer.get_unique_id())
+	preload("res://Scenes/lobby.tscn").instantiate()
 
 func startClient():
 	var peer = ENetMultiplayerPeer.new()
@@ -29,7 +29,6 @@ func startClient():
 	multiplayer.server_disconnected.connect(_server_disconnected)
 
 func _on_player_connected(id):
-	Network.get_child(0).get_child(1).add_child(playerScene.instantiate(), true)
 	print("Player %s joined the game." % id)
 
 func _on_player_disconnected(id):

@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://wdthkol45mfc"]
+[gd_scene load_steps=18 format=3 uid="uid://wdthkol45mfc"]
 
 [ext_resource type="Script" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
 [ext_resource type="Texture2D" uid="uid://iw3cv8rbcko" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Front Sheet.png" id="3_me6m1"]
+[ext_resource type="PackedScene" uid="uid://byqwsd2vi25ya" path="res://Scenes/Player.tscn" id="3_prrp8"]
 
 [sub_resource type="Gradient" id="Gradient_8y03l"]
 offsets = PackedFloat32Array(0, 0.382022)
@@ -1169,3 +1170,9 @@ tile_set = SubResource("TileSet_emjxx")
 [node name="Object" type="TileMapLayer" parent="."]
 z_index = 1
 tile_set = SubResource("TileSet_emjxx")
+
+[node name="Player" parent="." instance=ExtResource("3_prrp8")]
+z_index = 3
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(3, 3)

@@ -41,7 +41,7 @@ var barrier_arr = []
 @onready var object_tilemaplayer: TileMapLayer = $Object
 
 var random_grass_atlas_arr = [Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0)]
-@onready var camera_2d = Network.get_child(0).get_child(1).get_child(0).get_child(0)
+@onready var camera_2d = $Player/Camera2D
 
 func _ready():
 	var rng: int = randi_range(0,100)

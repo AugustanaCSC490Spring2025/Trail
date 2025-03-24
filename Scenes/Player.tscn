@@ -1,11 +1,10 @@
-[gd_scene load_steps=83 format=3 uid="uid://byqwsd2vi25ya"]
+[gd_scene load_steps=82 format=3 uid="uid://byqwsd2vi25ya"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_6r3fw"]
 [ext_resource type="Texture2D" uid="uid://cuv6igowfg42r" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Angle 1 Sheet.png" id="2_3n4ot"]
 [ext_resource type="Texture2D" uid="uid://bmknxe461lste" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Back Sheet.png" id="3_8jdqt"]
 [ext_resource type="Texture2D" uid="uid://iw3cv8rbcko" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Front Sheet.png" id="3_lefxi"]
 [ext_resource type="Texture2D" uid="uid://tefbmyd6ksk7" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Side Sheet.png" id="5_ss0l2"]
-[ext_resource type="Script" path="res://Scripts/player_input.gd" id="6_e6lwi"]
 [ext_resource type="PackedScene" uid="uid://cg8raeodv61nv" path="res://Scenes/Weapons/ProjectileWeapon.tscn" id="6_x73qf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0kbtj"]
@@ -703,8 +702,6 @@ properties/1/replication_mode = 1
 motion_mode = 1
 script = ExtResource("1_6r3fw")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 14)
 shape = SubResource("RectangleShape2D_0kbtj")
@@ -725,11 +722,7 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_s6lpp")
 
-[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_mhctf")
-
-[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_mhctf")
-script = ExtResource("6_e6lwi")
 
 [node name="Weapon Pivot" parent="." instance=ExtResource("6_x73qf")]
