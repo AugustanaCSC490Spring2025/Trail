@@ -1,7 +1,10 @@
 extends Node2D
 
+@onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
+@onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
 var characterProfiles = [preload("res://Sprites/Character Portraits/Girl1.png"), preload("res://Sprites/Character Portraits/Guy1.png")]
 var characterIndex = 0
+@onready var textureRect = $Control/VBoxContainer2/MarginContainer/TextureRect
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,7 +29,7 @@ func _on_right_pressed():
 	changePortrait()
 
 func changePortrait():
-	$Control/VBoxContainer2/MarginContainer/TextureRect.texture = characterProfiles[characterIndex]
+	textureRect.texture = characterProfiles[characterIndex]
 
 func startGame():
 	Game.changeScene(2)

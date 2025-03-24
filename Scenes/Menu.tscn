@@ -48,7 +48,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 placeholder_text = "Room Code"
 alignment = 1
-max_length = 6
 
 [node name="MarginContainer2" type="MarginContainer" parent="MenuUI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -64,4 +63,5 @@ text = "Settings
 "
 
 [connection signal="pressed" from="MenuUI/VBoxContainer/StartServerButton" to="." method="create_lobby"]
+[connection signal="text_changed" from="MenuUI/VBoxContainer/HBoxContainer/MarginContainer/Code" to="." method="_on_code_text_changed"]
 [connection signal="pressed" from="MenuUI/VBoxContainer/HBoxContainer/MarginContainer2/JoinServerButton" to="." method="join_lobby"]

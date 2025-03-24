@@ -3,9 +3,13 @@
 [ext_resource type="Script" path="res://Scripts/network.gd" id="1_hervg"]
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_mw6c7"]
 
-[node name="Game" type="Node2D"]
-visible = false
+[node name="Game" type="Node2D" groups=["GameManager"]]
 script = ExtResource("1_mw6c7")
 
-[node name="Network" type="Node" parent="."]
+[node name="Network" type="Node" parent="." groups=["GameManager"]]
 script = ExtResource("1_hervg")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Network"]
+spawn_path = NodePath("../SpawnerNodes")
+
+[node name="SpawnerNodes" type="Node2D" parent="Network"]

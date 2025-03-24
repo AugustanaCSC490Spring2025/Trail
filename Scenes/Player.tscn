@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cg8raeodv61nv" path="res://Scenes/Weapons/ProjectileWeapon.tscn" id="6_x73qf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0kbtj"]
-size = Vector2(19, 6)
+size = Vector2(16, 7)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtn5x"]
 atlas = ExtResource("2_3n4ot")
@@ -703,7 +703,7 @@ motion_mode = 1
 script = ExtResource("1_6r3fw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 14)
+position = Vector2(-1, 15.5)
 shape = SubResource("RectangleShape2D_0kbtj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -722,7 +722,10 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_s6lpp")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_mhctf")
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_mhctf")
 
 [node name="Weapon Pivot" parent="." instance=ExtResource("6_x73qf")]

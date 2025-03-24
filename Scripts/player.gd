@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var player_facing = "down"
 
 const SPAWN_RADIUS: float = 100
-const SPEED = 300.0
+const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
 @export var username : String
@@ -51,23 +51,29 @@ func changeAnimation(facing: String):
 	else:
 		idle = false
 	if facing == "up":
+		player_sprite.flip_h = false
+		player_sprite.position.x = 0
 		if idle:
 			player_sprite.play("idle_up")
 		else:
 			player_sprite.play("walk_up")
 	elif facing == "down":
+		player_sprite.flip_h = false
+		player_sprite.position.x = 0
 		if idle:
 			player_sprite.play("idle_down")
 		else:
 			player_sprite.play("walk_down")
 	elif facing == "left":
 		player_sprite.flip_h = true
+		player_sprite.position.x = -2
 		if idle:
 			player_sprite.play("idle_right")
 		else:
 			player_sprite.play("walk_right")
 	elif facing == "right":
 		player_sprite.flip_h = false
+		player_sprite.position.x = 0
 		if idle:
 			player_sprite.play("idle_right")
 		else:

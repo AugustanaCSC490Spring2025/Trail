@@ -15,10 +15,9 @@ run/main_scene="res://Scenes/game.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
 
-[autoload]
+[global_group]
 
-Game="*res://Scripts/game.gd"
-Network="*res://Scripts/network.gd"
+GameManager=""
 
 [input]
 

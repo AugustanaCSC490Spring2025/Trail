@@ -20,4 +20,3 @@ func _physics_process(delta: float) -> void:
 func flip():
 	sprite.scale.y *= -1
 	sprite.position.y *= -1
-	print("Filp")
