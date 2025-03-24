@@ -16,3 +16,6 @@ func create_lobby() -> void:
 func join_lobby() -> void:
 	Network.startClient()
 	Game.changeScene(1)
+
+func _on_code_text_changed(new_text):
+	Network._on_code_text_changed(new_text)
