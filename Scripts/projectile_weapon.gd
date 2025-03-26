@@ -29,3 +29,4 @@ func shoot():
 	owner.add_child(shot)
 	shot.global_position = pivot_point.global_position
 	shot.look_at(mouse_position)
+	shot.fire(pivot_point.global_position)
