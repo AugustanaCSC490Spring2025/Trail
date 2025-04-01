@@ -729,3 +729,5 @@ replication_config = SubResource("SceneReplicationConfig_mhctf")
 replication_config = SubResource("SceneReplicationConfig_mhctf")
 
 [node name="Weapon Pivot" parent="." instance=ExtResource("6_x73qf")]
+
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -26,6 +26,7 @@ func startClient():
 	multiplayer.connected_to_server.connect(_connected_to_server)
 	multiplayer.connection_failed.connect(_connection_failed)
 	multiplayer.server_disconnected.connect(_server_disconnected)
+	_on_player_connected(multiplayer.get_unique_id())
 
 func _on_player_connected(id):
 	spawnerNodes.add_child(playerScene.instantiate())
