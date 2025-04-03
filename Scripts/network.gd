@@ -1,11 +1,13 @@
 extends Node
+signal OnConnectedToServer
+signal OnServerDisconnected
 
 const MAX_CLIENTS = 4
 
 var portInput = 8080
 var IPinput = "localhost"
 var localUsername = "Player"
-@onready var spawnerNodes = $SpawnerNodes
+@onready var spawnerNodes = $MultiplayerSpawner
 var playerScene = preload("res://Scenes/Player.tscn")
 
 func _ready():
@@ -29,7 +31,9 @@ func startClient():
 	_on_player_connected(multiplayer.get_unique_id())
 
 func _on_player_connected(id):
-	spawnerNodes.add_child(playerScene.instantiate())
+	var player = playerScene.instantiate()
+	player.name = str(id)
+	spawnerNodes.add_child(player, true)
 	print("Player %s joined the game." % id)
 
 func _on_player_disconnected(id):
@@ -37,10 +41,11 @@ func _on_player_disconnected(id):
 
 func _connected_to_server():
 	print("Connected to server.")
+	OnConnectedToServer.emit()
 
 func _connection_failed():
 	print("Connection failed!")
-
+	OnServerDisconnected.emit()
 func _server_disconnected():
 	print("Server disconnected.")
 

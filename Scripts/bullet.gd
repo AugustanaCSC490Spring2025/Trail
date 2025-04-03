@@ -36,4 +36,4 @@ func _physics_process(delta: float) -> void:
 		sprite.visible = true
 	if(distance > 10000):
 		queue_free()
-	print(position)
+	#print(position)
