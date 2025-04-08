@@ -1,26 +1,34 @@
+class_name Player
 extends CharacterBody2D
 
 @onready var player_sprite = $AnimatedSprite2D
 @onready var player_facing = "down"
 @onready var camera_2d = $Camera2D
 
+@onready var network : Network = get_node("/root/Game/Network")
+
 const SPAWN_RADIUS: float = 100
 const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
+@onready var input = $InputSynchronizer
+
 @export var username : String
 @export var player_id : String
+
+func _enter_tree():
+	$InputSynchronizer.set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
 	_set_random_spawn_pos()
 	player_sprite.play("idle_down")
 
 func _set_random_spawn_pos() -> void:
-	global_position = Vector2(-99,99
-		#randf_range(-SPAWN_RADIUS, SPAWN_RADIUS),
-		#randf_range(-SPAWN_RADIUS, SPAWN_RADIUS),
+	global_position = Vector2(
+		randf_range(-SPAWN_RADIUS, SPAWN_RADIUS),
+		randf_range(-SPAWN_RADIUS, SPAWN_RADIUS),
 	)
-	print(global_position)
+	#print(global_position)
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.

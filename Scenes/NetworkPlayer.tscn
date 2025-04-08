@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://gbwulm6xvjs7"]
+
+[ext_resource type="Script" uid="uid://bbquvldppduit" path="res://Scripts/network_player.gd" id="1_x3rk7"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7r4k4"]
+
+[node name="NetworkPlayer" type="Node"]
+script = ExtResource("1_x3rk7")
+
+[node name="NetworkPlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7r4k4")

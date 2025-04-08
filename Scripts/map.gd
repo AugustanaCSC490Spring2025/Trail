@@ -41,7 +41,15 @@ var barrier_arr = []
 @onready var object_tilemaplayer: TileMapLayer = $Object
 
 var random_grass_atlas_arr = [Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0)]
-@onready var camera_2d = $Player/Camera2D
+
+@onready var network : Network = get_node("/root/Game/Network")
+
+var playerScene = preload("res://Scenes/Player.tscn")
+@onready var spawner = $MultiplayerSpawner
+
+var current_characters : Array = []
+
+var players_in_game : int = 0
 
 func _ready():
 	var rng: int = randi_range(0,100)
@@ -50,6 +58,7 @@ func _ready():
 	#print("seed ", rng)
 	tree_noise = tree_noise_texture.noise
 	generate_world()
+	#im_in_game.rpc(multiplayer.get_unique_id())
 	
 # lowest noise: -.6271
 # highest noise: .4845
@@ -115,3 +124,24 @@ func generate_buildings(x,y):
 			#print("distance", Vector2(x,y))
 			building_arr.append(Vector2(x,y))
 			object_tilemaplayer.set_cell(Vector2(x,y), 0,house_atlas1.pick_random())
+
+#@rpc("any_peer", "call_local", "reliable")
+#func im_in_game(id: int):
+	#if multiplayer.is_server():
+		#players_in_game += 1
+		#if players_in_game == len(network.current_players):
+			#_spawn_players()
+#
+#func _spawn_players():
+	#print("Spawn players")
+	#for player in network.current_players:
+		#_spawn_player_character(player)
+#
+##func _ready():
+	##im_in_game.rpc(multiplayer.get_unique_id())
+	#
+#func _spawn_player_character(player: NetworkPlayer):
+	#var char = playerScene.instantiate()
+	#char.name = player.name
+	#spawner.add_child(char, true)
+	#current_characters.append(char)

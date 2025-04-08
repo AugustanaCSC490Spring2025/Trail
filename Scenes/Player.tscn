@@ -1,6 +1,6 @@
 [gd_scene load_steps=82 format=3 uid="uid://byqwsd2vi25ya"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_6r3fw"]
+[ext_resource type="Script" uid="uid://cafs5jdinxc1h" path="res://Scripts/player.gd" id="1_6r3fw"]
 [ext_resource type="Texture2D" uid="uid://cuv6igowfg42r" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Angle 1 Sheet.png" id="2_3n4ot"]
 [ext_resource type="Texture2D" uid="uid://bmknxe461lste" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Back Sheet.png" id="3_8jdqt"]
 [ext_resource type="Texture2D" uid="uid://iw3cv8rbcko" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Front Sheet.png" id="3_lefxi"]
@@ -658,13 +658,13 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5fq1r"]
 _data = {
-"RESET": SubResource("Animation_c4lnv"),
-"idle_down": SubResource("Animation_4qivg"),
-"idle_right": SubResource("Animation_v6irv"),
-"idle_up": SubResource("Animation_tigtd"),
-"walk_down": SubResource("Animation_bl6bf"),
-"walk_right": SubResource("Animation_pkr3h"),
-"walk_up": SubResource("Animation_mkx0r")
+&"RESET": SubResource("Animation_c4lnv"),
+&"idle_down": SubResource("Animation_4qivg"),
+&"idle_right": SubResource("Animation_v6irv"),
+&"idle_up": SubResource("Animation_tigtd"),
+&"walk_down": SubResource("Animation_bl6bf"),
+&"walk_right": SubResource("Animation_pkr3h"),
+&"walk_up": SubResource("Animation_mkx0r")
 }
 
 [sub_resource type="Animation" id="Animation_gix1h"]
@@ -672,7 +672,7 @@ resource_name = "walk_up"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3gco8"]
 _data = {
-"walk_up": SubResource("Animation_gix1h")
+&"walk_up": SubResource("Animation_gix1h")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wdsej"]
@@ -698,7 +698,8 @@ properties/1/path = NodePath(".:player_id")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[node name="Player" type="CharacterBody2D"]
+[node name="GamePlayer" type="CharacterBody2D"]
+z_index = 4
 motion_mode = 1
 script = ExtResource("1_6r3fw")
 
@@ -713,12 +714,12 @@ animation = &"idle_down"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_5fq1r")
+&"": SubResource("AnimationLibrary_5fq1r")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_3gco8")
+&"": SubResource("AnimationLibrary_3gco8")
 }
 tree_root = SubResource("AnimationNodeStateMachine_s6lpp")
 
