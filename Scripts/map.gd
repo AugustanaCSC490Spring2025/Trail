@@ -1,7 +1,7 @@
 extends Node2D
 
-
-
+@onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
+@onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
 
 @export var noise_texture : NoiseTexture2D
 @export var tree_noise_texture : NoiseTexture2D
@@ -42,6 +42,7 @@ var barrier_arr = []
 
 var random_grass_atlas_arr = [Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0)]
 @onready var camera_2d = $Player/Camera2D
+@onready var spawned_nodes = $SpawnerNodes
 
 func _ready():
 	var rng: int = randi_range(0,100)
@@ -50,6 +51,11 @@ func _ready():
 	#print("seed ", rng)
 	tree_noise = tree_noise_texture.noise
 	generate_world()
+	for player in Network.players:
+		spawned_nodes.add_child(player.getPlayerBody(), true)
+	print(Network.players.size())
+		
+		
 	
 # lowest noise: -.6271
 # highest noise: .4845

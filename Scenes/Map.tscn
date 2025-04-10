@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://wdthkol45mfc"]
 
-[ext_resource type="Script" path="res://Scripts/map.gd" id="1_gxtgv"]
+[ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
 [ext_resource type="Texture2D" uid="uid://iw3cv8rbcko" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Front Sheet.png" id="3_me6m1"]
 
@@ -1169,3 +1169,8 @@ tile_set = SubResource("TileSet_emjxx")
 [node name="Object" type="TileMapLayer" parent="."]
 z_index = 1
 tile_set = SubResource("TileSet_emjxx")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../SpawnerNodes")
+
+[node name="SpawnerNodes" type="Node2D" parent="."]

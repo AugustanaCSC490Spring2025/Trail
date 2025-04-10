@@ -9,6 +9,7 @@ var IPinput = "localhost"
 var localUsername = "Player"
 @onready var spawnerNodes = $MultiplayerSpawner
 var playerScene = preload("res://Scenes/Player.tscn")
+var players = []
 
 func _ready():
 	pass # Replace with function body.
@@ -32,11 +33,15 @@ func startClient():
 
 func _on_player_connected(id):
 	var player = playerScene.instantiate()
-	player.name = str(id)
-	spawnerNodes.add_child(player, true)
+	player.setID(id)
+	players.append(player)
 	print("Player %s joined the game." % id)
 
 func _on_player_disconnected(id):
+	for player in players:
+		if player.getID() == id:
+			players.erase(player)
+
 	print("Player %s left the game." % id)
 
 func _connected_to_server():

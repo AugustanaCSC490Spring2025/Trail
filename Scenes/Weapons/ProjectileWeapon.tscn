@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cg8raeodv61nv"]
 
-[ext_resource type="Script" path="res://Scripts/projectile_weapon.gd" id="1_8i013"]
+[ext_resource type="Script" uid="uid://5gcxiha1gfmg" path="res://Scripts/projectile_weapon.gd" id="1_8i013"]
 [ext_resource type="Texture2D" uid="uid://dk68ssjyw150w" path="res://Sprites/Weapons/1851 Colt Navy/transparent.png" id="1_qmnf2"]
 
 [node name="Weapon Pivot" type="Node2D"]
