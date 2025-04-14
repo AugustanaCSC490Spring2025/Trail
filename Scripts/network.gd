@@ -7,7 +7,6 @@ const MAX_CLIENTS = 4
 var portInput = 8080
 var IPinput = "localhost"
 var localUsername = "Player"
-@onready var spawnerNodes = $MultiplayerSpawner
 var playerScene = preload("res://Scenes/Player.tscn")
 var players = []
 
