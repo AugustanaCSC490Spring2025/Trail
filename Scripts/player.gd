@@ -6,7 +6,7 @@ var playerBodyScene = preload("res://Scenes/PlayerBody.tscn")
 var playerBody
 
 func _ready():
-	createBody()
+	pass
 
 func getName():
 	return playerName
@@ -25,3 +25,4 @@ func getPlayerBody():
 	
 func createBody():
 	playerBody = playerBodyScene.instantiate()
+	playerBody.setPlayerID(playerID)

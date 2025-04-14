@@ -51,11 +51,13 @@ func _ready():
 	#print("seed ", rng)
 	tree_noise = tree_noise_texture.noise
 	generate_world()
+	#print(Network.players.size())
 	for player in Network.players:
 		spawned_nodes.add_child(player.getPlayerBody(), true)
-	print(Network.players.size())
 		
-		
+func _process(delta):
+	pass
+	#spawned_nodes.add_child(player.getPlayerBody(), true)
 	
 # lowest noise: -.6271
 # highest noise: .4845
@@ -121,3 +123,6 @@ func generate_buildings(x,y):
 			#print("distance", Vector2(x,y))
 			building_arr.append(Vector2(x,y))
 			object_tilemaplayer.set_cell(Vector2(x,y), 0,house_atlas1.pick_random())
+
+func set_player_positions():
+	pass

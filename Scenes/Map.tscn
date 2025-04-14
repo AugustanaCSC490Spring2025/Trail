@@ -1171,6 +1171,7 @@ z_index = 1
 tile_set = SubResource("TileSet_emjxx")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://byqwsd2vi25ya")
 spawn_path = NodePath("../SpawnerNodes")
 
 [node name="SpawnerNodes" type="Node2D" parent="."]
