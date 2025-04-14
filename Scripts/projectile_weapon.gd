@@ -28,7 +28,7 @@ func flip():
 
 func shoot():
 	var shot = bullet.instantiate()
-	owner.add_child(shot)
+	owner.add_child(shot, true)
 	shot.global_position = pivot_point.global_position
 	shot.look_at(mouse_position)
 	shot.fire(pivot_point.global_position)

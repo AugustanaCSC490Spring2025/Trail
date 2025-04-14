@@ -1,10 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://rsqnq8t4ocyv"]
 
-[ext_resource type="Script" uid="uid://yl7lem5c55yf" path="res://Scripts/network.gd" id="1_hervg"]
-[ext_resource type="Script" uid="uid://c6cvgv7rrskkp" path="res://Scripts/game.gd" id="1_mw6c7"]
+[ext_resource type="Script" uid="uid://c6cvgv7rrskkp" path="res://Scripts/game.gd" id="1_gl6un"]
+[ext_resource type="Script" uid="uid://yl7lem5c55yf" path="res://Scripts/network.gd" id="2_j5yw3"]
 
 [node name="Game" type="Node2D" groups=["GameManager"]]
-script = ExtResource("1_mw6c7")
+script = ExtResource("1_gl6un")
 
 [node name="Network" type="Node" parent="." groups=["GameManager"]]
-script = ExtResource("1_hervg")
+script = ExtResource("2_j5yw3")
+
+[node name="SceneSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://wdthkol45mfc")
+spawn_path = NodePath("../Scene")
+
+[node name="Scene" type="Node2D" parent="."]

@@ -8,6 +8,7 @@ extends Node2D
 
 var width : int = 120
 var height : int =  120
+@export var mapSeed : int = 0
 
 var noise : Noise
 var tree_noise : Noise
@@ -41,13 +42,12 @@ var barrier_arr = []
 @onready var object_tilemaplayer: TileMapLayer = $Object
 
 var random_grass_atlas_arr = [Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0)]
-@onready var camera_2d = $Player/Camera2D
 @onready var spawned_nodes = $SpawnerNodes
 
 func _ready():
-	var rng: int = randi_range(0,100)
+	mapSeed = randi_range(0,100)
 	noise = noise_texture.noise
-	noise.set_seed(rng)
+	noise.set_seed(mapSeed)
 	#print("seed ", rng)
 	tree_noise = tree_noise_texture.noise
 	generate_world()

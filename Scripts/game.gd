@@ -1,17 +1,29 @@
 extends Node
 
-var scenes = [preload("res://Scenes/Menu.tscn"), preload("res://Scenes/Lobby.tscn"), preload("res://Scenes/Map.tscn")]
-var currentScene = scenes[0].instantiate()
+var menuScene = preload("res://Scenes/Menu.tscn")
+var menu
+var lobbyScene = preload("res://Scenes/Lobby.tscn")
+var lobby
+var mapScene = preload("res://Scenes/Map.tscn")
+var map
+@onready var scene = $Scene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	changeScene(0)
+	menu = menuScene.instantiate()
+	add_child(menu, true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-func changeScene(index):
-	currentScene.queue_free()
-	currentScene = scenes[index].instantiate()
-	add_child(currentScene)
+func openLobby():
+	get_node("Menu").queue_free()
+	lobby = lobbyScene.instantiate()
+	add_child(lobby, true)
+
+func startGame():
+	get_node("Lobby").queue_free()
+	map = mapScene.instantiate()
+	scene.add_child(map, true)
+	

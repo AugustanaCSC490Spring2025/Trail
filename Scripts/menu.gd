@@ -14,11 +14,11 @@ func _process(delta: float) -> void:
 
 func create_lobby() -> void:
 	Network.startHost()
-	Game.changeScene(1)
+	Game.openLobby()
 
 func join_lobby() -> void:
 	Network.startClient()
-	Game.changeScene(1)
+	Game.openLobby()
 
 func _on_code_text_changed(new_text):
 	Network._on_code_text_changed(new_text)

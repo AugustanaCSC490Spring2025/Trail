@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://wdthkol45mfc"]
+[gd_scene load_steps=18 format=3 uid="uid://wdthkol45mfc"]
 
 [ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
@@ -1136,6 +1136,11 @@ custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_s3bgt")
 sources/1 = SubResource("TileSetAtlasSource_5i587")
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_etk83"]
+properties/0/path = NodePath(".:mapSeed")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Map" type="Node2D"]
 script = ExtResource("1_gxtgv")
 noise_texture = SubResource("NoiseTexture2D_d7lxr")
@@ -1175,3 +1180,6 @@ _spawnable_scenes = PackedStringArray("uid://byqwsd2vi25ya")
 spawn_path = NodePath("../SpawnerNodes")
 
 [node name="SpawnerNodes" type="Node2D" parent="."]
+
+[node name="MapSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_etk83")
