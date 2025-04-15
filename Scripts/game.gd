@@ -1,8 +1,13 @@
 class_name Game
 extends Node
 
-var scenes = [preload("res://Scenes/Menu.tscn"), preload("res://Scenes/Lobby.tscn"), preload("res://Scenes/Map.tscn")]
-var currentScene = scenes[0].instantiate()
+var menuScene = preload("res://Scenes/Menu.tscn")
+var menu
+var lobbyScene = preload("res://Scenes/Lobby.tscn")
+var lobby
+var mapScene = preload("res://Scenes/Map.tscn")
+var map
+@onready var scene = $Scene
 
 var menu_scene : PackedScene = preload("res://Scenes/Menu.tscn")
 var map_scene : PackedScene = preload("res://Scenes/Map.tscn")
@@ -21,10 +26,9 @@ var map
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	menu = menu_scene.instantiate()
-	map = map_scene.instantiate()
-	add_child(menu)
-	#im_in_game.rpc(multiplayer.get_unique_id())
+	menu = menuScene.instantiate()
+	add_child(menu, true)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 @rpc("authority", "call_local", "reliable")
 func load_menu_scene():
@@ -37,28 +41,12 @@ func load_map_scene():
 	add_child(map)
 	im_in_game.rpc(multiplayer.get_unique_id())
 
-func changeScene(index):
-	currentScene.queue_free()
-	currentScene = scenes[index].instantiate()
-	add_child(currentScene)
+func openLobby():
+	get_node("Menu").queue_free()
+	lobby = lobbyScene.instantiate()
+	add_child(lobby, true)
 
-@rpc("any_peer", "call_local", "reliable")
-func im_in_game(id: int):
-	if multiplayer.is_server():
-		players_in_game += 1
-		if players_in_game == len(network.current_players):
-			_spawn_players()
-
-func _spawn_players():
-	print("Spawn players")
-	for player in network.current_players:
-		_spawn_player_character(player)
-
-#func _ready():
-	#im_in_game.rpc(multiplayer.get_unique_id())
-	
-func _spawn_player_character(player: NetworkPlayer):
-	var char = playerScene.instantiate()
-	char.name = player.name
-	spawner.add_child(char, true)
-	current_characters.append(char)
+func startGame():
+	get_node("Lobby").queue_free()
+	map = mapScene.instantiate()
+	scene.add_child(map, true)

@@ -8,10 +8,8 @@ const MAX_CLIENTS = 4
 var portInput = 8080
 var IPinput = "localhost"
 var localUsername = "Player"
-@onready var spawnerNodes = $MultiplayerSpawner
-var playerScene = preload("res://Scenes/NetworkPlayer.tscn")
-
-var current_players : Array = []
+var playerScene = preload("res://Scenes/Player.tscn")
+var players = []
 
 func _ready():
 	get_tree().set_auto_accept_quit(false) # Replace with function body.
@@ -34,15 +32,21 @@ func startClient():
 	multiplayer.connected_to_server.connect(_connected_to_server)
 	multiplayer.connection_failed.connect(_connection_failed)
 	multiplayer.server_disconnected.connect(_server_disconnected)
-	_on_player_connected(multiplayer.get_unique_id())
 
 func _on_player_connected(id):
 	var player = playerScene.instantiate()
+	player.setID(id)
 	player.name = str(id)
-	spawnerNodes.add_child(player, true)
+	player.createBody()
+	players.append(player)
 	print("Player %s joined the game." % id)
+	#print("Players: %d" % players.size())
 
 func _on_player_disconnected(id):
+	for player in players:
+		if player.getID() == id:
+			players.erase(player)
+
 	print("Player %s left the game." % id)
 
 func _connected_to_server():
