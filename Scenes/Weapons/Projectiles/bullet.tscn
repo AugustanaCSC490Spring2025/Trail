@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2in45datil1g"]
+
+[ext_resource type="Script" uid="uid://dtvcionyw28w2" path="res://Scripts/bullet.gd" id="1_5fogj"]
+[ext_resource type="Texture2D" uid="uid://bwf3r2scxbkwd" path="res://Sprites/Weapons/Bullet_12x3.png" id="1_kp2j3"]
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_5fogj")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -2)
+polygon = PackedVector2Array(0, 0, 4, 0, 6, 2, 4, 4, -3, 4, -6, 2, -3, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kp2j3")

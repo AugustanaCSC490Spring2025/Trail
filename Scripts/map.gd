@@ -40,18 +40,25 @@ var barrier_arr = []
 @onready var dirt_tilemaplayer: TileMapLayer = $Dirt
 @onready var object_tilemaplayer: TileMapLayer = $Object
 
-
-
 var random_grass_atlas_arr = [Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0)]
-@onready var camera_2d = $Player/Camera2D
+
+@onready var network : Network = get_node("/root/Game/Network")
+
+var playerScene = preload("res://Scenes/Player.tscn")
+@onready var spawner = $MultiplayerSpawner
+
+var current_characters : Array = []
+
+var players_in_game : int = 0
 
 func _ready():
 	var rng: int = randi_range(0,100)
 	noise = noise_texture.noise
 	noise.set_seed(rng)
-	print("seed ", rng)
+	#print("seed ", rng)
 	tree_noise = tree_noise_texture.noise
 	generate_world()
+	#im_in_game.rpc(multiplayer.get_unique_id())
 	
 # lowest noise: -.6271
 # highest noise: .4845
@@ -62,64 +69,79 @@ func generate_world():
 		for y in range(-height/2, height/2):
 			noise_val = noise.get_noise_2d(x,y)
 			tree_noise_val = tree_noise.get_noise_2d(x,y)
-			var barrier_val: Vector2i
-			if ((y >= -45 and y <= 45) and ((x == ((-width/2) + 15)) or (x == ((width/2) - 15)))):
-				if x == -45 and y == -45:
-					barrier_arr.append(Vector2(x,y))
-					barrier_val = barrier_atlas[3]
-				elif x == -45 and y == 45:
-					barrier_arr.append(Vector2(x,y))
-					barrier_val = barrier_atlas[5]
-				elif x == 45 and y == -45:
-					barrier_arr.append(Vector2(x,y))
-					barrier_val = barrier_atlas[4]
-				elif x == 45 and y == 45:
-					barrier_arr.append(Vector2(x,y))
-					barrier_val = barrier_atlas[6]
-				elif x == 45:
-					barrier_arr.append(Vector2(x,y))
-					barrier_val = barrier_atlas[2]
-				elif x == -45:
-					barrier_arr.append(Vector2(x,y))
-					barrier_val = barrier_atlas[1]
-				#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[1])
-			if ((x > -45 and x < 45) and ((y == ((-height/2) + 15)) or (y == ((height/2) - 15)))):
-				barrier_arr.append(Vector2(x,y))
-				barrier_val = barrier_atlas[0]
-				#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[0])
-			object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_val)
+			generate_wall(x,y)
 			if noise_val > -0.2:
-				dirt_arr.append(Vector2(x,y))
-				if len(building_arr) < 20: 
-					var building_eligible: bool = true
-					if len(building_arr) == 0:
-						if ((x<-40 or x>40) or (y<-40 or y>40)):
-							building_eligible = false
-					else:
-						for item in building_arr:
-							if (item.distance_to(Vector2(x,y)) < 30 or ((x<-40 or x>40) or (y<-40 or y>40))):
-								building_eligible = false
-					if building_eligible == true and randi_range(1,10) == 1:
-							print("distance", Vector2(x,y))
-							building_arr.append(Vector2(x,y))
-							object_tilemaplayer.set_cell(Vector2(x,y), 0,house_atlas1.pick_random())
+				generate_buildings(x,y)
 			grass_arr.append(Vector2(x,y))
 			tree_noise_val_arr.append(tree_noise_val)
 			
-	print("highest", tree_noise_val_arr.max())
-	print("lowest", tree_noise_val_arr.min())
+	#print("highest", tree_noise_val_arr.max())
+	#print("lowest", tree_noise_val_arr.min())
 	
 	grass_tilemaplayer.set_cells_terrain_connect(grass_arr, 0,0)
 	dirt_tilemaplayer.set_cells_terrain_connect(dirt_arr, 1,0)
+		
+func generate_wall(x, y):
+	var barrier_val: Vector2i
+	if ((y >= -45 and y <= 45) and ((x == ((-width/2) + 15)) or (x == ((width/2) - 15)))):
+		if x == -45 and y == -45:
+			barrier_arr.append(Vector2(x,y))
+			barrier_val = barrier_atlas[3]
+		elif x == -45 and y == 45:
+			barrier_arr.append(Vector2(x,y))
+			barrier_val = barrier_atlas[5]
+		elif x == 45 and y == -45:
+			barrier_arr.append(Vector2(x,y))
+			barrier_val = barrier_atlas[4]
+		elif x == 45 and y == 45:
+			barrier_arr.append(Vector2(x,y))
+			barrier_val = barrier_atlas[6]
+		elif x == 45:
+			barrier_arr.append(Vector2(x,y))
+			barrier_val = barrier_atlas[2]
+		elif x == -45:
+			barrier_arr.append(Vector2(x,y))
+			barrier_val = barrier_atlas[1]
+			#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[1])
+	if ((x > -45 and x < 45) and ((y == ((-height/2) + 15)) or (y == ((height/2) - 15)))):
+		barrier_arr.append(Vector2(x,y))
+		barrier_val = barrier_atlas[0]
+		#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[0])
+	object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_val)
 
-func _input(event):
-	if Input.is_action_just_pressed("zoom_in"):
-		var zoom_val =camera_2d.zoom.x + 0.1
-		camera_2d.zoom = Vector2(zoom_val, zoom_val)
-	elif Input.is_action_just_pressed("zoom_out"):
-		var zoom_val =camera_2d.zoom.x - 0.1
-		if zoom_val == 0:
-			zoom_val =camera_2d.zoom.x - 0.2
-			
-		camera_2d.zoom = Vector2(zoom_val, zoom_val)
-		print(camera_2d.get_screen_center_position())
+func generate_buildings(x,y):
+	dirt_arr.append(Vector2(x,y))
+	if len(building_arr) < 20: 
+		var building_eligible: bool = true
+		if len(building_arr) == 0:
+			if ((x<-40 or x>40) or (y<-40 or y>40)):
+				building_eligible = false
+		else:
+			for item in building_arr:
+				if (item.distance_to(Vector2(x,y)) < 30 or ((x<-40 or x>40) or (y<-40 or y>40))):
+					building_eligible = false
+		if building_eligible == true and randi_range(1,10) == 1:
+			#print("distance", Vector2(x,y))
+			building_arr.append(Vector2(x,y))
+			object_tilemaplayer.set_cell(Vector2(x,y), 0,house_atlas1.pick_random())
+
+#@rpc("any_peer", "call_local", "reliable")
+#func im_in_game(id: int):
+	#if multiplayer.is_server():
+		#players_in_game += 1
+		#if players_in_game == len(network.current_players):
+			#_spawn_players()
+#
+#func _spawn_players():
+	#print("Spawn players")
+	#for player in network.current_players:
+		#_spawn_player_character(player)
+#
+##func _ready():
+	##im_in_game.rpc(multiplayer.get_unique_id())
+	#
+#func _spawn_player_character(player: NetworkPlayer):
+	#var char = playerScene.instantiate()
+	#char.name = player.name
+	#spawner.add_child(char, true)
+	#current_characters.append(char)
