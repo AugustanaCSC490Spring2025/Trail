@@ -1,6 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b4qcijggwn06n"]
 
 [ext_resource type="Texture2D" uid="uid://dfoylyuv2gfax" path="res://Sprites/Character Portraits/Guy1.png" id="1_dgv81"]
+
 [ext_resource type="Script" uid="uid://c1he0flhobso3" path="res://Scripts/lobby.gd" id="1_lrd0j"]
 
 [sub_resource type="Gradient" id="Gradient_robt6"]
