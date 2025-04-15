@@ -701,6 +701,18 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:playerID")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("InputSynchronizer:vertical_input")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("InputSynchronizer:horizontal_input")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("InputSynchronizer:shoot_input")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("InputSynchronizer:enable")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="PlayerBody" type="CharacterBody2D"]
 motion_mode = 1
@@ -736,3 +748,4 @@ script = ExtResource("6_fml75")
 [node name="Weapon Pivot" parent="." instance=ExtResource("6_wb0pm")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+visible = false

@@ -8,6 +8,7 @@ var portInput = 8080
 var IPinput = "localhost"
 var localUsername = "Player"
 var playerScene = preload("res://Scenes/Player.tscn")
+var server
 var players = []
 
 func _ready():
@@ -16,6 +17,7 @@ func _ready():
 func startHost():
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_server(portInput, MAX_CLIENTS)
+	server = multiplayer
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
@@ -24,6 +26,7 @@ func startHost():
 func startClient():
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_client(IPinput, portInput)
+	server = multiplayer
 	multiplayer.multiplayer_peer = peer
 	multiplayer.connected_to_server.connect(_connected_to_server)
 	multiplayer.connection_failed.connect(_connection_failed)

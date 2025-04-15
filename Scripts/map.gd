@@ -52,8 +52,12 @@ func _ready():
 	tree_noise = tree_noise_texture.noise
 	generate_world()
 	#print(Network.players.size())
-	for player in Network.players:
-		spawned_nodes.add_child(player.getPlayerBody(), true)
+	if(multiplayer.is_server()):
+		for player in Network.players:
+			var playerBody = player.getPlayerBody()
+			spawned_nodes.add_child(playerBody, true)
+			
+		
 		
 func _process(delta):
 	pass
