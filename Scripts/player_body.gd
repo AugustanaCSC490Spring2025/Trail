@@ -89,3 +89,7 @@ func changeAnimation(facing: String):
 
 func setPlayerID(id):
 	playerID = id
+	#if(playerID == multiplayer.get_unique_id()):
+		#camera_2d.visible = true
+	#else:
+		#camera_2d.visible = false

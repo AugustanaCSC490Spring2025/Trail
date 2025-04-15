@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var game: Game = get_node('/root/Game')
-@onready var network: Network = get_node('/root/Game/Network')
+@onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
+@onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
 var characterProfiles = [preload("res://Sprites/Character Portraits/Girl1.png"), preload("res://Sprites/Character Portraits/Guy1.png")]
 var characterIndex = 0
 @onready var textureRect = $Control/VBoxContainer2/MarginContainer/TextureRect
@@ -13,7 +13,7 @@ var startScene = preload("res://Scenes/Start.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	changePortrait()
-	updatePlayers()
+	updatePlayers.rpc()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -34,6 +34,7 @@ func _on_right_pressed():
 func changePortrait():
 	textureRect.texture = characterProfiles[characterIndex]
 
+@rpc("any_peer", "call_local", "reliable")
 func updatePlayers():
 	for node in names.get_children():
 		node.queue_free()
@@ -45,9 +46,8 @@ func updatePlayers():
 	startButton = startScene.instantiate()
 	names.add_child(startButton)
 	startButton.connect("pressed", startGame)
-	#if multiplayer.get_unique_id() != 1:
-		#startButton.visible = false
+	if multiplayer.get_unique_id() != 1:
+		startButton.visible = false
 	
-@rpc("authority", "call_local", "reliable")
 func startGame():
-	Game.startGame()
+	Game.startGame.rpc()

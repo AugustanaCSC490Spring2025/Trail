@@ -1165,19 +1165,18 @@ position = Vector2(0, -50)
 shape = SubResource("RectangleShape2D_ygcue")
 
 [node name="Dirt" type="TileMapLayer" parent="."]
-z_index = 1
 tile_set = SubResource("TileSet_emjxx")
 
 [node name="Grass" type="TileMapLayer" parent="."]
+z_index = -1
 tile_set = SubResource("TileSet_emjxx")
 
 [node name="Object" type="TileMapLayer" parent="."]
-z_index = 2
+z_index = 1
 tile_set = SubResource("TileSet_emjxx")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://byqwsd2vi25ya")
-
 spawn_path = NodePath("../SpawnerNodes")
 
 [node name="SpawnerNodes" type="Node2D" parent="."]
