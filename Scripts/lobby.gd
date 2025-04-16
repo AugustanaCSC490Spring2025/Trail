@@ -9,7 +9,7 @@ var startButton
 @onready var names = $Control/Names
 var nameLabelScene = preload("res://Scenes/NameLabel.tscn")
 var startScene = preload("res://Scenes/Start.tscn")
-
+var map 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	changePortrait()
@@ -43,6 +43,7 @@ func updatePlayers():
 		names.add_child(nameLabel, true)
 		var label = nameLabel.get_node("Player")
 		label.text = "Player" + str(player.playerID)
+	print("Hello")
 	startButton = startScene.instantiate()
 	names.add_child(startButton)
 	startButton.connect("pressed", startGame)
@@ -51,3 +52,4 @@ func updatePlayers():
 	
 func startGame():
 	Game.startGame.rpc()
+	

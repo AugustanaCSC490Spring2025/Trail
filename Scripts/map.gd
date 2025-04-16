@@ -1,14 +1,13 @@
 extends Node2D
 
 @onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
-@onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
+@onready var network = get_tree().get_nodes_in_group("GameManager")[1]
 
 @export var noise_texture : NoiseTexture2D
 @export var tree_noise_texture : NoiseTexture2D
 
 var width : int = 120
 var height : int =  120
-@export var mapSeed : int = 0
 
 var noise : Noise
 var tree_noise : Noise
@@ -43,18 +42,29 @@ var barrier_arr = []
 
 var random_grass_atlas_arr = [Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0)]
 @onready var spawned_nodes = $SpawnerNodes
+var count = 10
+var mapSeed = randi_range(0,100)
+var building_seed = generate_random_numbers(50, 3)
+var house_atlas_seed = generate_random_numbers(39, 8)
 
 func _ready():
-	mapSeed = randi_range(0,100)
 	noise = noise_texture.noise
 	noise.set_seed(mapSeed)
 	#print("seed ", rng)
 	tree_noise = tree_noise_texture.noise
 	generate_world()
 	#print(Network.players.size())
-	for player in Network.players:
-		spawned_nodes.add_child(player.getPlayerBody(), true)
+	for player in network.players:
+		var player_body = player.getPlayerBody()
+		spawned_nodes.add_child(player_body, true)
 		
+func generate_random_numbers(count, length):
+	var numbers = []
+	for i in range(count):
+		var random_number = randi_range(0, length)
+		numbers.append(random_number)
+	return numbers
+	
 func _process(delta):
 	pass
 	#spawned_nodes.add_child(player.getPlayerBody(), true)
@@ -117,12 +127,13 @@ func generate_buildings(x,y):
 				building_eligible = false
 		else:
 			for item in building_arr:
-				if (item.distance_to(Vector2(x,y)) < 30 or ((x<-40 or x>40) or (y<-40 or y>40))):
+				if (item.distance_to(Vector2(x,y)) < 27 or ((x<-40 or x>40) or (y<-40 or y>40))):
 					building_eligible = false
-		if building_eligible == true and randi_range(1,10) == 1:
+		if building_eligible == true and building_seed[absi((x+y))%50] == 1:
 			#print("distance", Vector2(x,y))
 			building_arr.append(Vector2(x,y))
-			object_tilemaplayer.set_cell(Vector2(x,y), 0,house_atlas1.pick_random())
+			object_tilemaplayer.set_cell(Vector2(x,y), 0, house_atlas1[house_atlas_seed[absi(x-y)%39]])
 
 func set_player_positions():
 	pass
+	

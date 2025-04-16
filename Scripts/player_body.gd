@@ -14,13 +14,21 @@ const JUMP_VELOCITY = -400.0
 	set(id):
 		playerID = id
 		$InputSynchronizer.set_multiplayer_authority(id)
+#func _enter_tree():
+	#$InputSynchronizer.set_multiplayer_authority(playerID)
 
 func _ready() -> void:
+	if not $InputSynchronizer.is_multiplayer_authority(): return
+	
 	_set_random_spawn_pos()
+	camera_2d.make_current()
 	player_sprite.play("idle_down")
 
 func _set_random_spawn_pos() -> void:
 	position = Vector2(randf_range(-SPAWN_RADIUS, SPAWN_RADIUS), randf_range(-SPAWN_RADIUS, SPAWN_RADIUS))
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		print("Collided with: ", collision.get_collider().name)
 	#print(global_position)
 
 func _physics_process(delta: float) -> void:

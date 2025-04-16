@@ -1,5 +1,6 @@
 extends Node
 
+@onready var network : Network = get_node("/root/Game/Network")
 var menuScene = preload("res://Scenes/Menu.tscn")
 var menu
 var lobbyScene = preload("res://Scenes/Lobby.tscn")
@@ -25,7 +26,8 @@ func openLobby():
 @rpc("authority", "call_local", "reliable")
 func startGame():
 	get_node("Lobby").queue_free()
-	if(multiplayer.get_unique_id() == 1):
-		map = mapScene.instantiate()
-		scene.add_child(map, true)
+	map = network.map
+	print("start %s" % map)
+	get_node('/root/Game/Scene').add_child(map)
+	#scene.add_child(map, true)
 	
