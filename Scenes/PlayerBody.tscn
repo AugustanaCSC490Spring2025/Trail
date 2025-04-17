@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://byqwsd2vi25ya"]
+[gd_scene load_steps=84 format=3 uid="uid://byqwsd2vi25ya"]
 
 [ext_resource type="Script" uid="uid://5stlyos7s8wc" path="res://Scripts/player_body.gd" id="1_t42vw"]
 [ext_resource type="Texture2D" uid="uid://cuv6igowfg42r" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Angle 1 Sheet.png" id="2_fml75"]
@@ -691,28 +691,27 @@ states/walk_up/position = Vector2(361.625, 52)
 transitions = ["Start", "walk_up", SubResource("AnimationNodeStateMachineTransition_nas4x"), "walk_up", "End", SubResource("AnimationNodeStateMachineTransition_1uwuo")]
 graph_offset = Vector2(103.125, -1.43102e-05)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mhctf"]
-properties/0/path = NodePath(".:username")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fml75"]
+properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:position")
+properties/1/path = NodePath(".:username")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 properties/2/path = NodePath(".:playerID")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("InputSynchronizer:vertical_input")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("InputSynchronizer:horizontal_input")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("InputSynchronizer:shoot_input")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath("InputSynchronizer:enable")
-properties/6/spawn = true
-properties/6/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mhctf"]
+properties/0/path = NodePath("InputSynchronizer:vertical_input")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("InputSynchronizer:horizontal_input")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("InputSynchronizer:shoot_input")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="PlayerBody" type="CharacterBody2D"]
 motion_mode = 1
@@ -739,7 +738,7 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_s6lpp")
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_mhctf")
+replication_config = SubResource("SceneReplicationConfig_fml75")
 
 [node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_mhctf")
@@ -748,4 +747,3 @@ script = ExtResource("6_fml75")
 [node name="Weapon Pivot" parent="." instance=ExtResource("6_wb0pm")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-visible = false

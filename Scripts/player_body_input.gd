@@ -3,14 +3,15 @@ extends MultiplayerSynchronizer
 @export var vertical_input : int
 @export var horizontal_input : int
 @export var shoot_input : bool
-@export var enable = true
+@onready var enable = false
 
 func _ready():
 	# disable the _physics_process function for all
 	# who does not control this player
 	if get_multiplayer_authority() != multiplayer.get_unique_id():
 		set_physics_process(false)
-		enable = false
+	else:
+		enable = true
 
 func _physics_process(delta):
 	vertical_input = Input.get_axis("move up", "move down")
