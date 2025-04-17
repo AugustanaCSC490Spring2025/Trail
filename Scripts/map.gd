@@ -42,6 +42,7 @@ var barrier_arr = []
 
 var random_grass_atlas_arr = [Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0)]
 @onready var spawned_nodes = $SpawnerNodes
+var cameraSet = false
 var count = 10
 var mapSeed = randi_range(0,100)
 var building_seed = generate_random_numbers(50, 3)
@@ -66,7 +67,8 @@ func generate_random_numbers(count, length):
 	return numbers
 	
 func _process(delta):
-	pass
+	if not cameraSet:
+		setCamera()
 	#spawned_nodes.add_child(player.getPlayerBody(), true)
 	
 # lowest noise: -.6271
@@ -136,4 +138,9 @@ func generate_buildings(x,y):
 
 func set_player_positions():
 	pass
+
+#@rpc("any_peer", "call_local", "reliable")
+func setCamera():
+	for playerBody in spawned_nodes.get_children():
+		playerBody.enableCamera()
 	

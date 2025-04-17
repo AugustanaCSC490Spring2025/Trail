@@ -18,10 +18,10 @@ const JUMP_VELOCITY = -400.0
 	#$InputSynchronizer.set_multiplayer_authority(playerID)
 
 func _ready() -> void:
-	if not $InputSynchronizer.is_multiplayer_authority(): return
+	#if not $InputSynchronizer.is_multiplayer_authority(): return
 	
 	_set_random_spawn_pos()
-	camera_2d.make_current()
+	#camera_2d.make_current()
 	player_sprite.play("idle_down")
 
 func _set_random_spawn_pos() -> void:
@@ -55,6 +55,7 @@ func _move(delta):
 	#print(str(playerID) + " : " + str(velocity))
 	changeAnimation(player_facing)
 	move_and_slide()
+	print(str(playerID) +" "+ str(velocity))
 
 func _input(event):
 	if Input.is_action_just_pressed("zoom_in"):
