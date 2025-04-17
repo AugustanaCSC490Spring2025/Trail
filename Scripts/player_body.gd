@@ -34,6 +34,10 @@ func _set_random_spawn_pos() -> void:
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
+	if multiplayer.is_server():
+		_move(delta)
+
+func _move(delta):
 	if input_synchronizer.vertical_input == -1:
 		player_facing = "up"
 	else:
@@ -44,8 +48,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		if input_synchronizer.horizontal_input == 1:
 			player_facing = "right"
+	if(playerID != 1):
+		print(str(input_synchronizer.horizontal_input) + " " + str(input_synchronizer.vertical_input) + " " + str(input_synchronizer.shoot_input) + " " + str(playerID))
 	velocity = Vector2(input_synchronizer.horizontal_input, input_synchronizer.vertical_input).normalized()
 	velocity *= Vector2(SPEED, SPEED)
+	#print(str(playerID) + " : " + str(velocity))
 	changeAnimation(player_facing)
 	move_and_slide()
 
@@ -97,7 +104,9 @@ func changeAnimation(facing: String):
 
 func setPlayerID(id):
 	playerID = id
-	#if(playerID == multiplayer.get_unique_id()):
-		#camera_2d.visible = true
-	#else:
-		#camera_2d.visible = false
+
+func disableCamera(id):
+	if(playerID == id):
+		camera_2d.visible = true
+	else:
+		camera_2d.visible = false
