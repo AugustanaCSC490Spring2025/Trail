@@ -1,15 +1,17 @@
 extends CharacterBody2D
 
 @onready var player_sprite = $AnimatedSprite2D
-@onready var player_facing = "down"
+
 @onready var camera_2d = $Camera2D
 @onready var input_synchronizer = $InputSynchronizer
+@onready var weapon = $"Weapon Pivot"
 
 const SPAWN_RADIUS: float = 100
 const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
 @export var username : String
+@export var player_facing = "down"
 @export var playerID : int = 1:
 	set(id):
 		playerID = id
@@ -36,6 +38,7 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	if multiplayer.is_server():
 		_move(delta)
+		changeAnimation.rpc(player_facing)
 
 func _move(delta):
 	if input_synchronizer.vertical_input == -1:
@@ -53,9 +56,7 @@ func _move(delta):
 	velocity = Vector2(input_synchronizer.horizontal_input, input_synchronizer.vertical_input).normalized()
 	velocity *= Vector2(SPEED, SPEED)
 	#print(str(playerID) + " : " + str(velocity))
-	changeAnimation(player_facing)
 	move_and_slide()
-	print(str(playerID) +" "+ str(velocity))
 
 func _input(event):
 	if Input.is_action_just_pressed("zoom_in"):
@@ -67,7 +68,8 @@ func _input(event):
 			zoom_val = camera_2d.zoom.x - 0.2
 			
 		camera_2d.zoom = Vector2(zoom_val, zoom_val)
-	
+
+@rpc("authority", "call_local", "reliable")
 func changeAnimation(facing: String):
 	var idle = true
 	if velocity.x == 0 && velocity.y == 0:

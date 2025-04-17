@@ -701,6 +701,12 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:playerID")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath(".:player_facing")
+properties/3/spawn = false
+properties/3/replication_mode = 1
+properties/4/path = NodePath("AnimatedSprite2D:animation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mhctf"]
 properties/0/path = NodePath("InputSynchronizer:vertical_input")

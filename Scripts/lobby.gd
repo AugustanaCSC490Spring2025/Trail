@@ -10,6 +10,7 @@ var startButton
 var nameLabelScene = preload("res://Scenes/NameLabel.tscn")
 var startScene = preload("res://Scenes/Start.tscn")
 var map 
+var start_clicked = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	changePortrait()
@@ -46,7 +47,10 @@ func updatePlayers():
 	print("Hello")
 	startButton = startScene.instantiate()
 	names.add_child(startButton)
-	startButton.connect("pressed", startGame)
+	if start_clicked == false:
+		start_clicked = true
+		startButton.connect("pressed", startGame)
+	
 	if multiplayer.get_unique_id() != 1:
 		startButton.visible = false
 	
