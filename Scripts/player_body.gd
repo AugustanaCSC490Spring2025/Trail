@@ -48,8 +48,8 @@ func _move(delta):
 	else:
 		if input_synchronizer.horizontal_input == 1:
 			player_facing = "right"
-	if(playerID != 1):
-		print(str(input_synchronizer.horizontal_input) + " " + str(input_synchronizer.vertical_input) + " " + str(input_synchronizer.shoot_input) + " " + str(playerID))
+	#if(playerID != 1):
+		#print(str(input_synchronizer.horizontal_input) + " " + str(input_synchronizer.vertical_input) + " " + str(input_synchronizer.shoot_input) + " " + str(playerID))
 	velocity = Vector2(input_synchronizer.horizontal_input, input_synchronizer.vertical_input).normalized()
 	velocity *= Vector2(SPEED, SPEED)
 	#print(str(playerID) + " : " + str(velocity))
@@ -105,8 +105,6 @@ func changeAnimation(facing: String):
 func setPlayerID(id):
 	playerID = id
 
-func disableCamera(id):
-	if(playerID == id):
-		camera_2d.visible = true
-	else:
-		camera_2d.visible = false
+func enableCamera():
+	if playerID == multiplayer.get_unique_id():
+		camera_2d.make_current()

@@ -13,11 +13,11 @@ func _physics_process(delta: float) -> void:
 	if (input_synchronizer.enable):
 		if input_synchronizer.shoot_input:
 			shoot()
-		mouse_position = get_global_mouse_position()
-		pivot_point.look_at(mouse_position)
-		if((pivot_point.global_position.x > mouse_position.x && side) || (pivot_point.global_position.x < mouse_position.x && !side)):
-			side = !side
-			flip()
+	mouse_position = get_global_mouse_position()
+	pivot_point.look_at(mouse_position)
+	if((pivot_point.global_position.x > mouse_position.x && side) || (pivot_point.global_position.x < mouse_position.x && !side)):
+		side = !side
+		flip()
 			
 		#weapon_tip.position = mouse_position
 		#pointing_tip.target_position = mouse_position
