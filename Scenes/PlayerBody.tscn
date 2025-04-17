@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://iw3cv8rbcko" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Front Sheet.png" id="3_yef0c"]
 [ext_resource type="Texture2D" uid="uid://tefbmyd6ksk7" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Side Sheet.png" id="4_cnuip"]
 [ext_resource type="Texture2D" uid="uid://bmknxe461lste" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Back Sheet.png" id="5_mf41o"]
-[ext_resource type="Script" path="res://Scripts/player_body_input.gd" id="6_fml75"]
+[ext_resource type="Script" uid="uid://pusxmgjplesg" path="res://Scripts/player_body_input.gd" id="6_fml75"]
 [ext_resource type="PackedScene" uid="uid://cg8raeodv61nv" path="res://Scenes/Weapons/ProjectileWeapon.tscn" id="6_wb0pm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0kbtj"]

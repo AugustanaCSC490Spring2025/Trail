@@ -1,10 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://rsqnq8t4ocyv"]
+[gd_scene load_steps=4 format=3 uid="uid://rsqnq8t4ocyv"]
 
 [ext_resource type="Script" uid="uid://c6cvgv7rrskkp" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://yl7lem5c55yf" path="res://Scripts/network.gd" id="2_j5yw3"]
+[ext_resource type="Texture2D" uid="uid://bb0n3au28oh7" path="res://Sprites/Loading Sceen/Snake.jpg" id="2_kldst"]
 
 [node name="Game" type="Node2D" groups=["GameManager"]]
 script = ExtResource("1_gl6un")
+
+[node name="LoadingScreen" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(592, 323)
+scale = Vector2(0.691667, 0.691667)
+texture = ExtResource("2_kldst")
 
 [node name="Network" type="Node" parent="." groups=["GameManager"]]
 script = ExtResource("2_j5yw3")
