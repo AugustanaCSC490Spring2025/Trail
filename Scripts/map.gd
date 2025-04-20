@@ -81,7 +81,7 @@ func generate_world():
 			noise_val = noise.get_noise_2d(x,y)
 			tree_noise_val = tree_noise.get_noise_2d(x,y)
 			generate_wall(x,y)
-			if noise_val > -0.2:
+			if noise_val > 0.2:
 				generate_buildings(x,y)
 			grass_arr.append(Vector2(x,y))
 			tree_noise_val_arr.append(tree_noise_val)

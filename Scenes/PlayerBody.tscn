@@ -707,6 +707,12 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath("AnimatedSprite2D:animation")
 properties/4/spawn = true
 properties/4/replication_mode = 1
+properties/5/path = NodePath("Weapon Pivot:position")
+properties/5/spawn = false
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Weapon Pivot:rotation")
+properties/6/spawn = false
+properties/6/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mhctf"]
 properties/0/path = NodePath("InputSynchronizer:vertical_input")
