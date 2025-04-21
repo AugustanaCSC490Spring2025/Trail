@@ -24,6 +24,7 @@ window/stretch/scale_mode="integer"
 [global_group]
 
 GameManager=""
+Players=""
 
 [input]
 

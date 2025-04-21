@@ -725,7 +725,7 @@ properties/2/path = NodePath("InputSynchronizer:shoot_input")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="PlayerBody" type="CharacterBody2D"]
+[node name="PlayerBody" type="CharacterBody2D" groups=["Players"]]
 motion_mode = 1
 script = ExtResource("1_t42vw")
 
