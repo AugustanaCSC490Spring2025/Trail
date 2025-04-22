@@ -444,7 +444,8 @@ height = 20.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_tjpw4"]
 radius = 363.034
 
-[node name="Wolf" type="CharacterBody2D"]
+[node name="Wolf" type="CharacterBody2D" groups=["Hurtable"]]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_tjpw4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -457,7 +458,6 @@ position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_3ovqd")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.760197, 4.45209e-05, 2.42579e-05, 1)
 debug_path_custom_point_size = 8.04

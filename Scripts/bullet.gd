@@ -37,3 +37,8 @@ func _physics_process(delta: float) -> void:
 	if(distance > 10000):
 		queue_free()
 	#print(position)
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Hurtable") and not body.is_in_group("Players"):
+		body.die()

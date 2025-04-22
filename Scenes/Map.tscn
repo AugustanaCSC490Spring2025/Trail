@@ -1,10 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://wdthkol45mfc"]
+[gd_scene load_steps=21 format=3 uid="uid://wdthkol45mfc"]
 
 [ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
 [ext_resource type="Texture2D" uid="uid://iw3cv8rbcko" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Front Sheet.png" id="3_me6m1"]
 [ext_resource type="Texture2D" uid="uid://b5vucosqsth5u" path="res://Sprites/wild_west_style/Generic Old West Graphicis/objects.png" id="4_qumfl"]
-[ext_resource type="PackedScene" uid="uid://cb507tsb5q3ph" path="res://Scenes/Enemies/wolf.tscn" id="5_r08cw"]
 
 [sub_resource type="Gradient" id="Gradient_8y03l"]
 offsets = PackedFloat32Array(0, 0.529954)
@@ -1267,9 +1266,9 @@ properties/5/spawn = true
 properties/5/replication_mode = 1
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r08cw"]
-vertices = PackedVector2Array(4157.81, 1936.96, -3837.24, 1904.03, -5305.21, -3791.46, 4674.08, -4157.59)
+vertices = PackedVector2Array(17892.7, 12229.8, -21873.5, 11346.2, -22892.5, -10091, 19523.2, -10193)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-3845, 1914, 4167, 1947, 4685, -4168, -5318, -3801)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-21883, 11356, 17902, 12240, 19534, -10203, -22903, -10101)])
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_gxtgv")
@@ -1313,8 +1312,6 @@ spawn_path = NodePath("../SpawnerNodes")
 
 [node name="MapSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_etk83")
-
-[node name="Wolf" parent="." instance=ExtResource("5_r08cw")]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_r08cw")

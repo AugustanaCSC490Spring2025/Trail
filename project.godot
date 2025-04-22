@@ -13,6 +13,7 @@ config_version=5
 config/name="Wacky West"
 run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/image="uid://dswqhpgjt4ro6"
 config/icon="res://Sprites/icon.svg"
 
 [display]
@@ -25,6 +26,7 @@ window/stretch/scale_mode="integer"
 
 GameManager=""
 Players=""
+Hurtable="anything that can take damage"
 
 [input]
 
