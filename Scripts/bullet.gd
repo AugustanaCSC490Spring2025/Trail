@@ -3,8 +3,8 @@ const speed = 1
 @onready var direction = null
 @onready var sprite = $Sprite2D
 var velocity = 1200
-var x_speed
-var y_speed
+var x_speed = 0
+var y_speed = 0
 var origin
 
 
