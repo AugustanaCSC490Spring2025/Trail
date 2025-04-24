@@ -1266,9 +1266,9 @@ properties/5/spawn = true
 properties/5/replication_mode = 1
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r08cw"]
-vertices = PackedVector2Array(17892.7, 12229.8, -21873.5, 11346.2, -22892.5, -10091, 19523.2, -10193)
+vertices = PackedVector2Array(845.852, -790.094, 822.141, 838.039, -797.953, 845.953, -790.039, -805.898)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-21883, 11356, 17902, 12240, 19534, -10203, -22903, -10101)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-808, 856, 832, 848, 856, -800, -800, -816)])
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_gxtgv")
@@ -1318,7 +1318,6 @@ spawn_path = NodePath("../SpawnerNodes")
 replication_config = SubResource("SceneReplicationConfig_etk83")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_r08cw")
 
 [node name="Wolf Timer" type="Timer" parent="."]
@@ -1328,21 +1327,21 @@ autostart = true
 [node name="Wolf Spawns" type="Node2D" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(853, -308)
+position = Vector2(680, -680)
 
 [node name="Marker2D2" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(1238, 868)
+position = Vector2(680, 680)
 
 [node name="Marker2D4" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(-139, -1791)
+position = Vector2(0, 680)
 
 [node name="Marker2D5" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(473, 1844)
+position = Vector2(0, -680)
 
 [node name="Marker2D6" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(-1296, 747)
+position = Vector2(-680, 680)
 
 [node name="Marker2D3" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(-1325, -586)
+position = Vector2(-680, -680)
 
 [connection signal="timeout" from="Wolf Timer" to="." method="spawn_wolves"]

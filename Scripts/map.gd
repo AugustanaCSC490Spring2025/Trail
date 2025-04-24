@@ -67,12 +67,12 @@ func spawn_wolves():
 	for marker in wolf_spawn_locations.get_children():
 		var random = randi() % 2
 		if random == 1:
-			print(marker.name)
+			#print(marker.name)
 			var spawn_wolf = wolf.instantiate()
 			marker.add_child(spawn_wolf, true)
 	timer.wait_time *= .9
-	if(timer.wait_time < 1):
-		timer.wait_time = 1
+	if(timer.wait_time < 3):
+		timer.wait_time = 3
 
 func generate_random_numbers(count, length):
 	var numbers = []

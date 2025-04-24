@@ -442,7 +442,7 @@ radius = 9.0
 height = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tjpw4"]
-radius = 363.034
+radius = 170.667
 
 [node name="Wolf" type="CharacterBody2D" groups=["Hurtable"]]
 scale = Vector2(1.5, 1.5)

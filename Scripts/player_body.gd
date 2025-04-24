@@ -39,6 +39,7 @@ func _physics_process(delta: float) -> void:
 	if multiplayer.is_server():
 		_move(delta)
 		changeAnimation.rpc(player_facing)
+		#print(position)
 
 func _move(delta):
 	if input_synchronizer.vertical_input == -1:

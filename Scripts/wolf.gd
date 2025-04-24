@@ -8,18 +8,19 @@ var target
 @onready var sprite = $AnimatedSprite2D
 
 @export var speed = 300
-var accel = 7
+var accel = 2
 
 @onready var wolf_detection_radius = $Area2D
 @onready var nav_agent = $NavigationAgent2D
 
 func _ready() -> void:
-	global_position = Vector2(350, 350)
+	#global_position = Vector2(350, 350)
+	pass
 
 func _physics_process(delta: float) -> void:
 	var direction = Vector2()
 	if hunting:
-		var target_location = target.global_position
+		var target_location = target.position
 		nav_agent.target_position = target_location
 		#print(nav_agent.target_position)
 		#global_position = nav_agent.get_next_path_position()
