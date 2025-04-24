@@ -19,7 +19,8 @@ func _ready():
 
 func startHost():
 	map = mapScene.instantiate()
-	print("StartHost: %s" % map)
+	print(IP.get_local_addresses())
+	#print("StartHost: %s" % map)
 	peer.create_server(portInput, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_on_player_connected)
@@ -28,7 +29,7 @@ func startHost():
 
 func startClient():
 	peer.create_client(IPinput, portInput)
-	print("StartClient: %s" % map)
+	#print("StartClient: %s" % map)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.connected_to_server.connect(_connected_to_server)
 	multiplayer.connection_failed.connect(_connection_failed)

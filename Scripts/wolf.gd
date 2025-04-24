@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 		#print(direction)
 		##velocity = Vector2(speed, speed)
 		velocity = velocity.lerp(direction * speed, accel * delta)
-		print(velocity)
+		#print(velocity)
 		
 		move_and_slide()
 		animate(velocity)

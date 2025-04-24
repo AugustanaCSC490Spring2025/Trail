@@ -1,5 +1,8 @@
 extends Node2D
 
+@onready var timer = $"Wolf Timer"
+@onready var wolf = preload("res://Scenes/Enemies/wolf.tscn")
+@onready var wolf_spawn_locations = $"Wolf Spawns"
 @onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
 @onready var network = get_tree().get_nodes_in_group("GameManager")[1]
 
@@ -7,7 +10,7 @@ extends Node2D
 @export var tree_noise_texture : NoiseTexture2D
 
 var width : int = 120
-var height : int =  120
+var height : int = 120
 
 var noise : Noise
 var tree_noise : Noise
@@ -59,6 +62,18 @@ func _ready():
 		var player_body = player.getPlayerBody()
 		spawned_nodes.add_child(player_body, true)
 		
+
+func spawn_wolves():
+	for marker in wolf_spawn_locations.get_children():
+		var random = randi() % 2
+		if random == 1:
+			print(marker.name)
+			var spawn_wolf = wolf.instantiate()
+			marker.add_child(spawn_wolf, true)
+	timer.wait_time *= .9
+	if(timer.wait_time < 1):
+		timer.wait_time = 1
+
 func generate_random_numbers(count, length):
 	var numbers = []
 	for i in range(count):

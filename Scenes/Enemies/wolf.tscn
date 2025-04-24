@@ -450,14 +450,15 @@ script = ExtResource("1_tjpw4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vodui")
-animation = &"attack_down"
-frame_progress = 0.334569
+animation = &"walk_side"
+frame_progress = 0.340893
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_3ovqd")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.760197, 4.45209e-05, 2.42579e-05, 1)
 debug_path_custom_point_size = 8.04

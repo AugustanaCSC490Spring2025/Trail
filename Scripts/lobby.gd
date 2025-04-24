@@ -14,7 +14,7 @@ var start_clicked = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	changePortrait()
-	updatePlayers.rpc()
+	updatePlayers()#.rpc()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -44,7 +44,7 @@ func updatePlayers():
 		names.add_child(nameLabel, true)
 		var label = nameLabel.get_node("Player")
 		label.text = "Player" + str(player.playerID)
-	print("Hello")
+	#print("Hello")
 	startButton = startScene.instantiate()
 	names.add_child(startButton)
 	if start_clicked == false:

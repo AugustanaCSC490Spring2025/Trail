@@ -1278,19 +1278,23 @@ tree_noise_texture = SubResource("NoiseTexture2D_uil6b")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="right_wall" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(50, 0)
+position = Vector2(150, 0)
+scale = Vector2(1, 3)
 shape = SubResource("RectangleShape2D_pljqj")
 
 [node name="bottom_wall" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 50)
+position = Vector2(0, 150)
+scale = Vector2(3, 1)
 shape = SubResource("RectangleShape2D_je7f0")
 
 [node name="left_wall" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-50, 0)
+position = Vector2(-150, 0)
+scale = Vector2(1, 3)
 shape = SubResource("RectangleShape2D_s7th2")
 
 [node name="up_wall" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -50)
+position = Vector2(0, -150)
+scale = Vector2(3, 1)
 shape = SubResource("RectangleShape2D_ygcue")
 
 [node name="Dirt" type="TileMapLayer" parent="."]
@@ -1314,4 +1318,31 @@ spawn_path = NodePath("../SpawnerNodes")
 replication_config = SubResource("SceneReplicationConfig_etk83")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_r08cw")
+
+[node name="Wolf Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="Wolf Spawns" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Wolf Spawns"]
+position = Vector2(853, -308)
+
+[node name="Marker2D2" type="Marker2D" parent="Wolf Spawns"]
+position = Vector2(1238, 868)
+
+[node name="Marker2D4" type="Marker2D" parent="Wolf Spawns"]
+position = Vector2(-139, -1791)
+
+[node name="Marker2D5" type="Marker2D" parent="Wolf Spawns"]
+position = Vector2(473, 1844)
+
+[node name="Marker2D6" type="Marker2D" parent="Wolf Spawns"]
+position = Vector2(-1296, 747)
+
+[node name="Marker2D3" type="Marker2D" parent="Wolf Spawns"]
+position = Vector2(-1325, -586)
+
+[connection signal="timeout" from="Wolf Timer" to="." method="spawn_wolves"]
