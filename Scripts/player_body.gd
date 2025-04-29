@@ -4,13 +4,15 @@ extends CharacterBody2D
 
 @onready var camera_2d = $Camera2D
 @onready var input_synchronizer = $InputSynchronizer
-@onready var weapon = $"Weapon Pivot"
+@onready var weapon_position = $"Weapon Pivot/Sprite2D/Tip"
+
 
 const SPAWN_RADIUS: float = 100
 const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
 @export var username : String
+
 @export var player_facing = "down"
 @export var playerID : int = 1:
 	set(id):
@@ -55,7 +57,7 @@ func _move(delta):
 		#print(str(input_synchronizer.horizontal_input) + " " + str(input_synchronizer.vertical_input) + " " + str(input_synchronizer.shoot_input) + " " + str(playerID))
 	velocity = Vector2(input_synchronizer.horizontal_input, input_synchronizer.vertical_input).normalized()
 	velocity *= Vector2(SPEED, SPEED)
-	#print(str(playerID) + " : " + str(velocity))
+	#print(str(playerID) + " : " + str(position))
 	move_and_slide()
 
 func _input(event):

@@ -720,6 +720,8 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [node name="PlayerBody" type="CharacterBody2D" groups=["Hurtable", "Players"]]
+z_index = 1
+y_sort_enabled = true
 motion_mode = 1
 script = ExtResource("1_t42vw")
 

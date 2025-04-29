@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b40junujo4dpy"]
+[gd_scene load_steps=23 format=3 uid="uid://wdthkol45mfc"]
 
 [ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
