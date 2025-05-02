@@ -2,8 +2,7 @@ extends Node2D
 
 var side = true
 @onready var bullet = preload("res://Scenes/Weapons/Projectiles/bullet.tscn")
-@onready var weapon_tip = $RayCast2D/Tip
-@onready var pointing_tip = $RayCast2D
+@onready var weapon_tip = $Sprite2D/Tip
 @onready var pivot_point = $"."
 @onready var sprite = $Sprite2D
 @onready var bullets = get_parent().get_node("Bullets")
