@@ -14,7 +14,8 @@ var start_clicked = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	changePortrait()
-	updatePlayers()#.rpc()
+	Network.connect("players_updated", Callable(self, "updatePlayers"))
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

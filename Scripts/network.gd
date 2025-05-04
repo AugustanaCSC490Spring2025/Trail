@@ -2,6 +2,7 @@ class_name Network
 extends Node
 signal OnConnectedToServer
 signal OnServerDisconnected
+signal players_updated
 
 const MAX_CLIENTS = 4
 
@@ -49,6 +50,7 @@ func _on_player_connected(id):
 	player.createBody()
 	players.append(player)
 	print("Player %s joined the game." % id)
+	emit_signal("players_updated")
 	#print("Players: %d" % players.size())
 
 func _on_player_disconnected(id):
