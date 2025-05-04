@@ -68,6 +68,7 @@ func _connection_failed():
 	OnServerDisconnected.emit()
 func _server_disconnected():
 	print("Server disconnected.")
+	get_tree().call_deferred("set_multiplayer_peer", null)
 
 func _on_code_text_changed(new_text):
 	IPinput = new_text

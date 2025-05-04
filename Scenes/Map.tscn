@@ -12,6 +12,7 @@ colors = PackedColorArray(0, 0.984314, 0, 1, 0.607843, 0.462745, 0.32549, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_sii8p"]
 noise_type = 3
+frequency = 0.0035
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d7lxr"]
 generate_mipmaps = false
@@ -1286,6 +1287,27 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath(".:house_atlas_seed")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath(".:player_spawn_seed")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath(".:town_width_seed")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath(".:town_height_seed")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath(".:town_size_seed")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+properties/10/path = NodePath(".:road_dir_seed")
+properties/10/spawn = true
+properties/10/replication_mode = 1
+properties/11/path = NodePath(".:tree_seed")
+properties/11/spawn = true
+properties/11/replication_mode = 1
+properties/12/path = NodePath(".:fire_pos")
+properties/12/spawn = true
+properties/12/replication_mode = 1
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r08cw"]
 vertices = PackedVector2Array(17892.7, 12229.8, -21873.5, 11346.2, -22892.5, -10091, 19523.2, -10193)

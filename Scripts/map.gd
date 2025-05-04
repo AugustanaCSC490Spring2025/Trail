@@ -20,6 +20,7 @@ const BUILDING_TILE_SIZE = 3
 
 var noise : Noise
 var tree_noise : Noise
+var grass_positions
 
 var house_atlas1 = [Vector2i(1,1), Vector2i(9,1), Vector2i(20,2), Vector2i(27,1), Vector2i(34,1), Vector2i(41,1), Vector2i(1,12), Vector2i(15,11), Vector2i(22,10)]
 var house_atlas2 = Vector2i(9,1)
@@ -73,16 +74,16 @@ func _ready():
 		#spawned_nodes.add_child(player_body, true)
 		
 
-func spawn_wolves():
-	for marker in wolf_spawn_locations.get_children():
-		var random = rng.randi() % 2
-		if random == 1:
-			#print(marker.name)
-			var spawn_wolf = wolf.instantiate()
-			#marker.add_child(spawn_wolf, true)
-	timer.wait_time *= .9
-	if(timer.wait_time < 1):
-		timer.wait_time = 1
+#func spawn_wolves():
+	#for marker in wolf_spawn_locations.get_children():
+		#var random = rng.randi() % 2
+		#if random == 1:
+			##print(marker.name)
+			#var spawn_wolf = wolf.instantiate()
+			##marker.add_child(spawn_wolf, true)
+	#timer.wait_time *= .9
+	#if(timer.wait_time < 1):
+		#timer.wait_time = 1
 
 func generate_random_numbers(count, rand_min, rand_max):
 	var numbers = []
@@ -94,17 +95,28 @@ func generate_random_numbers(count, rand_min, rand_max):
 func _process(_delta):
 	if not cameraSet:
 		setCamera()
+		cameraSet = true
 # lowest noise: -.6271
 # highest noise: .4845
 func generate_world():
 	var tree_noise_val
-	for x in range(int(-half_width), int(half_width)):
-		for y in range(int(-half_height), int(half_height)):
-			tree_noise_val = tree_noise.get_noise_2d(x, y)
+	var total = width * height
+	grass_positions = PackedVector2Array()
+	grass_positions.resize(total)
+	var idx = 0
+	for x in range(-half_width, half_width):
+		for y in range(-half_height, half_height):
 			generate_wall(x, y)
-			grass_arr.append(Vector2(x, y))
-			tree_noise_val_arr.append(tree_noise_val)
-	grass_tilemaplayer.set_cells_terrain_connect(grass_arr, 0, 0)
+			grass_positions[idx] = Vector2(x, y)
+			idx += 1
+	grass_tilemaplayer.set_cells_terrain_connect(grass_positions, 0, 0)
+	#for x in range(int(-half_width), int(half_width)):
+		#for y in range(int(-half_height), int(half_height)):
+			#tree_noise_val = tree_noise.get_noise_2d(x, y)
+			#generate_wall(x, y)
+			#grass_arr.append(Vector2(x, y))
+			#tree_noise_val_arr.append(tree_noise_val)
+	#grass_tilemaplayer.set_cells_terrain_connect(grass_arr, 0, 0)
 	campfire_scene = campfire.instantiate()
 	generate_campfire_location(fire_pos)
 	# Add players near the campfire
@@ -128,6 +140,7 @@ func generate_world():
 	connect_towns_and_campfire()
 	dirt_tilemaplayer.set_cells_terrain_connect(dirt_arr, 1, 0)
 	generate_trees()
+	grass_positions.clear()
 
 
 func generate_campfire_location(center: Vector2i):
@@ -197,14 +210,15 @@ func generate_trees():
 		dirt_dict[pos] = true
 
 	# Place trees only on grass tiles not near dirt/road
-	for pos in range(0, len(grass_arr)):
-		var center_pos = Vector2(grass_arr[pos].x +2, grass_arr[pos].y +3)
-		if dirt_lookup.has(center_pos):
-			continue  # Skip dirt, roads, towns
-		else:
-			var noise_val := tree_noise.get_noise_2d(grass_arr[pos].x * noise_scale, grass_arr[pos].y * noise_scale)
-			if noise_val > threshold and randf() < 0.5 and is_in_bounds(grass_arr[pos]):  # Secondary randomness
-				object_tilemaplayer.set_cell(grass_arr[pos], 0, tree_atlas)
+	var tree_positions = PackedVector2Array()
+	for pos in grass_positions:
+		var center_pos = Vector2(pos.x +2, pos.y +3)
+		if not dirt_lookup.has(center_pos):
+			var noise_val := tree_noise.get_noise_2d(center_pos.x * noise_scale, center_pos.y * noise_scale)
+			if noise_val > threshold and rng.randf() < 0.5 and is_in_bounds(center_pos):  # Secondary randomness
+				tree_positions.append(center_pos)
+	for pos in tree_positions:
+		object_tilemaplayer.set_cell(pos, 0, tree_atlas)
 
 # Paint the road by filling the terrain
 func paint_road(road_positions: Array):
@@ -231,37 +245,29 @@ func is_in_bounds(pos: Vector2i) -> bool:
 	return pos.x >= int(-half_width+25) and pos.x < int(half_width-25) and pos.y >= int(-half_height+25) and pos.y < int(half_height-25)
 # Modified function to ensure roads stay within bounds by rerouting when necessary
 func generate_random_manhattan_road(start: Vector2i, end: Vector2i, dir: int) -> Array:
-	var road_positions = []
-	var current_pos = start
-	if dir:
-		while current_pos.x != end.x:
-			if is_in_bounds(current_pos):
-				road_positions += get_3x3_area(current_pos)
-			current_pos.x += 1 if end.x > current_pos.x else -1
-			if current_pos.x < int(-half_width) or current_pos.x > int(half_width):
-				while current_pos.y != end.y:
-					current_pos.y += sign(end.y - current_pos.y)
-					road_positions += get_3x3_area(current_pos)
-				break
-		while current_pos.y != end.y:
-			if is_in_bounds(current_pos):
-				road_positions += get_3x3_area(current_pos)
-			current_pos.y += 1 if end.y > current_pos.y else -1
-	else:
-		while current_pos.y != end.y:
-			if is_in_bounds(current_pos):
-				road_positions += get_3x3_area(current_pos)
-			current_pos.y += 1 if end.y > current_pos.y else -1
-			if current_pos.y < int(-half_height) or current_pos.y > int(half_height):
-				while current_pos.x != end.x:
-					current_pos.x += sign(end.x - current_pos.x)
-					road_positions += get_3x3_area(current_pos)
-				break
-		while current_pos.x != end.x:
-			if is_in_bounds(current_pos):
-				road_positions += get_3x3_area(current_pos)
-			current_pos.x += 1 if end.x > current_pos.x else -1
-	return road_positions
+	var path = []
+	var current = start
+
+	while current != end:
+		if is_in_bounds(current):
+			path.append_array(get_3x3_area(current))
+
+		if dir == 0:  # Prioritize horizontal movement
+			if current.x != end.x:
+				current.x += sign(end.x - current.x)
+			elif current.y != end.y:
+				current.y += sign(end.y - current.y)
+		else:  # Prioritize vertical movement
+			if current.y != end.y:
+				current.y += sign(end.y - current.y)
+			elif current.x != end.x:
+				current.x += sign(end.x - current.x)
+
+	if is_in_bounds(end):
+		path.append(end)
+
+	return path
+
 
 func get_3x3_area(center: Vector2i) -> Array:
 	var area = []
@@ -342,7 +348,8 @@ func generate_wall(x, y):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[0]
 		#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[0])
-	object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_val)
+	if barrier_val:
+		object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_val)
 
 #@rpc("any_peer", "call_local", "reliable")
 func setCamera():

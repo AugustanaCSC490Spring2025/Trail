@@ -17,7 +17,7 @@ texture = ExtResource("2_kldst")
 script = ExtResource("2_j5yw3")
 
 [node name="SceneSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://wdthkol45mfc")
+_spawnable_scenes = PackedStringArray("uid://b40junujo4dpy")
 spawn_path = NodePath("../Scene")
 
 [node name="Scene" type="Node2D" parent="."]
