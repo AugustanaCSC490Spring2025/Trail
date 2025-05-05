@@ -2,7 +2,6 @@ class_name Network
 extends Node
 signal OnConnectedToServer
 signal OnServerDisconnected
-signal players_updated
 
 const MAX_CLIENTS = 4
 
@@ -13,7 +12,7 @@ var playerScene = preload("res://Scenes/Player.tscn")
 var players = []
 var mapScene = preload("res://Scenes/Map.tscn")
 var map
-var peer = ENetMultiplayerPeer.new()
+
 var all_addresses = IP.get_local_addresses()
 var lan_addresses = Array(all_addresses).filter(func(ip): 
 	return ip.begins_with("192.") or ip.begins_with("10.") or ip.begins_with("172.")
@@ -23,6 +22,7 @@ func _ready():
 	pass # Replace with function body.
 
 func startHost():
+	var peer = ENetMultiplayerPeer.new()
 	map = mapScene.instantiate()
 	print(IP.get_local_addresses())
 	#print("StartHost: %s" % map)
@@ -36,6 +36,7 @@ func startHost():
 	_on_player_connected(multiplayer.get_unique_id())
 
 func startClient():
+	var peer = ENetMultiplayerPeer.new()
 	peer.create_client(IPinput, portInput)
 	#print("StartClient: %s" % map)
 	multiplayer.multiplayer_peer = peer
@@ -50,7 +51,6 @@ func _on_player_connected(id):
 	player.createBody()
 	players.append(player)
 	print("Player %s joined the game." % id)
-	emit_signal("players_updated")
 	#print("Players: %d" % players.size())
 
 func _on_player_disconnected(id):
@@ -70,7 +70,6 @@ func _connection_failed():
 	OnServerDisconnected.emit()
 func _server_disconnected():
 	print("Server disconnected.")
-	get_tree().call_deferred("set_multiplayer_peer", null)
 
 func _on_code_text_changed(new_text):
 	IPinput = new_text

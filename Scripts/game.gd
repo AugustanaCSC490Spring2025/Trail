@@ -27,7 +27,7 @@ func openLobby():
 func startGame():
 	get_node("Lobby").queue_free()
 	map = network.map
-	#print("start %s" % map)
+	print("start %s" % map)
 	get_node('/root/Game/Scene').add_child(map)
 	#scene.add_child(map, true)
 	
