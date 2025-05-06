@@ -13,8 +13,8 @@ extends Node2D
 var width : int = 120
 var height : int = 120
 
-var half_width = width / 2
-var half_height = height / 2
+var half_width = int(width / 2)
+var half_height = int(height / 2)
 
 const BUILDING_TILE_SIZE = 3
 
@@ -58,8 +58,8 @@ var towns = []
 var campfire_tile_pos : Vector2i
 var campfire_scene
 var fire_pos = Vector2i(
-	randi_range(int(-half_width) + 30, int(half_width) - 30),
-	randi_range(int(-half_height) + 30, int(half_height) - 30)
+	randi_range(int(-half_width) + 25, int(half_width) - 25),
+	randi_range(int(-half_height) + 25, int(half_height) - 25)
 )
 
 func _ready():
@@ -75,6 +75,7 @@ func _ready():
 	noise.set_seed(mapSeed)
 	tree_noise = tree_noise_texture.noise
 	generate_world()
+	get_node('/root/Game/LoadingScreen').hide()
 	#for player in network.players:
 		#var player_body = player.getPlayerBody()
 		#spawned_nodes.add_child(player_body, true)
@@ -116,13 +117,6 @@ func generate_world():
 			grass_positions[idx] = Vector2(x, y)
 			idx += 1
 	grass_tilemaplayer.set_cells_terrain_connect(grass_positions, 0, 0)
-	#for x in range(int(-half_width), int(half_width)):
-		#for y in range(int(-half_height), int(half_height)):
-			#tree_noise_val = tree_noise.get_noise_2d(x, y)
-			#generate_wall(x, y)
-			#grass_arr.append(Vector2(x, y))
-			#tree_noise_val_arr.append(tree_noise_val)
-	#grass_tilemaplayer.set_cells_terrain_connect(grass_arr, 0, 0)
 	campfire_scene = campfire.instantiate()
 	generate_campfire_location(fire_pos)
 	# Add players near the campfire
@@ -131,7 +125,7 @@ func generate_world():
 		var player_body = player.getPlayerBody()
 		spawned_nodes.add_child(player_body, true)
 		# Position the player near the campfire
-		var offset = Vector2(player_spawn_rng.randi_range(-2, 2), player_spawn_rng.randi_range(-2, 2)) * 16  # small random spread
+		var offset = Vector2(player_spawn_rng.randi_range(-4, 4), player_spawn_rng.randi_range(-4, 4)) * 8  # small random spread
 		player_body.position = grass_tilemaplayer.map_to_local(fire_pos) + offset
 		spawn_count+=2
 		if player_body.has_method("enableCamera"):
@@ -153,7 +147,7 @@ func generate_campfire_location(center: Vector2i):
 	# Clear a 6x7 dirt area
 	for x in range(center.x - 6, center.x + 7):
 		for y in range(center.y - 6, center.y + 7):
-			var pos = Vector2(x, y)
+			var pos = Vector2i(x, y)
 			if (x < center.x + 3 and x > center.x - 3) and (y < center.y + 4 and y > center.y - 3):
 				dirt_arr.append(pos)
 				dirt_dict[pos] = true
@@ -173,12 +167,13 @@ func generate_campfire_location(center: Vector2i):
 		player_body.position = (spawn_arr[player_count])
 		player_count+=1
 
-func generate_road_path(start: Vector2, end: Vector2, dir: int) -> Array:
+func generate_road_path(start: Vector2i, end: Vector2i, dir: int) -> Array:
 	var path = []
 	var current = start
 	while current != end:
 		if is_in_bounds(current):
-			path.append(current)
+			path.append(Vector2i(current))
+			print("Current"+ str(current))
 		# Adjust the movement direction if we are about to go out of bounds
 		if dir == 0:
 			if current.x != end.x:
@@ -203,7 +198,8 @@ func generate_road_path(start: Vector2, end: Vector2, dir: int) -> Array:
 		if path.size() > 1 and current == path[path.size() - 1]:
 			break
 	if is_in_bounds(current):
-		path.append(current)
+		path.append(Vector2i(current))
+		print("Current"+ str(current))
 	return path
 
 func generate_trees():
@@ -219,10 +215,10 @@ func generate_trees():
 	var tree_positions = PackedVector2Array()
 	for pos in grass_positions:
 		var center_pos = Vector2i(pos.x +2, pos.y +3)
-		if not dirt_lookup.has(center_pos):
-			var noise_val := tree_noise.get_noise_2d(center_pos.x * noise_scale, center_pos.y * noise_scale)
-			if noise_val > threshold and tree_rng.randf() < 0.5 and is_in_bounds(center_pos):  # Secondary randomness
-				tree_positions.append(center_pos)
+		if not dirt_dict.has(pos):
+			var noise_val := tree_noise.get_noise_2d(pos.x * noise_scale, pos.y * noise_scale)
+			if noise_val > threshold and tree_rng.randf() < 0.5 and is_in_bounds(pos):  # Secondary randomness
+				tree_positions.append(pos)
 	for pos in tree_positions:
 		object_tilemaplayer.set_cell(pos, 0, tree_atlas)
 
@@ -230,8 +226,8 @@ func generate_trees():
 func paint_road(road_positions: Array):
 	for pos in road_positions:
 		if is_in_bounds(pos) and not dirt_arr.has(pos):
-			dirt_arr.append(pos)
-			dirt_dict[pos] = true
+			dirt_arr.append(Vector2i(pos))
+			dirt_dict[Vector2i(pos)] = true
 			# Add road to dirt layer
 
 func connect_towns_and_campfire():
@@ -248,7 +244,7 @@ func connect_towns_and_campfire():
 	# Paint the roads after generating them
 	paint_road(road_positions)
 func is_in_bounds(pos: Vector2i) -> bool:
-	return pos.x >= int(-half_width+30) and pos.x < int(half_width-30) and pos.y >= int(-half_height+30) and pos.y < int(half_height-30)
+	return pos.x >= int(-half_width+25) and pos.x < int(half_width-25) and pos.y >= int(-half_height+25) and pos.y < int(half_height-25)
 # Modified function to ensure roads stay within bounds by rerouting when necessary
 func generate_random_manhattan_road(start: Vector2i, end: Vector2i, dir: int) -> Array:
 	var path = []
@@ -256,7 +252,7 @@ func generate_random_manhattan_road(start: Vector2i, end: Vector2i, dir: int) ->
 
 	while current != end:
 		if is_in_bounds(current):
-			path.append_array(get_3x3_area(current))
+			path.append_array(get_2x2_area(current))
 
 		if dir == 0:  # Prioritize horizontal movement
 			if current.x != end.x:
@@ -275,10 +271,10 @@ func generate_random_manhattan_road(start: Vector2i, end: Vector2i, dir: int) ->
 	return path
 
 
-func get_3x3_area(center: Vector2i) -> Array:
+func get_2x2_area(center: Vector2i) -> Array:
 	var area = []
-	for dx in range(-1, 2):
-		for dy in range(-1, 2):
+	for dx in range(-1, 1):
+		for dy in range(-1, 1):
 			var pos = center + Vector2i(dx, dy)
 			# Optional: Only add if within bounds
 			if is_in_bounds(pos):
@@ -308,33 +304,42 @@ func generate_city_blocks(origin: Vector2i, size: Vector2i):
 			var start = Vector2i(x + offset, origin.y)
 			var end = Vector2i(x + offset, origin.y + size.y)
 			road_positions.append_array(generate_road_path(start, end, dir_seed_x))
+			
 	# Generate horizontal roads
 	for y in range(origin.y, origin.y + size.y, spacing_y):
 		for offset in range(road_width):
 			var start = Vector2i(origin.x, y + offset)
 			var end = Vector2i(origin.x + size.x, y + offset)
+			
 			road_positions.append_array(generate_road_path(start, end, dir_seed_y))
 	# Paint the roads
 	paint_road(road_positions)
+	generate_buildings(origin, building_size, size, Vector2i(spacing_x, spacing_y))
 	# Place buildings
-	for x in range(origin.x, origin.x + size.x, spacing_x):
-		for y in range(origin.y, origin.y + size.y, spacing_y):
+func generate_buildings(origin: Vector2i, building_size: Vector2i,  size: Vector2i, spacing: Vector2i):
+	var atlas_list = house_atlas1
+	var atlas_seed = house_atlas_rng.randi_range(0, 8)
+	var atlas_list_size = atlas_list.size()
+	var road_width = 3
+	for x in range(origin.x, origin.x + size.x, spacing.x):
+		for y in range(origin.y, origin.y + size.y, spacing.y):
 			var top_left = Vector2i(x + road_width, y + road_width)
 			var valid := true
-
+			print("Top Left: " + str(top_left))
+			print("Builing Size: " + str(building_size))
 			# Check the full building footprint
 			for bx in range(building_size.x):
 				for by in range(building_size.y):
 					var check_pos = top_left + Vector2i(bx, by)
+					print(str(check_pos))
 					if not is_in_bounds(check_pos) or dirt_dict.has(check_pos):
-						print(str(check_pos))
+						print("Has Dirt: " + str(check_pos))
 						valid = false
 						break
-				if not valid:
+				if valid == false:
 					break
-
 			if valid:
-				var center_pos = Vector2i(top_left + building_size / 2)
+				var center_pos = Vector2i(top_left + (Vector2i(int(building_size.x/2), int(building_size.y/2))))
 				var atlas = atlas_list[atlas_seed]
 				building_arr.append(center_pos)
 				print("BUILDING "+str(center_pos))
