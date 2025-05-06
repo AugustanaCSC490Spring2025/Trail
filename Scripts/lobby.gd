@@ -14,7 +14,8 @@ var start_clicked = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	changePortrait()
-	updatePlayers()#.rpc()
+	updatePlayers()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -35,7 +36,7 @@ func _on_right_pressed():
 func changePortrait():
 	textureRect.texture = characterProfiles[characterIndex]
 
-@rpc("any_peer", "call_local", "reliable")
+@rpc("authority", "call_local", "reliable")
 func updatePlayers():
 	for node in names.get_children():
 		node.queue_free()

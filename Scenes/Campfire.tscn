@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6goqw15mdiud"]
+
+[ext_resource type="Texture2D" uid="uid://dcxned83jwrbx" path="res://Sprites/wild_west_style/Generic Old West Graphicis/free_campfire.png" id="1_vbyay"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_441wj"]
+atlas = ExtResource("1_vbyay")
+region = Rect2(0, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tsqt"]
+atlas = ExtResource("1_vbyay")
+region = Rect2(16, 64, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rb6s"]
+atlas = ExtResource("1_vbyay")
+region = Rect2(32, 64, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vbyay"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_441wj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tsqt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rb6s")
+}],
+"loop": true,
+"name": &"fire",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_441wj"]
+radius = 4.66667
+height = 12.6667
+
+[node name="Campfire" type="Area2D"]
+
+[node name="CampfireSprite" type="AnimatedSprite2D" parent="."]
+texture_filter = 5
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_vbyay")
+animation = &"fire"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 14)
+scale = Vector2(3, 3)
+shape = SubResource("CapsuleShape2D_441wj")

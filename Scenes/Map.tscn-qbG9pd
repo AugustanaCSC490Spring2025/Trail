@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b40junujo4dpy"]
+[gd_scene load_steps=23 format=3 uid="uid://wdthkol45mfc"]
 
 [ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
@@ -12,7 +12,6 @@ colors = PackedColorArray(0, 0.984314, 0, 1, 0.607843, 0.462745, 0.32549, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_sii8p"]
 noise_type = 3
-frequency = 0.0035
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d7lxr"]
 generate_mipmaps = false
@@ -1281,38 +1280,17 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath(".:object_tilemaplayer")
 properties/3/spawn = false
 properties/3/replication_mode = 1
-properties/4/path = NodePath(".:fire_pos")
+properties/4/path = NodePath(".:building_seed")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath(".:building_rng")
+properties/5/path = NodePath(".:house_atlas_seed")
 properties/5/spawn = true
 properties/5/replication_mode = 1
-properties/6/path = NodePath(".:house_atlas_rng")
-properties/6/spawn = true
-properties/6/replication_mode = 1
-properties/7/path = NodePath(".:player_spawn_rng")
-properties/7/spawn = true
-properties/7/replication_mode = 1
-properties/8/path = NodePath(".:town_width_rng")
-properties/8/spawn = true
-properties/8/replication_mode = 1
-properties/9/path = NodePath(".:town_height_rng")
-properties/9/spawn = true
-properties/9/replication_mode = 1
-properties/10/path = NodePath(".:town_size_rng")
-properties/10/spawn = true
-properties/10/replication_mode = 1
-properties/11/path = NodePath(".:road_dir_rng")
-properties/11/spawn = true
-properties/11/replication_mode = 1
-properties/12/path = NodePath(".:tree_noise")
-properties/12/spawn = true
-properties/12/replication_mode = 1
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r08cw"]
-vertices = PackedVector2Array(845.852, -790.094, 822.141, 838.039, -797.953, 845.953, -790.039, -805.898)
+vertices = PackedVector2Array(17892.7, 12229.8, -21873.5, 11346.2, -22892.5, -10091, 19523.2, -10193)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-808, 856, 832, 848, 856, -800, -800, -816)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-21883, 11356, 17902, 12240, 19534, -10203, -22903, -10101)])
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_gxtgv")
@@ -1363,6 +1341,7 @@ spawn_path = NodePath("../SpawnerNodes")
 replication_config = SubResource("SceneReplicationConfig_etk83")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_r08cw")
 
 [node name="Wolf Timer" type="Timer" parent="."]
@@ -1372,21 +1351,21 @@ autostart = true
 [node name="Wolf Spawns" type="Node2D" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(680, -680)
+position = Vector2(853, -308)
 
 [node name="Marker2D2" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(680, 680)
+position = Vector2(1238, 868)
 
 [node name="Marker2D4" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(0, 680)
+position = Vector2(-139, -1791)
 
 [node name="Marker2D5" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(0, -680)
+position = Vector2(473, 1844)
 
 [node name="Marker2D6" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(-680, 680)
+position = Vector2(-1296, 747)
 
 [node name="Marker2D3" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(-680, -680)
+position = Vector2(-1325, -586)
 
 [connection signal="timeout" from="Wolf Timer" to="." method="spawn_wolves"]

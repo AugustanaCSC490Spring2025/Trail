@@ -6,6 +6,7 @@ extends CharacterBody2D
 var hunting = false
 var target
 @onready var sprite = $AnimatedSprite2D
+@onready var bite_hitbox = preload("res://Scenes/Enemies/BiteHitbox.tscn")
 
 @export var speed = 300
 var accel = 2
@@ -20,18 +21,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var direction = Vector2()
 	if hunting:
-		var target_location = target.position
+		print(str(global_position.distance_squared_to(target.global_position)))
+		if global_position.distance_squared_to(target.global_position) < 1000:
+			bite(target)
+		var target_location = target.global_position
 		nav_agent.target_position = target_location
-		#print(nav_agent.target_position)
-		#global_position = nav_agent.get_next_path_position()
-		#print(nav_agent.get_next_path_position())
 		direction = nav_agent.get_next_path_position() - global_position
-		##print(direction)
 		direction = direction.normalized()
-		#print(direction)
-		##velocity = Vector2(speed, speed)
 		velocity = velocity.lerp(direction * speed, accel * delta)
-		#print(velocity)
 		
 		move_and_slide()
 		animate(velocity)
@@ -49,8 +46,12 @@ func animate(velocity: Vector2):
 		else:
 			sprite.flip_h = false
 
-func bite():
-	pass
+func bite(target: Node2D):
+	var attack_point = target.global_position
+	await get_tree().create_timer(1).timeout
+	var bite_attack = bite_hitbox.instantiate()
+	add_child(bite_attack)
+	bite_attack.set_global_position(attack_point)
 
 func die():
 	queue_free()

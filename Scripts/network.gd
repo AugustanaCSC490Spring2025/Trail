@@ -12,22 +12,31 @@ var playerScene = preload("res://Scenes/Player.tscn")
 var players = []
 var mapScene = preload("res://Scenes/Map.tscn")
 var map
-var peer = ENetMultiplayerPeer.new()
+
+var all_addresses = IP.get_local_addresses()
+var lan_addresses = Array(all_addresses).filter(func(ip): 
+	return ip.begins_with("192.") or ip.begins_with("10.") or ip.begins_with("172.")
+)
 
 func _ready():
 	pass # Replace with function body.
 
 func startHost():
+	var peer = ENetMultiplayerPeer.new()
 	map = mapScene.instantiate()
 	print(IP.get_local_addresses())
 	#print("StartHost: %s" % map)
+	var lan_ip = "0.0.0.0" if lan_addresses.is_empty() else lan_addresses[0]
+	peer.set_bind_ip(lan_ip)
 	peer.create_server(portInput, MAX_CLIENTS)
+	#peer.create_server(portInput, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	_on_player_connected(multiplayer.get_unique_id())
 
 func startClient():
+	var peer = ENetMultiplayerPeer.new()
 	peer.create_client(IPinput, portInput)
 	#print("StartClient: %s" % map)
 	multiplayer.multiplayer_peer = peer

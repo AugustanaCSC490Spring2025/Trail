@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d23mlkj4r3wa5"]
+
+[ext_resource type="Script" uid="uid://b5fjdoqqxwqt1" path="res://Scripts/bite_hitbox.gd" id="1_s50oa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uw8sj"]
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_s50oa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uw8sj")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
