@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2in45datil1g"]
+[gd_scene load_steps=4 format=3 uid="uid://d2in45datil1g"]
 
 [ext_resource type="Script" uid="uid://dtvcionyw28w2" path="res://Scripts/bullet.gd" id="1_5fogj"]
 [ext_resource type="Texture2D" uid="uid://bwf3r2scxbkwd" path="res://Sprites/Weapons/Bullet_12x3.png" id="1_kp2j3"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_w2klw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Bullet" type="Area2D"]
 script = ExtResource("1_5fogj")
@@ -12,5 +20,8 @@ polygon = PackedVector2Array(0, 0, 4, 0, 6, 2, 4, 4, -3, 4, -6, 2, -3, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_kp2j3")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_w2klw")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
