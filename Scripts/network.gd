@@ -24,12 +24,10 @@ func _ready():
 func startHost():
 	var peer = ENetMultiplayerPeer.new()
 	map = mapScene.instantiate()
-	print(IP.get_local_addresses())
-	#print("StartHost: %s" % map)
 	var lan_ip = "0.0.0.0" if lan_addresses.is_empty() else lan_addresses[0]
+	print(lan_ip)
 	peer.set_bind_ip(lan_ip)
 	peer.create_server(portInput, MAX_CLIENTS)
-	#peer.create_server(portInput, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
@@ -38,7 +36,6 @@ func startHost():
 func startClient():
 	var peer = ENetMultiplayerPeer.new()
 	peer.create_client(IPinput, portInput)
-	#print("StartClient: %s" % map)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.connected_to_server.connect(_connected_to_server)
 	multiplayer.connection_failed.connect(_connection_failed)
