@@ -10,8 +10,8 @@ extends Node2D
 @export var noise_texture : NoiseTexture2D
 @export var tree_noise_texture : NoiseTexture2D
 
-var width : int = 120
-var height : int = 120
+var width : int = 200
+var height : int = 200
 
 var half_width = width / 2
 var half_height = height / 2
@@ -138,7 +138,7 @@ func generate_world():
 		if player_body.has_method("enableCamera"):
 			player_body.enableCamera()
 	# Generate a few random towns within bounds
-	for i in range(4):
+	for i in range(6):
 		var town_pos = Vector2i(town_width_rng.randi_range(int(-half_width) + 20, int(half_width) - 20), town_width_rng.randi_range(int(-half_height) + 20, int(half_height) - 20))
 		var size = Vector2i(town_size_rng.randi_range(10, 40), town_size_rng.randi_range(10, 40))
 		generate_city_blocks(town_pos, size)
@@ -345,26 +345,26 @@ func generate_city_blocks(origin: Vector2i, size: Vector2i):
 						
 func generate_wall(x, y):
 	var barrier_val: Vector2i
-	if x == (-half_width+15) and y == (-half_height+15):
+	if x == (-half_width+40) and y == (-half_height+40):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[3]
-	elif x == (-half_width+15) and y == (half_height-15):
+	elif x == (-half_width+40) and y == (half_height-40):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[5]
-	elif x == (half_width-15) and y == (-half_height+15):
+	elif x == (half_width-40) and y == (-half_height+40):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[4]
-	elif x == (half_width-15) and y == (half_height-15):
+	elif x == (half_width-40) and y == (half_height-40):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[6]
-	elif x == (half_width-15) and ((y > (-half_height+15)) and (y < (half_height-15))):
+	elif x == (half_width-40) and ((y > (-half_height+40)) and (y < (half_height-40))):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[2]
-	elif x == (-half_width+15) and ((y > (-half_height+15)) and (y < (half_height-15))):
+	elif x == (-half_width+40) and ((y > (-half_height+40)) and (y < (half_height-40))):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[1]
 		#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[1])
-	if ((x > (-half_width+15) and x < (half_width-15)) and ((y == (-half_height+15)) or (y == (half_height-15)))):
+	if ((x > (-half_width+40) and x < (half_width-40)) and ((y == (-half_height+40)) or (y == (half_height-40)))):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[0]
 		#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[0])
