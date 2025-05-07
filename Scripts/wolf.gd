@@ -22,7 +22,8 @@ func _physics_process(delta: float) -> void:
 	if hunting:
 		print(str(global_position.distance_squared_to(target.global_position)))
 		if global_position.distance_squared_to(target.global_position) < 1000:
-			bite(target)
+			pass
+			#bite(target)
 		var target_location = target.global_position
 		nav_agent.target_position = target_location
 		direction = nav_agent.get_next_path_position() - global_position

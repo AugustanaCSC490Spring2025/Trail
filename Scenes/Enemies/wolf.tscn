@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://cb507tsb5q3ph"]
+[gd_scene load_steps=69 format=3 uid="uid://cb507tsb5q3ph"]
 
 [ext_resource type="Script" uid="uid://pk6ru8d3io3d" path="res://Scripts/wolf.gd" id="1_tjpw4"]
 [ext_resource type="Texture2D" uid="uid://yr3rxutvoqpd" path="res://Sprites/Enemies/Wolf/D_Attack.png" id="2_1x5h1"]
@@ -444,6 +444,17 @@ height = 20.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_tjpw4"]
 radius = 363.034
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_tjpw4"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimatedSprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimatedSprite2D:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="Wolf" type="CharacterBody2D" groups=["Hurtable"]]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_tjpw4")
@@ -469,5 +480,8 @@ debug_path_custom_line_width = 5.18
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 5)
 shape = SubResource("CircleShape2D_tjpw4")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_tjpw4")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
