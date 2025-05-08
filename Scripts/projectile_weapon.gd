@@ -7,6 +7,7 @@ var side = true
 @onready var sprite = $Sprite2D
 @onready var bullets = get_parent().get_node("Bullets")
 @onready var input_synchronizer = get_parent().get_node("InputSynchronizer")
+@onready var multiplayer_spawner = $"../BulletSpawner"
 
 func _physics_process(delta: float) -> void:
 	if (input_synchronizer.enable):
@@ -23,11 +24,13 @@ func flip():
 	sprite.position.y *= -1
 
 func shoot():
-	var shot = bullet.instantiate()
-	bullets.add_child(shot, true)
-	shot.global_position = pivot_point.global_position
-	shot.look_at(input_synchronizer.mouse_position)
-	shot.fire(pivot_point.global_position)
+	if multiplayer.is_server():
+		print("authority")
+		var shot = bullet.instantiate()
+		bullets.add_child(shot, true)
+		shot.global_position = pivot_point.global_position
+		shot.look_at(input_synchronizer.mouse_position)
+		shot.fire(pivot_point.global_position)
 
 #@rpc("any_peer", "call_local", "reliable")
 func pointGun():

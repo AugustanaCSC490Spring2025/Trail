@@ -3,8 +3,8 @@ extends CharacterBody2D
 #https://www.youtube.com/watch?v=AGHtw8__oqw
 #^^ nav agent tutorial based on to start with
 
-var hunting = false
-var target
+@export var hunting = false
+@export var target = 0
 @onready var sprite = $AnimatedSprite2D
 @onready var bite_hitbox = preload("res://Scenes/Enemies/BiteHitbox.tscn")
 
@@ -15,12 +15,13 @@ var accel = 7
 @onready var nav_agent = $NavigationAgent2D
 
 func _ready() -> void:
-	global_position = Vector2(350, 350)
+	pass
+	#global_position = Vector2(350, 350)
 
 func _physics_process(delta: float) -> void:
 	var direction = Vector2()
 	if hunting:
-		print(str(global_position.distance_squared_to(target.global_position)))
+		#print(str(global_position.distance_squared_to(target.global_position)))
 		if global_position.distance_squared_to(target.global_position) < 1000:
 			pass
 			#bite(target)
@@ -53,7 +54,8 @@ func bite(target: Node2D):
 	add_child(bite_attack)
 	bite_attack.set_global_position(attack_point)
 
-func die():
+@rpc("authority", "call_local", "reliable")
+func wolf_die():
 	queue_free()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
