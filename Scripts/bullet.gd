@@ -12,9 +12,9 @@ var origin
 func _ready() -> void:
 	sprite.visible = false
 
-func fire(starting_location: Vector2) -> void:
+func fire(starting_location: Vector2, mouse_position: Vector2) -> void:
 	origin = starting_location
-	var direction = get_global_mouse_position()
+	var direction = mouse_position
 	var x_dif = float(direction.x - starting_location.x)
 	var y_dif = float(direction.y - starting_location.y)
 	var distance = sqrt(pow(x_dif, 2.0) + pow(y_dif, 2.0))

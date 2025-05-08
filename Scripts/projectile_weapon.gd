@@ -30,7 +30,7 @@ func shoot():
 	bullets.add_child(shot, true)
 	shot.global_position = pivot_point.global_position
 	shot.look_at(input_synchronizer.mouse_position)
-	shot.fire(pivot_point.global_position)
+	shot.fire(pivot_point.global_position, input_synchronizer.mouse_position)
 
 #@rpc("any_peer", "call_local", "reliable")
 func pointGun():
