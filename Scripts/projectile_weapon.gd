@@ -12,7 +12,7 @@ var side = true
 func _physics_process(delta: float) -> void:
 	if (input_synchronizer.enable):
 		if input_synchronizer.shoot_input:
-			shoot()
+			rpc("shoot")
 	pointGun()#.rpc()
 	
 			
@@ -23,14 +23,14 @@ func flip():
 	sprite.scale.y *= -1
 	sprite.position.y *= -1
 
+@rpc("any_peer", "call_local", "reliable")
 func shoot():
-	if multiplayer.is_server():
-		print("authority")
-		var shot = bullet.instantiate()
-		bullets.add_child(shot, true)
-		shot.global_position = pivot_point.global_position
-		shot.look_at(input_synchronizer.mouse_position)
-		shot.fire(pivot_point.global_position)
+	print("shooting " + str(randi_range(1, 10)))
+	var shot = bullet.instantiate()
+	bullets.add_child(shot, true)
+	shot.global_position = pivot_point.global_position
+	shot.look_at(input_synchronizer.mouse_position)
+	shot.fire(pivot_point.global_position)
 
 #@rpc("any_peer", "call_local", "reliable")
 func pointGun():
