@@ -3,6 +3,8 @@ extends Node
 signal OnConnectedToServer
 signal OnServerDisconnected
 
+@onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
+
 const MAX_CLIENTS = 4
 
 var portInput = 8080
@@ -66,6 +68,7 @@ func _connection_failed():
 	print("Connection failed!")
 	OnServerDisconnected.emit()
 func _server_disconnected():
+	Game.leaveGame()
 	print("Server disconnected.")
 
 func _on_code_text_changed(new_text):

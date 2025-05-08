@@ -28,6 +28,11 @@ func startGame():
 	get_node("Lobby").queue_free()
 	map = network.map
 	print("start %s" % map)
-	get_node('/root/Game/Scene').add_child(map)
+	get_node("/root/Game/Scene").add_child(map)
 	#scene.add_child(map, true)
+
+func leaveGame():
+	#get_node("/root/Game/Scene/Map").queue_free()
+	menu = menuScene.instantiate()
+	add_child(menu, true)
 	
