@@ -258,7 +258,7 @@ func connect_towns_and_campfire():
 	# Paint the roads after generating them
 	paint_road(road_positions)
 func is_in_bounds(pos: Vector2i) -> bool:
-	return pos.x >= int(-half_width+30) and pos.x < int(half_width-30) and pos.y >= int(-half_height+30) and pos.y < int(half_height-30)
+	return pos.x >= int(-half_width+35) and pos.x < int(half_width-35) and pos.y >= int(-half_height+35) and pos.y < int(half_height-35)
 # Modified function to ensure roads stay within bounds by rerouting when necessary
 func generate_random_manhattan_road(start: Vector2i, end: Vector2i, dir: int) -> Array:
 	var path = []
@@ -354,26 +354,26 @@ func generate_city_blocks(origin: Vector2i, size: Vector2i):
 						
 func generate_wall(x, y):
 	var barrier_val: Vector2i
-	if x == (-half_width+40) and y == (-half_height+40):
+	if x == (-half_width+30) and y == (-half_height+30):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[3]
-	elif x == (-half_width+40) and y == (half_height-40):
+	elif x == (-half_width+30) and y == (half_height-30):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[5]
-	elif x == (half_width-40) and y == (-half_height+40):
+	elif x == (half_width-30) and y == (-half_height+30):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[4]
-	elif x == (half_width-40) and y == (half_height-40):
+	elif x == (half_width-30) and y == (half_height-30):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[6]
-	elif x == (half_width-40) and ((y > (-half_height+40)) and (y < (half_height-40))):
+	elif x == (half_width-30) and ((y > (-half_height+30)) and (y < (half_height-30))):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[2]
-	elif x == (-half_width+40) and ((y > (-half_height+40)) and (y < (half_height-40))):
+	elif x == (-half_width+30) and ((y > (-half_height+30)) and (y < (half_height-30))):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[1]
 		#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[1])
-	if ((x > (-half_width+40) and x < (half_width-40)) and ((y == (-half_height+40)) or (y == (half_height-40)))):
+	if ((x > (-half_width+30) and x < (half_width-30)) and ((y == (-half_height+30)) or (y == (half_height-30)))):
 		barrier_arr.append(Vector2(x,y))
 		barrier_val = barrier_atlas[0]
 		#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[0])
