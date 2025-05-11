@@ -5,6 +5,7 @@ extends Node2D
 var characterProfiles = [preload("res://Sprites/Character Portraits/Girl1.png"), preload("res://Sprites/Character Portraits/Guy1.png")]
 var characterIndex = 0
 @onready var textureRect = $Control/VBoxContainer2/MarginContainer/TextureRect
+@onready var nameEdit = $Control/VBoxContainer2/HBoxContainer/MarginContainer2/Username
 #var startButton
 #var joinButton
 @onready var names = $Control/Names
@@ -33,6 +34,9 @@ func _on_right_pressed():
 	if characterIndex >= characterProfiles.size():
 		characterIndex = 0
 	changePortrait()
+
+func _on_change_pressed():
+	pass
 
 func changePortrait():
 	textureRect.texture = characterProfiles[characterIndex]
@@ -74,4 +78,3 @@ func startGame():
 func joinDuringGame():
 	#Game.closeLobby()
 	Game.joinDuringGame(Network.networkID)
-	
