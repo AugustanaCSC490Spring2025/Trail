@@ -18,6 +18,7 @@ const JUMP_VELOCITY = -400.0
 	set(id):
 		playerID = id
 		$InputSynchronizer.set_multiplayer_authority(id)
+		$Name.text = "Player " + str(id)
 #func _enter_tree():
 	#$InputSynchronizer.set_multiplayer_authority(playerID)
 
