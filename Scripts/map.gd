@@ -75,8 +75,9 @@ func _ready():
 	noise = noise_texture.noise
 	noise.set_seed(mapSeed)
 	tree_noise = tree_noise_texture.noise
+	print("YES")
 	generate_world()
-	spawn_test_wolf()
+	#spawn_test_wolf()
 	#for player in network.players:
 		#var player_body = player.getPlayerBody()
 		#spawned_nodes.add_child(player_body, true)
@@ -87,7 +88,7 @@ func spawn_test_wolf():
 	var spawn_wolf = wolf.instantiate()
 	
 	#multiplayer_spawner.spawn()
-	spawned_nodes.add_child(spawn_wolf)
+	spawned_nodes.add_child(spawn_wolf, true)
 	spawn_wolf.set_global_position(Vector2(500.0, 300.0))
 
 #func spawn_wolves():
@@ -136,16 +137,9 @@ func generate_world():
 	campfire_scene = campfire.instantiate()
 	generate_campfire_location(fire_pos)
 	# Add players near the campfire
-	var spawn_count = 0
+	#var spawn_count = 0
 	for player in network.players:
-		var player_body = player.getPlayerBody()
-		spawned_nodes.add_child(player_body, true)
-		# Position the player near the campfire
-		var offset = Vector2(player_spawn_rng.randi_range(-2, 2), player_spawn_rng.randi_range(-2, 2)) * 16  # small random spread
-		player_body.position = grass_tilemaplayer.map_to_local(fire_pos) + offset
-		spawn_count+=2
-		if player_body.has_method("enableCamera"):
-			player_body.enableCamera()
+		addPlayer(player)
 	# Generate a few random towns within bounds
 	for i in range(6):
 		var town_pos = Vector2i(town_width_rng.randi_range(int(-half_width) + 20, int(half_width) - 20), town_width_rng.randi_range(int(-half_height) + 20, int(half_height) - 20))
@@ -379,6 +373,16 @@ func generate_wall(x, y):
 		#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[0])
 	if barrier_val:
 		object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_val)
+
+func addPlayer(player):
+	var player_body = player.getPlayerBody()
+	spawned_nodes.add_child(player_body, true)
+	# Position the player near the campfire
+	var offset = Vector2(player_spawn_rng.randi_range(-2, 2), player_spawn_rng.randi_range(-2, 2)) * 16  # small random spread
+	player_body.position = grass_tilemaplayer.map_to_local(fire_pos) + offset
+	#spawn_count+=2
+	if player_body.has_method("enableCamera"):
+		player_body.enableCamera()
 
 #@rpc("any_peer", "call_local", "reliable")
 func setCamera():

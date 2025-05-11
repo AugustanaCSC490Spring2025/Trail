@@ -51,7 +51,7 @@ func bite(target: Node2D):
 	var attack_point = target.global_position
 	await get_tree().create_timer(1).timeout
 	var bite_attack = bite_hitbox.instantiate()
-	add_child(bite_attack)
+	add_child(bite_attack, true)
 	bite_attack.set_global_position(attack_point)
 
 @rpc("authority", "call_local", "reliable")

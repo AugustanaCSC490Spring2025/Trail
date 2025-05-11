@@ -14,6 +14,7 @@ var playerScene = preload("res://Scenes/Player.tscn")
 var players = []
 var mapScene = preload("res://Scenes/Map.tscn")
 var map
+var networkID
 
 var all_addresses = IP.get_local_addresses()
 var lan_addresses = Array(all_addresses).filter(func(ip): 
@@ -33,7 +34,8 @@ func startHost():
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	_on_player_connected(multiplayer.get_unique_id())
+	networkID = multiplayer.get_unique_id()
+	_on_player_connected(networkID)
 
 func startClient():
 	var peer = ENetMultiplayerPeer.new()
@@ -42,6 +44,7 @@ func startClient():
 	multiplayer.connected_to_server.connect(_connected_to_server)
 	multiplayer.connection_failed.connect(_connection_failed)
 	multiplayer.server_disconnected.connect(_server_disconnected)
+	networkID = multiplayer.get_unique_id()
 
 func _on_player_connected(id):
 	var player = playerScene.instantiate()
@@ -49,6 +52,7 @@ func _on_player_connected(id):
 	player.name = str(id)
 	player.createBody()
 	players.append(player)
+	#currentPlayer = player
 	print("Player %s joined the game." % id)
 	#print("Players: %d" % players.size())
 
@@ -75,3 +79,4 @@ func _on_code_text_changed(new_text):
 	IPinput = new_text
 	if(IPinput == ""):
 		IPinput = "localhost"
+	

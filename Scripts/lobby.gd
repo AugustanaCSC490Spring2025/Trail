@@ -6,9 +6,11 @@ var characterProfiles = [preload("res://Sprites/Character Portraits/Girl1.png"),
 var characterIndex = 0
 @onready var textureRect = $Control/VBoxContainer2/MarginContainer/TextureRect
 var startButton
+var joinButton
 @onready var names = $Control/Names
 var nameLabelScene = preload("res://Scenes/NameLabel.tscn")
 var startScene = preload("res://Scenes/Start.tscn")
+var joinScene = preload("res://Scenes/Join.tscn")
 var map 
 var start_clicked = false
 # Called when the node enters the scene tree for the first time.
@@ -46,15 +48,23 @@ func updatePlayers():
 		var label = nameLabel.get_node("Player")
 		label.text = "Player" + str(player.playerID)
 	#print("Hello")
-	startButton = startScene.instantiate()
-	names.add_child(startButton)
-	if start_clicked == false:
-		start_clicked = true
-		startButton.connect("pressed", startGame)
-	
-	if multiplayer.get_unique_id() != 1:
-		startButton.visible = false
+	if multiplayer.get_unique_id() == 1:
+		startButton = startScene.instantiate()
+		names.add_child(startButton, true)
+		if start_clicked == false:
+			start_clicked = true
+			startButton.connect("pressed", startGame)
+	else:
+		joinButton = joinScene.instantiate()
+		names.add_child(joinButton, true)
+		if start_clicked == false:
+			start_clicked = true
+			joinButton.connect("pressed", joinDuringGame)
 	
 func startGame():
 	Game.startGame.rpc()
+
+func joinDuringGame():
+	#Game.closeLobby()
+	Game.joinDuringGame(Network.networkID)
 	

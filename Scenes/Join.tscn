@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://bvtphamwq4nkn"]
+
+[node name="Join" type="Button"]
+text = "Join"

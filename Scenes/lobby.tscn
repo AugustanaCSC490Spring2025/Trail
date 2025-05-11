@@ -11,6 +11,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.233334, 0, 1, 1, 0.083928, 0.784989, 0.5
 gradient = SubResource("Gradient_robt6")
 
 [node name="Lobby" type="Node2D"]
+z_index = 100
 script = ExtResource("1_lrd0j")
 
 [node name="Camera2D" type="Camera2D" parent="."]
