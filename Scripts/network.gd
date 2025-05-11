@@ -28,7 +28,7 @@ func startHost():
 	var peer = ENetMultiplayerPeer.new()
 	map = mapScene.instantiate()
 	var lan_ip = "0.0.0.0" if lan_addresses.is_empty() else lan_addresses[0]
-	print(lan_ip)
+	#print(lan_ip)
 	peer.set_bind_ip(lan_ip)
 	peer.create_server(portInput, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer
@@ -52,7 +52,10 @@ func _on_player_connected(id):
 	player.name = str(id)
 	player.createBody()
 	players.append(player)
-	#currentPlayer = player
+	var playerNames = []
+	for tempPlayer in players:
+		playerNames.append(tempPlayer.playerName)
+	updateLobbyPlayers.rpc(playerNames)
 	print("Player %s joined the game." % id)
 	#print("Players: %d" % players.size())
 
@@ -79,4 +82,11 @@ func _on_code_text_changed(new_text):
 	IPinput = new_text
 	if(IPinput == ""):
 		IPinput = "localhost"
+
+@rpc("authority", "call_local", "reliable")
+func updateLobbyPlayers(playerNames):
+	var lobby = Game.get_node_or_null("Lobby")
+	#print(lobby)
+	if(lobby != null):
+		lobby.updatePlayers(playerNames)
 	

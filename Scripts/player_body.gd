@@ -33,7 +33,7 @@ func _set_random_spawn_pos() -> void:
 	position = Vector2(randf_range(-SPAWN_RADIUS, SPAWN_RADIUS), randf_range(-SPAWN_RADIUS, SPAWN_RADIUS))
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
-		print("Collided with: ", collision.get_collider().name)
+		#print("Collided with: ", collision.get_collider().name)
 	#print(global_position)
 
 func _physics_process(delta: float) -> void:
@@ -66,12 +66,14 @@ func _input(event):
 	if Input.is_action_just_pressed("zoom_in"):
 		var zoom_val = camera_2d.zoom.x * 1.1
 		camera_2d.zoom = Vector2(zoom_val, zoom_val)
+		#print(camera_2d.zoom.x)
 	elif Input.is_action_just_pressed("zoom_out"):
 		var zoom_val = camera_2d.zoom.x / 1.1
 		if zoom_val == 0:
 			zoom_val = camera_2d.zoom.x - 0.2
 			
 		camera_2d.zoom = Vector2(zoom_val, zoom_val)
+		#print(camera_2d.zoom.x)
 
 @rpc("authority", "call_local", "reliable")
 func changeAnimation(facing: String):
@@ -113,6 +115,6 @@ func setPlayerID(id):
 	playerID = id
 
 func enableCamera():
-	print(str(playerID) + " + " + str(multiplayer.get_unique_id()))
+	#print(str(playerID) + " + " + str(multiplayer.get_unique_id()))
 	if playerID == multiplayer.get_unique_id():
 		camera_2d.make_current()

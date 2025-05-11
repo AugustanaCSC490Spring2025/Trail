@@ -5,8 +5,8 @@ extends Node2D
 var characterProfiles = [preload("res://Sprites/Character Portraits/Girl1.png"), preload("res://Sprites/Character Portraits/Guy1.png")]
 var characterIndex = 0
 @onready var textureRect = $Control/VBoxContainer2/MarginContainer/TextureRect
-var startButton
-var joinButton
+#var startButton
+#var joinButton
 @onready var names = $Control/Names
 var nameLabelScene = preload("res://Scenes/NameLabel.tscn")
 var startScene = preload("res://Scenes/Start.tscn")
@@ -16,8 +16,7 @@ var start_clicked = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	changePortrait()
-	updatePlayers()
-
+	#updatePlayers()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -38,30 +37,38 @@ func _on_right_pressed():
 func changePortrait():
 	textureRect.texture = characterProfiles[characterIndex]
 
-@rpc("authority", "call_local", "reliable")
-func updatePlayers():
+func updatePlayers(playerNames):
+	
+	start_clicked = false
 	for node in names.get_children():
+		#print(node.name)
+		if(node.name == "Start"):
+			node.disconnect("pressed", startGame)
+		if(node.name == "Join"):
+			node.disconnect("pressed", joinDuringGame)
 		node.queue_free()
-	for player in Network.players:
+	for playerName in playerNames:
 		var nameLabel = nameLabelScene.instantiate()
 		names.add_child(nameLabel, true)
 		var label = nameLabel.get_node("Player")
-		label.text = "Player" + str(player.playerID)
+		label.text = playerName
 	#print("Hello")
 	if multiplayer.get_unique_id() == 1:
-		startButton = startScene.instantiate()
+		#print("I Drive")
+		var startButton = startScene.instantiate()
 		names.add_child(startButton, true)
 		if start_clicked == false:
 			start_clicked = true
 			startButton.connect("pressed", startGame)
 	else:
-		joinButton = joinScene.instantiate()
+		var joinButton = joinScene.instantiate()
 		names.add_child(joinButton, true)
 		if start_clicked == false:
 			start_clicked = true
 			joinButton.connect("pressed", joinDuringGame)
 	
 func startGame():
+	#print("SEX")
 	Game.startGame.rpc()
 
 func joinDuringGame():

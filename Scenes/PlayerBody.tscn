@@ -755,6 +755,7 @@ script = ExtResource("6_fml75")
 [node name="Weapon Pivot" parent="." instance=ExtResource("6_wb0pm")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.15, 2.15)
 
 [node name="BulletSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://d2in45datil1g")

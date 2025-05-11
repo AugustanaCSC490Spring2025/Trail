@@ -1,6 +1,6 @@
 extends Node
 
-var playerName
+var playerName = "Player"
 var playerID
 var playerBodyScene = preload("res://Scenes/PlayerBody.tscn")
 var playerBody

@@ -30,7 +30,7 @@ func closeLobby():
 func startGame():
 	get_node("Lobby").queue_free()
 	map = network.map
-	print("start %s" % map)
+	#print("start %s" % map)
 	scene.add_child(map, true)
 
 func joinDuringGame(id):

@@ -25,7 +25,7 @@ func flip():
 
 @rpc("any_peer", "call_local", "reliable")
 func shoot():
-	print("shooting " + str(randi_range(1, 10)))
+	#print("shooting " + str(randi_range(1, 10)))
 	var shot = bullet.instantiate()
 	bullets.add_child(shot, true)
 	shot.global_position = pivot_point.global_position

@@ -75,7 +75,7 @@ func _ready():
 	noise = noise_texture.noise
 	noise.set_seed(mapSeed)
 	tree_noise = tree_noise_texture.noise
-	print("YES")
+	#print("YES")
 	generate_world()
 	#spawn_test_wolf()
 	#for player in network.players:
@@ -331,7 +331,7 @@ func generate_city_blocks(origin: Vector2i, size: Vector2i):
 				for by in range(building_size.y):
 					var check_pos = top_left + Vector2i(bx, by)
 					if not is_in_bounds(check_pos) or dirt_dict.has(check_pos):
-						print(str(check_pos))
+						#print(str(check_pos))
 						valid = false
 						break
 				if not valid:
@@ -341,7 +341,7 @@ func generate_city_blocks(origin: Vector2i, size: Vector2i):
 				var center_pos = Vector2i(top_left + building_size / 2)
 				var atlas = atlas_list[atlas_seed]
 				building_arr.append(center_pos)
-				print("BUILDING "+str(center_pos))
+				#print("BUILDING "+str(center_pos))
 				object_tilemaplayer.set_cell(center_pos, 0, atlas)
 				dirt_arr.append(center_pos)
 				dirt_dict[center_pos] = true  
