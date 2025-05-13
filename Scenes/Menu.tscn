@@ -15,8 +15,7 @@ script = ExtResource("1_2qjrc")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-1, -2.50002)
-scale = Vector2(4.53125, 669)
+scale = Vector2(5.07067, 748.641)
 texture = SubResource("GradientTexture1D_lr4hj")
 
 [node name="MenuUI" type="Control" parent="."]

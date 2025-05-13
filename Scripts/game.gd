@@ -8,6 +8,7 @@ var lobby
 var mapScene = preload("res://Scenes/Map.tscn")
 var map
 var gameReady = false
+var fullscreen = false
 @onready var scene = $Scene
 
 # Called when the node enters the scene tree for the first time.
@@ -17,7 +18,15 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if Input.is_action_just_pressed("fullscreen"):
+		if fullscreen:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			fullscreen = false
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			fullscreen = true
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
 
 func openLobby():
 	get_node("Menu").queue_free()
