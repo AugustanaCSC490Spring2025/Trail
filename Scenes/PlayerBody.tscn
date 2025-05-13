@@ -759,6 +759,7 @@ zoom = Vector2(2.15, 2.15)
 
 [node name="BulletSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://d2in45datil1g")
+spawn_path = NodePath("../Bullets")
 
 [node name="Bullets" type="Node2D" parent="."]
 

@@ -32,8 +32,6 @@ func fire(starting_location: Vector2, mouse_position: Vector2) -> void:
 func _physics_process(delta: float) -> void:
 	position += Vector2(x_speed, y_speed) * delta
 	var distance = sqrt(pow(position.x, 2.0) + pow(position.y, 2.0))
-	#makes bullet visible when past muzzle of gun
-	#(even though bullet starts at center of player to ensure hitting at point-blank range)
 	if(!sprite.visible && distance > 32):
 		sprite.visible = true
 	if(distance > 10000):
