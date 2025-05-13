@@ -141,8 +141,8 @@ func generate_world():
 	generate_campfire_location(fire_pos)
 	# Add players near the campfire
 	#var spawn_count = 0
-	for player in network.players:
-		addPlayer(player)
+	#for player in network.players:
+		#addPlayer(player)
 	# Generate a few random towns within bounds
 	for i in range(4):
 		var town_pos = Vector2i(town_width_rng.randi_range(int(-half_width) + 30, int(half_width) - 30), town_width_rng.randi_range(int(-half_height) + 30, int(half_height) - 30))

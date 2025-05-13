@@ -27,19 +27,27 @@ func closeLobby():
 	get_node("Lobby").queue_free()
 
 @rpc("authority", "call_local", "reliable")
-func startGame():
-	get_node("Lobby").queue_free()
+func createMap():
 	map = network.map
 	#print("start %s" % map)
 	scene.add_child(map, true)
+	
+@rpc("authority", "call_local", "reliable")
+func startGame():
+	if has_node("Lobby"):
+		get_node("Lobby").queue_free()
+	for player in network.players:
+		map.addPlayer(player)
 
 func joinDuringGame(id):
 	closeLobby()
 	joinDuringGameServer.rpc(id)
+	print("joining with map")
 	get_node("/root/Game/Scene/Map").setCamera()
 
 @rpc("any_peer", "call_remote", "reliable", 1)
 func joinDuringGameServer(id):
+	print("joining with map")
 	for player in network.players:
 		if(player.playerID == id):
 			map.addPlayer(player)

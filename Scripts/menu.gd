@@ -15,6 +15,7 @@ func _process(delta: float) -> void:
 func create_lobby() -> void:
 	Game.openLobby()
 	network.startHost()
+	Game.createMap.rpc()
 
 func join_lobby() -> void:
 	Game.openLobby()

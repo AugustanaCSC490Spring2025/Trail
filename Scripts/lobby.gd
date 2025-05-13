@@ -42,7 +42,6 @@ func changePortrait():
 	textureRect.texture = characterProfiles[characterIndex]
 
 func updatePlayers(playerNames):
-	
 	start_clicked = false
 	for node in names.get_children():
 		#print(node.name)
@@ -77,4 +76,5 @@ func startGame():
 
 func joinDuringGame():
 	#Game.closeLobby()
+	print("joined lobby")
 	Game.joinDuringGame(Network.networkID)
