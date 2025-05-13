@@ -4,7 +4,7 @@ extends CharacterBody2D
 #^^ nav agent tutorial based on to start with
 
 @export var dead = false
-@export var facing = ""
+@export var facing = "left"
 @export var attacking = false
 @export var hunting = false
 @export var target = 0
