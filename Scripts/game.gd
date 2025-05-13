@@ -37,7 +37,7 @@ func joinDuringGame(id):
 	closeLobby()
 	joinDuringGameServer.rpc(id)
 	get_node("/root/Game/Scene/Map").setCamera()
-			
+
 @rpc("any_peer", "call_remote", "reliable", 1)
 func joinDuringGameServer(id):
 	for player in network.players:
