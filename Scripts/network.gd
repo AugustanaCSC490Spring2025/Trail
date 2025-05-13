@@ -28,7 +28,7 @@ func startHost():
 	var peer = ENetMultiplayerPeer.new()
 	map = mapScene.instantiate()
 	var lan_ip = "0.0.0.0" if lan_addresses.is_empty() else lan_addresses[0]
-	#print(lan_ip)
+	print(lan_ip)
 	peer.set_bind_ip(lan_ip)
 	peer.create_server(portInput, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer

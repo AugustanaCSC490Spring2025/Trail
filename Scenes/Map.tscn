@@ -1310,9 +1310,9 @@ properties/12/spawn = true
 properties/12/replication_mode = 1
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r08cw"]
-vertices = PackedVector2Array(845.852, -790.094, 822.141, 838.039, -797.953, 845.953, -790.039, -805.898)
+vertices = PackedVector2Array(1620, 2013.07, -1782.77, 2038.92, -1707.2, -1467.36, 1620, -1593.61)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-808, 856, 832, 848, 856, -800, -800, -816)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-1793, 2049, 1630, 2023, 1630, -1604, -1844, -1630)])
 
 [node name="Map" type="Node2D"]
 script = ExtResource("1_gxtgv")

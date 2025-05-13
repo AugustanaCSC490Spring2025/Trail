@@ -77,7 +77,7 @@ func _ready():
 	tree_noise = tree_noise_texture.noise
 	#print("YES")
 	generate_world()
-	#spawn_test_wolf()
+	spawn_test_wolf()
 	#for player in network.players:
 		#var player_body = player.getPlayerBody()
 		#spawned_nodes.add_child(player_body, true)
