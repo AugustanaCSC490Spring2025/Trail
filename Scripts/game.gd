@@ -7,6 +7,8 @@ var lobbyScene = preload("res://Scenes/Lobby.tscn")
 var lobby
 var mapScene = preload("res://Scenes/Map.tscn")
 var map
+var gameStarted = false
+var gameReady = false
 @onready var scene = $Scene
 
 # Called when the node enters the scene tree for the first time.
@@ -58,4 +60,8 @@ func leaveGame():
 	#get_node("/root/Game/Scene/Map").queue_free()
 	menu = menuScene.instantiate()
 	add_child(menu, true)
+
+@rpc("any_peer", "call_remote", "reliable", 1)
+func isGameStarted():
+	return gameStarted
 	

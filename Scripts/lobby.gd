@@ -66,15 +66,27 @@ func updatePlayers(playerNames):
 	else:
 		var joinButton = joinScene.instantiate()
 		names.add_child(joinButton, true)
-		if start_clicked == false:
-			start_clicked = true
-			joinButton.connect("pressed", joinDuringGame)
+		if(Game.isGameStarted()):
+			if start_clicked == false:
+				start_clicked = true
+				joinButton.connect("pressed", joinDuringGame)
+		else:
+			if Game.gameReady:
+				joinButton.text = "Unready"
+			else:
+				joinButton.text = "Ready Up"
+			if start_clicked == false:
+				start_clicked = true
+				joinButton.connect("pressed", joinDuringGame)
 	
 func startGame():
-	#print("SEX")
 	Game.startGame.rpc()
 
 func joinDuringGame():
-	#Game.closeLobby()
-	print("joined lobby")
-	Game.joinDuringGame(Network.networkID)
+	if(Game.isGameStarted()):
+		#Game.closeLobby()
+		print("joined lobby")
+		Game.joinDuringGame(Network.networkID)
+	else:
+		Game.gameReady = not Game.gameReady
+		Network.refreshLobby.rpc()

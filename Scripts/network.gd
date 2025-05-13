@@ -15,6 +15,7 @@ var players = []
 var mapScene = preload("res://Scenes/Map.tscn")
 var map
 var networkID
+var playerNames = []
 
 var all_addresses = IP.get_local_addresses()
 var lan_addresses = Array(all_addresses).filter(func(ip): 
@@ -52,7 +53,7 @@ func _on_player_connected(id):
 	player.name = str(id)
 	player.createBody()
 	players.append(player)
-	var playerNames = []
+	playerNames = []
 	for tempPlayer in players:
 		playerNames.append(tempPlayer.playerName)
 	updateLobbyPlayers.rpc(playerNames)
@@ -82,6 +83,10 @@ func _on_code_text_changed(new_text):
 	IPinput = new_text
 	if(IPinput == ""):
 		IPinput = "localhost"
+
+@rpc("any_peer", "call_remote", "reliable", 1)
+func refreshLobby():
+	updateLobbyPlayers.rpc(playerNames)
 
 @rpc("authority", "call_local", "reliable")
 func updateLobbyPlayers(playerNames):
