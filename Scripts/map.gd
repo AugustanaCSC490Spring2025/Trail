@@ -148,7 +148,7 @@ func generate_world():
 	#for player in network.players:
 		#addPlayer(player)
 	# Generate a few random towns within bounds
-	for i in range(4):
+	for i in range(8):
 		var town_pos = Vector2i(town_width_rng.randi_range(int(-half_width) + 30, int(half_width) - 30), town_width_rng.randi_range(int(-half_height) + 30, int(half_height) - 30))
 		var size = Vector2i(town_size_rng.randi_range(10, 40), town_size_rng.randi_range(10, 40))
 		generate_city_blocks(town_pos, size)
@@ -219,8 +219,8 @@ func generate_road_path(start: Vector2i, end: Vector2i, dir: int) -> Array:
 	return path
 
 func generate_trees():
-	var noise_scale := .8  # Higher = less clumping
-	var threshold := 0.45   # Higher = fewer trees
+	var noise_scale := .9  # Higher = less clumping
+	var threshold := 0.25   # Higher = fewer trees
 	var tree_positions = PackedVector2Array()
 	# Pre-fill dirt lookup
 	for pos in dirt_arr:
@@ -249,7 +249,7 @@ func generate_trees():
 # Paint the road by filling the terrain
 func paint_road(road_positions: Array):
 	for pos in road_positions:
-		if is_in_bounds(pos) and not dirt_arr.has(pos) and not building_arr.has(pos):
+		if is_in_bounds(pos) and not dirt_dict.has(pos) and not building_arr.has(pos):
 			dirt_arr.append(Vector2i(pos))
 			dirt_dict[Vector2i(pos)] = true
 			# Add road to dirt layer
@@ -359,7 +359,7 @@ func generate_city_blocks(origin: Vector2i, size: Vector2i):
 				for by in range(building_size.y):
 					var check_pos = top_left + Vector2i(bx, by)
 					tmp_building_arr.append(check_pos)
-					if not is_in_bounds(check_pos) or dirt_dict.has(check_pos):
+					if not is_in_bounds(check_pos) or dirt_dict.has(check_pos) or building_arr.has(check_pos):
 						#print(str(check_pos))
 						valid = false
 						break
