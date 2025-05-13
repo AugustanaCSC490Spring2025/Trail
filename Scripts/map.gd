@@ -45,7 +45,7 @@ var dirt_dict := {}
 
 var random_grass_atlas_arr = [Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0)]
 @onready var spawned_nodes = $SpawnerNodes
-var cameraSet = false
+@export var cameraSet = false
 var mapSeed = randi_range(0,100)
 var rng := RandomNumberGenerator.new()
 var building_rng := RandomNumberGenerator.new()
@@ -79,12 +79,16 @@ func _ready():
 	#print("YES")
 	generate_world()
 	spawn_test_wolf()
-	print("end")
+	#print("end")
 	#spawn_test_wolf()
 	#for player in network.players:
 		#var player_body = player.getPlayerBody()
 		#spawned_nodes.add_child(player_body, true)
-		
+
+func _process(delta):
+	if not cameraSet:
+		setCamera()
+		cameraSet = true
 
 func spawn_test_wolf():
 	#multiplayer_spawner.add_spawnable_scene("res://Scenes/Enemies/wolf.tscn")
@@ -112,10 +116,10 @@ func generate_random_numbers(count, rand_min, rand_max):
 		numbers.append(random_number)
 	return numbers
 	
-func _process(_delta):
-	if not cameraSet:
-		setCamera()
-		cameraSet = true
+#func _process(_delta):
+	#if not cameraSet:
+		#setCamera()
+		#cameraSet = true
 # lowest noise: -.6271
 # highest noise: .4845
 func generate_world():
@@ -309,7 +313,7 @@ func generate_city_blocks(origin: Vector2i, size: Vector2i):
 	var region = atlas_source.get_tile_texture_region(first_atlas_id)
 	var tile_size_pixels = region.size
 	var tile_size_cells = tile_size_pixels / tile_set.tile_size
-	print(tile_size_cells)
+	#print(tile_size_cells)
 	var building_size = Vector2i(int(tile_size_cells.x), int(tile_size_cells.y + 1))
 	var road_width = 3
 	var spacing_x = building_size.x + road_width * 2
@@ -410,6 +414,7 @@ func addPlayer(player):
 
 #@rpc("any_peer", "call_local", "reliable")
 func setCamera():
+	#print(multiplayer.get_unique_id())
 	for playerBody in spawned_nodes.get_children():
 		if playerBody.is_in_group("Players"):
 			playerBody.enableCamera()

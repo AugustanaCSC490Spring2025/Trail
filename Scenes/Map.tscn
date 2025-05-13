@@ -1308,6 +1308,9 @@ properties/11/replication_mode = 1
 properties/12/path = NodePath(".:tree_noise")
 properties/12/spawn = true
 properties/12/replication_mode = 1
+properties/13/path = NodePath(".:cameraSet")
+properties/13/spawn = true
+properties/13/replication_mode = 1
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r08cw"]
 vertices = PackedVector2Array(1620, 2013.07, -1782.77, 2038.92, -1707.2, -1467.36, 1620, -1593.61)

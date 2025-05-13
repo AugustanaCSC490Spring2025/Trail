@@ -115,6 +115,6 @@ func setPlayerID(id):
 	playerID = id
 
 func enableCamera():
-	#print(str(playerID) + " + " + str(multiplayer.get_unique_id()))
+	print(str(multiplayer.get_unique_id()) + " + " + str(playerID))
 	if playerID == multiplayer.get_unique_id():
 		camera_2d.make_current()

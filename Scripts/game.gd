@@ -38,19 +38,21 @@ func startGame():
 		get_node("Lobby").queue_free()
 	for player in network.players:
 		map.addPlayer(player)
+	print(multiplayer.get_unique_id())
+	get_node("/root/Game/Scene/Map").cameraSet = false
 
 func joinDuringGame(id):
 	closeLobby()
 	joinDuringGameServer.rpc(id)
-	print("joining with map")
-	get_node("/root/Game/Scene/Map").setCamera()
+	#print("joining with map")
 
 @rpc("any_peer", "call_remote", "reliable", 1)
 func joinDuringGameServer(id):
-	print("joining with map")
+	#print("joining with map")
 	for player in network.players:
 		if(player.playerID == id):
 			map.addPlayer(player)
+	get_node("/root/Game/Scene/Map").cameraSet = false
 
 func leaveGame():
 	#get_node("/root/Game/Scene/Map").queue_free()
