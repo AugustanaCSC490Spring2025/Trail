@@ -7,7 +7,6 @@ var lobbyScene = preload("res://Scenes/Lobby.tscn")
 var lobby
 var mapScene = preload("res://Scenes/Map.tscn")
 var map
-var gameStarted = false
 var gameReady = false
 @onready var scene = $Scene
 
@@ -42,6 +41,7 @@ func startGame():
 		map.addPlayer(player)
 	print(multiplayer.get_unique_id())
 	get_node("/root/Game/Scene/Map").cameraSet = false
+	#gameStarted = true
 
 func joinDuringGame(id):
 	closeLobby()
@@ -61,7 +61,7 @@ func leaveGame():
 	menu = menuScene.instantiate()
 	add_child(menu, true)
 
-@rpc("any_peer", "call_remote", "reliable", 1)
-func isGameStarted():
-	return gameStarted
+#@rpc("any_peer", "call_remote", "reliable", 1)
+#func isGameStarted():
+	#return gameStarted
 	

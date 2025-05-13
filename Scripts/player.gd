@@ -4,6 +4,8 @@ var playerName = "Player"
 var playerID
 var playerBodyScene = preload("res://Scenes/PlayerBody.tscn")
 var playerBody
+@export var gameStarted = false
+@export var gameReady = false
 
 func _ready():
 	pass

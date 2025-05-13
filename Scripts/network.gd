@@ -94,4 +94,14 @@ func updateLobbyPlayers(playerNames):
 	#print(lobby)
 	if(lobby != null):
 		lobby.updatePlayers(playerNames)
-	
+
+#@rpc("any_peer", "call_remote", "reliable", 1)
+#func readyPlayer(id):
+	#for player in players:
+		#if player.playerID == id:
+			#player.gameReady = not player.gameReady
+
+#func getPlayer(id):
+	#for player in players:
+		#if player.playerID == id:
+			#return player
