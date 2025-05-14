@@ -11,6 +11,8 @@ extends CharacterBody2D
 @onready var bite_hitbox = preload("res://Scenes/Enemies/BiteHitbox.tscn")
 @onready var attack = $Attack
 
+@export var maxHP = 50
+@export var HP = 50
 @export var speed = 300
 var accel = 2
 
@@ -85,3 +87,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		#print("began hunting")
 		target = body
 		hunting = true
+
+func damageEnemy(damage):
+	HP -= damage
+	if(HP <= 0):
+		wolf_die.rpc()

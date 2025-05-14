@@ -41,7 +41,12 @@ func _physics_process(delta: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Hurtable") and not body.is_in_group("Players"):
-		body.rpc("wolf_die")
+		#body.rpc("wolf_die")
 		#body.die()
-	if not body.is_in_group("Players"):
+		body.damageEnemy(25)
 		self.queue_free()
+	else:
+		if body.is_in_group("Players"):
+			if(body.playerID != multiplayer.get_unique_id()):
+				body.damagePlayer(10)
+				self.queue_free()
