@@ -9,6 +9,7 @@ extends CharacterBody2D
 @export var target = 0
 @onready var sprite = $AnimatedSprite2D
 @onready var bite_hitbox = preload("res://Scenes/Enemies/BiteHitbox.tscn")
+@onready var attack = $Attack
 
 @export var speed = 300
 var accel = 2
@@ -68,9 +69,11 @@ func bite(target: Node2D):
 		sprite.play("attack_side")
 	var attack_point = target.global_position
 	await get_tree().create_timer(0.5).timeout
+	for hitbox in attack.get_children():
+		hitbox.queue_free()
 	var bite_attack = bite_hitbox.instantiate()
-	#add_child(bite_attack, true)
-	#bite_attack.set_global_position(attack_point)
+	attack.add_child(bite_attack, true)
+	bite_attack.set_global_position(attack_point)
 	attacking = false
 
 @rpc("authority", "call_local", "reliable")

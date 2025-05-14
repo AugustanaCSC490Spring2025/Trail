@@ -718,6 +718,9 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath(".:HP")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+properties/7/path = NodePath(".:alive")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mhctf"]
 properties/0/path = NodePath("InputSynchronizer:vertical_input")

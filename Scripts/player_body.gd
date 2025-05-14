@@ -20,7 +20,8 @@ const JUMP_VELOCITY = -400.0
 		$InputSynchronizer.set_multiplayer_authority(id)
 		$Name.text = "Player " + str(id)
 @export var maxHP: float = 100
-@export var HP: float = 1
+@export var HP: float = 100
+@export var alive = true
 @export var hpGradient: Gradient
 @onready var hpBar = $PlayerHealth
 
@@ -130,7 +131,13 @@ func enableCamera():
 	#if playerID == multiplayer.get_unique_id():
 	camera_2d.make_current()
 
+func damagePlayer(damage):
+	HP -= damage
+	if(HP <= 0):
+		HP = 0
+		alive = false
+
 func _on_health_regeneration_timeout():
 	HP += 1
-	if HP > maxHP:
+	if HP >= maxHP:
 		HP = maxHP
