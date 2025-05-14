@@ -7,6 +7,7 @@ bg_color = Color(0, 0, 0, 0.392157)
 bg_color = Color(0, 1, 0.235294, 1)
 
 [node name="Player UI" type="Control"]
+visible = false
 z_index = 50
 layout_mode = 3
 anchors_preset = 15
