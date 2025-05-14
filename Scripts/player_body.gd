@@ -126,9 +126,9 @@ func setPlayerID(id):
 	playerID = id
 
 func enableCamera():
-	print(str(multiplayer.get_unique_id()) + " + " + str(playerID))
-	if playerID == multiplayer.get_unique_id():
-		camera_2d.make_current()
+	#print(str(multiplayer.get_unique_id()) + " + " + str(playerID))
+	#if playerID == multiplayer.get_unique_id():
+	camera_2d.make_current()
 
 func _on_health_regeneration_timeout():
 	HP += 1

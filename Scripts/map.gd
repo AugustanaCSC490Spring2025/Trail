@@ -7,6 +7,7 @@ extends Node2D
 @onready var wolf_spawn_locations = $"Wolf Spawns"
 @onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
 @onready var network = get_tree().get_nodes_in_group("GameManager")[1]
+var localPlayer
 
 @export var noise_texture : NoiseTexture2D
 @export var tree_noise_texture : NoiseTexture2D
@@ -45,7 +46,7 @@ var dirt_dict := {}
 
 var random_grass_atlas_arr = [Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0)]
 @onready var spawned_nodes = $SpawnerNodes
-@export var cameraSet = false
+@export var playerSet = false
 var mapSeed = randi_range(0,100)
 var rng := RandomNumberGenerator.new()
 var building_rng := RandomNumberGenerator.new()
@@ -79,6 +80,7 @@ func _ready():
 	#print("YES")
 	generate_world()
 	spawn_test_wolf()
+	setLocalPlayer()
 	#print("end")
 	#spawn_test_wolf()
 	#for player in network.players:
@@ -86,9 +88,9 @@ func _ready():
 		#spawned_nodes.add_child(player_body, true)
 
 func _process(delta):
-	if not cameraSet:
-		setCamera()
-		cameraSet = true
+	if not playerSet:
+		setLocalPlayer()
+		playerSet = true
 
 func spawn_test_wolf():
 	#multiplayer_spawner.add_spawnable_scene("res://Scenes/Enemies/wolf.tscn")
@@ -413,9 +415,15 @@ func addPlayer(player):
 	player_body.enableCamera()
 
 #@rpc("any_peer", "call_local", "reliable")
-func setCamera():
+#func setCamera():
 	#print(multiplayer.get_unique_id())
-	for playerBody in spawned_nodes.get_children():
-		if playerBody.is_in_group("Players"):
-			playerBody.enableCamera()
+	#for playerBody in spawned_nodes.get_children():
+		#if playerBody.is_in_group("Players"):
+			#playerBody.enableCamera()
 	
+func setLocalPlayer():
+	for playerBody in spawned_nodes.get_children():
+		if playerBody.is_in_group("Players") && playerBody.playerID == network.networkID:
+			localPlayer = playerBody
+			playerBody.enableCamera()
+			

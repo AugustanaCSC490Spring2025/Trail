@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7khecxkvqw5x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uc76"]
+bg_color = Color(0, 0, 0, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5755a"]
+bg_color = Color(0, 1, 0.235294, 1)
+
+[node name="Player UI" type="Control"]
+z_index = 50
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CameraBounds" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -297.674
+offset_top = -167.442
+offset_right = 982.326
+offset_bottom = 552.558
+scale = Vector2(0.465, 0.465)
+color = Color(0, 0, 0, 0.235294)
+
+[node name="PlayerHealth" type="ProgressBar" parent="."]
+z_index = 20
+offset_left = -267.0
+offset_top = -138.0
+offset_right = -146.0
+offset_bottom = -130.0
+theme_override_styles/background = SubResource("StyleBoxFlat_5uc76")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5755a")
+value = 50.0
+show_percentage = false
