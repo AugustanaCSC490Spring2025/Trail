@@ -19,6 +19,11 @@ const JUMP_VELOCITY = -400.0
 		playerID = id
 		$InputSynchronizer.set_multiplayer_authority(id)
 		$Name.text = "Player " + str(id)
+@export var maxHP: float = 100
+@export var HP: float = 1
+@export var hpGradient: Gradient
+@onready var hpBar = $PlayerHealth
+
 #func _enter_tree():
 	#$InputSynchronizer.set_multiplayer_authority(playerID)
 
@@ -35,6 +40,12 @@ func _set_random_spawn_pos() -> void:
 		var collision = get_slide_collision(i)
 		#print("Collided with: ", collision.get_collider().name)
 	#print(global_position)
+
+func _process(delta):
+	hpBar.max_value = maxHP
+	hpBar.value = HP
+	hpBar.get("theme_override_styles/fill").bg_color = hpGradient.sample(HP / maxHP)
+	pass
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -118,3 +129,8 @@ func enableCamera():
 	print(str(multiplayer.get_unique_id()) + " + " + str(playerID))
 	if playerID == multiplayer.get_unique_id():
 		camera_2d.make_current()
+
+func _on_health_regeneration_timeout():
+	HP += 1
+	if HP > maxHP:
+		HP = maxHP

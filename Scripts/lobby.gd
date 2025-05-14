@@ -67,13 +67,12 @@ func updatePlayers(playerNames):
 		var label = nameLabel.get_node("Player")
 		var label2 = readyBox.get_node("Player")
 		var panel = readyBox.get_node("Panel")
-		var stylebox = panel.get_theme_stylebox("normal")
-		#stylebox = stylebox.duplicate()
-		stylebox.border_color = Color.CRIMSON
-		#stylebox.bg_color = Color.DARK_SLATE_BLUE
+		var styleBox = panel.get("theme_override_styles/panel")
+		styleBox = styleBox.duplicate()
+		styleBox.border_color = Color.CRIMSON
+		#panel.add_theme_stylebox_override(styleBox)
 		label.text = playerName
 		label2.text = "   X   "
-		panel.add_theme_stylebox_override("normal", stylebox)
 		names.add_child(hbox, true)
 		hbox.add_child(margin, true)
 		hbox.add_child(seperator, true)

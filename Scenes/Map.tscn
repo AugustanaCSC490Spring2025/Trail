@@ -1318,6 +1318,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1793, 2049, 1630, 2023, 1630, -1604, -1844, -1630)])
 
 [node name="Map" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_gxtgv")
 noise_texture = SubResource("NoiseTexture2D_d7lxr")
 tree_noise_texture = SubResource("NoiseTexture2D_uil6b")

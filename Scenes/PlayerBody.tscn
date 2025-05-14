@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://byqwsd2vi25ya"]
+[gd_scene load_steps=87 format=3 uid="uid://byqwsd2vi25ya"]
 
 [ext_resource type="Script" uid="uid://5stlyos7s8wc" path="res://Scripts/player_body.gd" id="1_t42vw"]
 [ext_resource type="Texture2D" uid="uid://cuv6igowfg42r" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Angle 1 Sheet.png" id="2_fml75"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://bmknxe461lste" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Back Sheet.png" id="5_mf41o"]
 [ext_resource type="Script" uid="uid://pusxmgjplesg" path="res://Scripts/player_body_input.gd" id="6_fml75"]
 [ext_resource type="PackedScene" uid="uid://cg8raeodv61nv" path="res://Scenes/Weapons/ProjectileWeapon.tscn" id="6_wb0pm"]
+
+[sub_resource type="Gradient" id="Gradient_fml75"]
+offsets = PackedFloat32Array(0, 0.360947, 1)
+colors = PackedColorArray(0.99, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0kbtj"]
 size = Vector2(16, 7)
@@ -702,8 +706,17 @@ properties/2/path = NodePath(".:playerID")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 properties/3/path = NodePath("AnimatedSprite2D:animation")
-properties/3/spawn = true
+properties/3/spawn = false
 properties/3/replication_mode = 1
+properties/4/path = NodePath(".:z_index")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath(".:maxHP")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:HP")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mhctf"]
 properties/0/path = NodePath("InputSynchronizer:vertical_input")
@@ -719,11 +732,18 @@ properties/3/path = NodePath("InputSynchronizer:mouse_position")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fml75"]
+bg_color = Color(0, 0, 0, 0.392157)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yef0c"]
+bg_color = Color(0, 1, 0.235294, 1)
+
 [node name="PlayerBody" type="CharacterBody2D" groups=["Hurtable", "Players"]]
-z_index = 1
+z_index = 2
 y_sort_enabled = true
 motion_mode = 1
 script = ExtResource("1_t42vw")
+hpGradient = SubResource("Gradient_fml75")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 15.5)
@@ -767,8 +787,25 @@ spawn_path = NodePath("../Bullets")
 z_index = 20
 offset_left = -71.0
 offset_top = -24.0
-offset_right = 278.0
+offset_right = 279.0
 offset_bottom = -1.0
 scale = Vector2(0.4, 0.4)
 text = "Player"
 horizontal_alignment = 1
+
+[node name="PlayerHealth" type="ProgressBar" parent="."]
+z_index = 20
+offset_left = -15.0
+offset_top = -26.0
+offset_right = 12.0
+offset_bottom = -23.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fml75")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yef0c")
+value = 50.0
+show_percentage = false
+
+[node name="HealthRegeneration" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="HealthRegeneration" to="." method="_on_health_regeneration_timeout"]
