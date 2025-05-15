@@ -21,3 +21,4 @@ func getID():
 
 func setID(ID):
 	playerID = ID
+	playerBody.setPlayerID(ID)
