@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b043ubenlerri"]
+[gd_scene load_steps=4 format=3 uid="uid://b043ubenlerri"]
 
 [ext_resource type="Script" uid="uid://dlfhapfbvto8g" path="res://Scripts/player.gd" id="1_6r3fw"]
+[ext_resource type="PackedScene" uid="uid://byqwsd2vi25ya" path="res://Scenes/PlayerBody.tscn" id="2_kyqiw"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rpqav"]
 properties/0/path = NodePath(".:gameStarted")
@@ -16,8 +17,4 @@ script = ExtResource("1_6r3fw")
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rpqav")
 
-[node name="Body" type="Node2D" parent="."]
-
-[node name="BodySpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://byqwsd2vi25ya")
-spawn_path = NodePath("../Body")
+[node name="PlayerBody" parent="." instance=ExtResource("2_kyqiw")]

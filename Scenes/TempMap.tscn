@@ -1,6 +1,12 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=4 format=3 uid="uid://cra6s8iolnoge"]
 
 [ext_resource type="Script" uid="uid://lo1gs1llgnk8" path="res://Scripts/temp_map.gd" id="1_rh6oi"]
+=======
+[gd_scene load_steps=4 format=3 uid="uid://ctwn1pmtx8y1y"]
+
+[ext_resource type="Script" path="res://Scripts/temp_map.gd" id="1_rh6oi"]
+>>>>>>> Stashed changes
 
 [sub_resource type="Gradient" id="Gradient_osem8"]
 offsets = PackedFloat32Array(0, 0.514451, 1)
