@@ -8,6 +8,7 @@ var side = true
 @onready var bullets = get_parent().get_node("Bullets")
 @onready var input_synchronizer = get_parent().get_node("InputSynchronizer")
 @onready var multiplayer_spawner = $"../BulletSpawner"
+@onready var timer = $Timer
 
 func _physics_process(delta: float) -> void:
 	if (input_synchronizer.enable):
@@ -39,5 +40,11 @@ func pointGun():
 	pivot_point.look_at(input_synchronizer.mouse_position)
 	if((pivot_point.global_position.x > input_synchronizer.mouse_position.x && side) || (pivot_point.global_position.x < input_synchronizer.mouse_position.x && !side)):
 		side = !side
-		flip()
+		timer.start()
+	if(pivot_point.global_position.y > input_synchronizer.mouse_position.y):
+		z_index = -1
+	else:
+		z_index = 1
 	
+func _on_timer_timeout():
+	flip()
