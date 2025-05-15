@@ -531,7 +531,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_gwqq4")
 }],
 "loop": true,
-"name": &"up_die",
+"name": &"up_death",
 "speed": 5.0
 }, {
 "frames": [{
@@ -597,30 +597,28 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath(".:hunting")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath(".:target")
+properties/3/path = NodePath(".:position")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath(".:position")
+properties/4/path = NodePath("AnimatedSprite2D:animation")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath("AnimatedSprite2D:animation")
+properties/5/path = NodePath("AnimatedSprite2D:flip_h")
 properties/5/spawn = true
 properties/5/replication_mode = 1
-properties/6/path = NodePath("AnimatedSprite2D:flip_h")
+properties/6/path = NodePath(".:target")
 properties/6/spawn = true
 properties/6/replication_mode = 1
 
-[node name="CharacterBody2D" type="CharacterBody2D" groups=["Hurtable"]]
+[node name="Wizard" type="CharacterBody2D" groups=["Hurtable"]]
 z_index = 100
-collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_d4ipx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_oo76s")
-animation = &"down_attack"
+animation = &"up_death"
 autoplay = "down_fly"
-frame_progress = 0.94745
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.575, -5.825)
@@ -630,7 +628,7 @@ shape = SubResource("RectangleShape2D_n87w5")
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_5ymu7")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
