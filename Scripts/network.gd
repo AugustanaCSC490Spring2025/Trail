@@ -11,8 +11,9 @@ var portInput = 8080
 var IPinput = "localhost"
 var localUsername = "Player"
 var playerScene = preload("res://Scenes/Player.tscn")
-var players = []
+@onready var players = $Players
 var mapScene = preload("res://Scenes/Map.tscn")
+var tempMapScene = preload("res://Scenes/TempMap.tscn")
 var map
 var networkID
 var playerNames = []
@@ -27,7 +28,8 @@ func _ready():
 
 func startHost():
 	var peer = ENetMultiplayerPeer.new()
-	map = mapScene.instantiate()
+	#map = mapScene.instantiate()
+	map = tempMapScene.instantiate()
 	var lan_ip = "0.0.0.0" if lan_addresses.is_empty() else lan_addresses[0]
 	print(lan_ip)
 	peer.set_bind_ip(lan_ip)
@@ -51,10 +53,11 @@ func _on_player_connected(id):
 	var player = playerScene.instantiate()
 	player.setID(id)
 	player.name = str(id)
-	player.createBody()
-	players.append(player)
+	player.createBody.rpc()
+	#players.append(player)
+	players.add_child(player)
 	playerNames = []
-	for tempPlayer in players:
+	for tempPlayer in players.get_children():
 		playerNames.append(tempPlayer.playerName)
 	updateLobbyPlayers.rpc(playerNames)
 	print("Player %s joined the game." % id)

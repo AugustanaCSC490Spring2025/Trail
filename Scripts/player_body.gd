@@ -55,6 +55,7 @@ func _physics_process(delta: float) -> void:
 		_move(delta)
 		changeAnimation.rpc(player_facing)
 		#print(camera_2d.zoom)
+	print(position)
 
 func _move(delta):
 	if input_synchronizer.vertical_input == -1:

@@ -182,7 +182,7 @@ func generate_campfire_location(center: Vector2i):
 					Vector2i(world_position.x,world_position.y-1),
 					Vector2i(world_position.x,world_position.y+1)]
 	var player_count = 0
-	for player in network.players:
+	for player in network.players.get_children():
 		var player_body = player.getPlayerBody()
 		player_body.position = (spawn_arr[player_count])
 		player_count+=1

@@ -46,10 +46,12 @@ func createMap():
 func startGame():
 	if has_node("Lobby"):
 		get_node("Lobby").queue_free()
-	for player in network.players:
-		map.addPlayer(player)
-	print(multiplayer.get_unique_id())
-	get_node("/root/Game/Scene/Map").playerSet = false
+	if(network.networkID == 1):
+		for player in network.players.get_children():
+			print(player)
+			map.addPlayer(player)
+	#print(multiplayer.get_unique_id())
+	#get_node("/root/Game/Scene/Map").playerSet = false
 	#gameStarted = true
 
 func joinDuringGame(id):
