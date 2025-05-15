@@ -2,19 +2,22 @@ extends Area2D
 const speed = 1
 @onready var direction = null
 @onready var sprite = $Sprite2D
-var velocity = 1200
+var velocity = 600
 var x_speed = 0
 var y_speed = 0
 var origin
 
+#REPLACE THIS SLOP WITH PROJECTILE CLASS FOR FUCKS SAKE
+#that should actually be pretty easy for this
+#it's always easy, I'm just lazy
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	sprite.visible = false
+	pass
 
-func fire(starting_location: Vector2, mouse_position: Vector2) -> void:
+func fire(starting_location: Vector2, target_position: Vector2) -> void:
 	origin = starting_location
-	var direction = mouse_position
+	var direction = target_position
 	var x_dif = float(direction.x - starting_location.x)
 	var y_dif = float(direction.y - starting_location.y)
 	var distance = sqrt(pow(x_dif, 2.0) + pow(y_dif, 2.0))
@@ -40,14 +43,6 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Hurtable") and not body.is_in_group("Players"):
-		#body.rpc("wolf_die")
-		#body.die()
-		print("damage wizard")
-		body.damageEnemy(25)
+	if(body.is_in_group("Players")):
+		body.damagePlayer(10)
 		self.queue_free()
-	else:
-		if body.is_in_group("Players"):
-			if(body.playerID != multiplayer.get_unique_id()):
-				body.damagePlayer(10)
-				self.queue_free()

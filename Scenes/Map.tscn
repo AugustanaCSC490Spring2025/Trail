@@ -1358,7 +1358,7 @@ y_sort_enabled = true
 tile_set = SubResource("TileSet_emjxx")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://byqwsd2vi25ya", "uid://cb507tsb5q3ph")
+_spawnable_scenes = PackedStringArray("uid://byqwsd2vi25ya", "uid://cb507tsb5q3ph", "uid://dd4q76gnaeokq")
 spawn_path = NodePath("../SpawnerNodes")
 
 [node name="SpawnerNodes" type="Node2D" parent="."]

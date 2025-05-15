@@ -3,6 +3,7 @@ extends Node2D
 @onready var multiplayer_spawner = $MultiplayerSpawner
 @onready var timer = $"Wolf Timer"
 @onready var wolf = preload("res://Scenes/Enemies/wolf.tscn")
+@onready var wizard = preload("res://Scenes/Enemies/wizard.tscn")
 @onready var campfire = preload("res://Scenes/Campfire.tscn")
 @onready var wolf_spawn_locations = $"Wolf Spawns"
 @onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
@@ -94,11 +95,14 @@ func _process(delta):
 
 func spawn_test_wolf():
 	#multiplayer_spawner.add_spawnable_scene("res://Scenes/Enemies/wolf.tscn")
+	var spawn_wizard = wizard.instantiate()
 	var spawn_wolf = wolf.instantiate()
 	
 	#multiplayer_spawner.spawn()
+	spawned_nodes.add_child(spawn_wizard, true)
 	spawned_nodes.add_child(spawn_wolf, true)
 	spawn_wolf.set_global_position(Vector2(500.0, 300.0))
+	spawn_wizard.set_global_position(Vector2(600.0, 0.0))
 
 #func spawn_wolves():
 	#for marker in wolf_spawn_locations.get_children():
