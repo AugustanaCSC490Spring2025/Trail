@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://byqwsd2vi25ya"]
+[gd_scene load_steps=89 format=3 uid="uid://byqwsd2vi25ya"]
 
 [ext_resource type="Script" uid="uid://5stlyos7s8wc" path="res://Scripts/player_body.gd" id="1_t42vw"]
 [ext_resource type="Texture2D" uid="uid://cuv6igowfg42r" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Angle 1 Sheet.png" id="2_fml75"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://pusxmgjplesg" path="res://Scripts/player_body_input.gd" id="6_fml75"]
 [ext_resource type="PackedScene" uid="uid://cg8raeodv61nv" path="res://Scenes/Weapons/ProjectileWeapon.tscn" id="6_wb0pm"]
 [ext_resource type="PackedScene" uid="uid://b7khecxkvqw5x" path="res://Scenes/PlayerUI.tscn" id="8_yef0c"]
+[ext_resource type="PackedScene" uid="uid://flg3bjjs6vlj" path="res://Scenes/Inventory/Hotbar.tscn" id="9_cnuip"]
 
 [sub_resource type="Gradient" id="Gradient_fml75"]
 offsets = PackedFloat32Array(0, 0.360947, 1)
@@ -813,5 +814,9 @@ show_percentage = false
 [node name="HealthRegeneration" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
+
+[node name="InventoryHotbar" type="CanvasLayer" parent="."]
+
+[node name="InventoryHotbar" parent="InventoryHotbar" instance=ExtResource("9_cnuip")]
 
 [connection signal="timeout" from="HealthRegeneration" to="." method="_on_health_regeneration_timeout"]

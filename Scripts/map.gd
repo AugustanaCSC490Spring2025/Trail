@@ -1,4 +1,5 @@
 extends Node2D
+class_name Map
 
 @onready var multiplayer_spawner = $MultiplayerSpawner
 @onready var timer = $"Wolf Timer"
@@ -8,6 +9,12 @@ extends Node2D
 @onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
 @onready var network = get_tree().get_nodes_in_group("GameManager")[1]
 var localPlayer
+
+signal inventory_updated
+@onready var inventory_slot_scene = preload("res://Scenes/Inventory/Inventory_Slot.tscn")
+
+var hotbar_size = 5
+var hotbar_inventory = []
 
 @export var noise_texture : NoiseTexture2D
 @export var tree_noise_texture : NoiseTexture2D
@@ -66,6 +73,7 @@ var fire_pos = Vector2i(
 )
 
 func _ready():
+	hotbar_inventory.resize(hotbar_size) 
 	building_rng.seed = mapSeed
 	house_atlas_rng.seed = mapSeed
 	player_spawn_rng.seed = mapSeed
@@ -413,6 +421,33 @@ func addPlayer(player):
 	player_body.position = grass_tilemaplayer.map_to_local(fire_pos) + offset
 	#spawn_count+=2
 	player_body.enableCamera()
+	
+# Try adding to hotbar
+func add_hotbar_item(item):
+	for i in range(hotbar_size):
+		if hotbar_inventory[i] == null:
+			hotbar_inventory[i] = item
+			return true
+	return false
+
+# Removes an item from the hotbar
+func remove_hotbar_item(item_type, item_effect):
+	for i in range(hotbar_inventory.size()):
+		if hotbar_inventory[i] != null and hotbar_inventory[i]["type"] == item_type and hotbar_inventory[i]["effect"] == item_effect:
+			if hotbar_inventory[i]["quantity"] <= 0:
+				hotbar_inventory[i] = null
+			inventory_updated.emit()
+			return true
+	return false
+
+# Unassigns an item from the hotbar
+func unassign_hotbar_item(item_type, item_effect):
+	for i in range(hotbar_inventory.size()):
+		if hotbar_inventory[i] != null and hotbar_inventory[i]["type"] == item_type and hotbar_inventory[i]["effect"] == item_effect:
+			hotbar_inventory[i] = null
+			inventory_updated.emit()
+			return true
+	return false
 
 #@rpc("any_peer", "call_local", "reliable")
 #func setCamera():

@@ -27,6 +27,7 @@ color = Color(0, 0, 0, 0.235294)
 
 [node name="PlayerHealth" type="ProgressBar" parent="."]
 z_index = 20
+layout_mode = 0
 offset_left = -267.0
 offset_top = -138.0
 offset_right = -146.0

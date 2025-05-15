@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var camera_2d = $Camera2D
 @onready var input_synchronizer = $InputSynchronizer
 @onready var weapon_position = $"Weapon Pivot/Sprite2D/Tip"
+@onready var inventory_hotbar = $InventoryHotbar
+
 
 
 const SPAWN_RADIUS: float = 100
