@@ -12,18 +12,23 @@ default_font_size = 50
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jdwye"]
 
 [sub_resource type="SystemFont" id="SystemFont_0d7ar"]
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_kdwnq"]
 default_font = SubResource("SystemFont_0d7ar")
 default_font_size = 30
 
 [sub_resource type="SystemFont" id="SystemFont_apj23"]
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_pr14a"]
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_jjo3y"]
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_pgvoy"]
+subpixel_positioning = 0
 
 [node name="InventorySlot" type="Control"]
 layout_mode = 3
@@ -170,4 +175,5 @@ text = "Drop
 
 [connection signal="mouse_entered" from="ItemButton" to="." method="_on_item_button_mouse_entered"]
 [connection signal="mouse_exited" from="ItemButton" to="." method="_on_item_button_mouse_exited"]
+[connection signal="pressed" from="ItemButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ItemButton" to="." method="_on_item_button_pressed"]

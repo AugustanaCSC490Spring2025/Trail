@@ -2,8 +2,6 @@
 
 extends Control
 
-@onready var map : Map = get_node("/root/Game/Scene/Map")
-
 # Scene-Tree Node references
 @onready var icon = $InnerBorder/ItemIcon
 @onready var quantity_label =  $InnerBorder/ItemQuantity
@@ -17,7 +15,6 @@ extends Control
 # Slot Item
 var item = null
 var slot_index = -1  # Default to an invalid index
-var is_assigned = false
 
 # Setting slot index
 func set_slot_index(new_index):
@@ -39,7 +36,6 @@ func set_item(new_item):
 		item_effect.text = str("+ ", item["effect"])
 	else: 
 		item_effect.text = ""
-	update_assignment_status()
 	
 # Show usage panel for player to use/remove item
 func _on_button_pressed():
@@ -59,40 +55,25 @@ func _on_button_mouse_exited():
 # Remove item from inventory, use it, and apply its effect (if possible)
 func _on_use_button_pressed():
 	usage_panel.visible = false
-	#if item != null:
-		#if Global.player_node:
-			#Global.player_node.apply_item_effect(item)
-			#Global.remove_item(item["type"], item["effect"])
-			#Global.remove_hotbar_item(item["type"], item["effect"])
-		#else:
-			#print("Player node not found")
+	if item != null:
+		if Global.player_node:
+			Global.player_node.apply_item_effect(item)
+			Global.remove_item(item["type"], item["effect"])
+			Global.remove_hotbar_item(item["type"], item["effect"])
+		else:
+			print("Player node not found")
 		
 # Remove item from inventory and drop it back into the world		
 func _on_drop_button_pressed():
 	if item != null:
-		var drop_position = map.localPlayer.global_position
+		var drop_position = Global.player_node.global_position
 		var drop_offset = Vector2(50, 0)
-		drop_offset = drop_offset.rotated(map.localPlayer.rotation)
-		map.drop_item(item, drop_position + drop_offset)
-		map.remove_item(item["type"], item["effect"])
-		map.remove_hotbar_item(item["type"], item["effect"])
+		drop_offset = drop_offset.rotated(Global.player_node.rotation)
+		Global.drop_item(item, drop_position + drop_offset)
+		Global.remove_item(item["type"], item["effect"])
+		Global.remove_hotbar_item(item["type"], item["effect"])
 		usage_panel.visible = false
 	
 # Assigns item to hotbar
 func _on_assign_button_pressed():
-	if item != null:
-		if is_assigned:
-			map.remove_hotbar_item(item["type"], item["effect"])
-			is_assigned = false
-		else:
-			map.add_item(item, true)
-			is_assigned = true
-		update_assignment_status()
-
-# Updates assignment status
-func update_assignment_status():
-	is_assigned = map.is_item_assigned_to_hotbar(item)
-	if is_assigned:
-		assign_button.text = "Unassign"
-	else:
-		assign_button.text = "Assign"
+	pass

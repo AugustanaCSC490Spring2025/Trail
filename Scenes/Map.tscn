@@ -1,10 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://4wq4cgxvclco"]
+[gd_scene load_steps=26 format=3 uid="uid://4wq4cgxvclco"]
 
 [ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
 [ext_resource type="Texture2D" uid="uid://iw3cv8rbcko" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Front Sheet.png" id="3_me6m1"]
 [ext_resource type="Texture2D" uid="uid://b5vucosqsth5u" path="res://Sprites/wild_west_style/Generic Old West Graphicis/objects.png" id="4_qumfl"]
 [ext_resource type="Texture2D" uid="uid://dcxned83jwrbx" path="res://Sprites/wild_west_style/Generic Old West Graphicis/free_campfire.png" id="5_r08cw"]
+[ext_resource type="PackedScene" uid="uid://bbs8wboa7cjlg" path="res://Scenes/Inventory/Inventory_Item.tscn" id="6_00287"]
+[ext_resource type="Texture2D" uid="uid://bdi600ohf3wsg" path="res://Sprites/Icons/icon4.png" id="7_ngcqm"]
+[ext_resource type="Texture2D" uid="uid://dgdxi620onjfe" path="res://Sprites/Icons/icon8.png" id="8_ws1hi"]
 
 [sub_resource type="Gradient" id="Gradient_8y03l"]
 offsets = PackedFloat32Array(0, 0.682028)
@@ -1367,6 +1370,7 @@ spawn_path = NodePath("../SpawnerNodes")
 replication_config = SubResource("SceneReplicationConfig_etk83")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(0, -7)
 navigation_polygon = SubResource("NavigationPolygon_r08cw")
 
 [node name="Wolf Timer" type="Timer" parent="."]
@@ -1392,5 +1396,14 @@ position = Vector2(-680, 680)
 
 [node name="Marker2D3" type="Marker2D" parent="Wolf Spawns"]
 position = Vector2(-680, -680)
+
+[node name="InventoryItem" parent="." instance=ExtResource("6_00287")]
+z_index = 4
+item_texture = ExtResource("7_ngcqm")
+
+[node name="InventoryItem2" parent="." instance=ExtResource("6_00287")]
+z_index = 4
+position = Vector2(-92, 33)
+item_texture = ExtResource("8_ws1hi")
 
 [connection signal="timeout" from="Wolf Timer" to="." method="spawn_wolves"]
