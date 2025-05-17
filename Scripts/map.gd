@@ -14,6 +14,7 @@ var localPlayer
 @onready var item_spawn_area = $ItemSpawnArea
 @onready var collision_shape = $ItemSpawnArea/CollisionShape2D
 
+var used_spawn_positions = {}
 #signal inventory_updated
 #@onready var inventory_slot_scene = preload("res://Scenes/Inventory/Inventory_Slot.tscn")
 
@@ -163,7 +164,7 @@ func generate_world():
 	#for player in network.players:
 		#addPlayer(player)
 	# Generate a few random towns within bounds
-	for i in range(8):
+	for i in range(6):
 		var town_pos = Vector2i(town_width_rng.randi_range(int(-half_width) + 30, int(half_width) - 30), town_width_rng.randi_range(int(-half_height) + 30, int(half_height) - 30))
 		var size = Vector2i(town_size_rng.randi_range(10, 40), town_size_rng.randi_range(10, 40))
 		generate_city_blocks(town_pos, size)
@@ -423,7 +424,12 @@ func addPlayer(player):
 	spawned_nodes.add_child(player_body, true)
 	# Position the player near the campfire
 	var offset = Vector2(player_spawn_rng.randi_range(-2, 2), player_spawn_rng.randi_range(-2, 2)) * 16  # small random spread
-	player_body.position = grass_tilemaplayer.map_to_local(fire_pos) + offset
+	var spawn_pos = grass_tilemaplayer.map_to_local(fire_pos)
+	while used_spawn_positions.has(spawn_pos):
+		print("collisions")
+		spawn_pos = grass_tilemaplayer.map_to_local(fire_pos) + offset
+	used_spawn_positions[spawn_pos] = true
+	player_body.position = spawn_pos
 	#spawn_count+=2
 	player_body.enableCamera()
 	
@@ -439,7 +445,7 @@ func spawn_random_items(count):
 	var spawned_count = 0
 	while spawned_count < count and attempts < 100:
 		var position = get_random_position()
-		spawn_item(Global.spawnable_items[randi() % Global.spawnable_items.size()], position)
+		spawn_item(Global.spawnable_items[rng.randi() % Global.spawnable_items.size()], position)
 		spawned_count += 1
 		attempts += 1
 
