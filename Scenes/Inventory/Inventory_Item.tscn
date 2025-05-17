@@ -1,11 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbs8wboa7cjlg"]
+[gd_scene load_steps=3 format=3 uid="uid://bbs8wboa7cjlg"]
 
 [ext_resource type="Script" uid="uid://cv66amffj8ipk" path="res://Scripts/inventory_item.gd" id="1_errml"]
-[ext_resource type="Texture2D" uid="uid://br6h7514itwa3" path="res://Sprites/Icons/icon2.png" id="2_5u71n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0fa1i"]
 
-[node name="InventoryItem" type="Node2D"]
+[node name="InventoryItem" type="Node2D" groups=["Items"]]
 script = ExtResource("1_errml")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -14,7 +13,6 @@ script = ExtResource("1_errml")
 shape = SubResource("CircleShape2D_0fa1i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_5u71n")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

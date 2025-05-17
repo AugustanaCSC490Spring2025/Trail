@@ -32,6 +32,7 @@ window/stretch/mode="canvas_items"
 GameManager=""
 Players=""
 Hurtable="anything that can take damage"
+Items=""
 
 [input]
 

@@ -38,6 +38,7 @@ func pickup_item():
 		"texture": item_texture,
 		"scene_path": scene_path
 	}
+	print(item)
 	if Global.player_node:
 		Global.add_item(item, false)
 		self.queue_free()

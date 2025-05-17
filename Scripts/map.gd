@@ -10,11 +10,15 @@ class_name Map
 @onready var network = get_tree().get_nodes_in_group("GameManager")[1]
 var localPlayer
 
-signal inventory_updated
-@onready var inventory_slot_scene = preload("res://Scenes/Inventory/Inventory_Slot.tscn")
+@onready var items = $Items
+@onready var item_spawn_area = $ItemSpawnArea
+@onready var collision_shape = $ItemSpawnArea/CollisionShape2D
 
-var hotbar_size = 5
-var hotbar_inventory = []
+#signal inventory_updated
+#@onready var inventory_slot_scene = preload("res://Scenes/Inventory/Inventory_Slot.tscn")
+
+#var hotbar_size = 5
+#var hotbar_inventory = []
 
 @export var noise_texture : NoiseTexture2D
 @export var tree_noise_texture : NoiseTexture2D
@@ -73,7 +77,7 @@ var fire_pos = Vector2i(
 )
 
 func _ready():
-	hotbar_inventory.resize(hotbar_size) 
+	#hotbar_inventory.resize(hotbar_size) 
 	building_rng.seed = mapSeed
 	house_atlas_rng.seed = mapSeed
 	player_spawn_rng.seed = mapSeed
@@ -89,6 +93,7 @@ func _ready():
 	generate_world()
 	spawn_test_wolf()
 	setLocalPlayer()
+	spawn_random_items(10)
 	#print("end")
 	#spawn_test_wolf()
 	#for player in network.players:
@@ -422,32 +427,29 @@ func addPlayer(player):
 	#spawn_count+=2
 	player_body.enableCamera()
 	
-# Try adding to hotbar
-func add_hotbar_item(item):
-	for i in range(hotbar_size):
-		if hotbar_inventory[i] == null:
-			hotbar_inventory[i] = item
-			return true
-	return false
+func get_random_position():
+	var area_rect = collision_shape.shape.get_rect()
+	var x = randf_range(0, area_rect.position.x)
+	var y = randf_range(0, area_rect.position.y)
+	return item_spawn_area.to_global(Vector2(x, y))
+	
+# Spawn random items from the Global list up until the max amount (10) has been reached
+func spawn_random_items(count):
+	var attempts = 0
+	var spawned_count = 0
+	while spawned_count < count and attempts < 100:
+		var position = get_random_position()
+		spawn_item(Global.spawnable_items[randi() % Global.spawnable_items.size()], position)
+		spawned_count += 1
+		attempts += 1
 
-# Removes an item from the hotbar
-func remove_hotbar_item(item_type, item_effect):
-	for i in range(hotbar_inventory.size()):
-		if hotbar_inventory[i] != null and hotbar_inventory[i]["type"] == item_type and hotbar_inventory[i]["effect"] == item_effect:
-			if hotbar_inventory[i]["quantity"] <= 0:
-				hotbar_inventory[i] = null
-			inventory_updated.emit()
-			return true
-	return false
-
-# Unassigns an item from the hotbar
-func unassign_hotbar_item(item_type, item_effect):
-	for i in range(hotbar_inventory.size()):
-		if hotbar_inventory[i] != null and hotbar_inventory[i]["type"] == item_type and hotbar_inventory[i]["effect"] == item_effect:
-			hotbar_inventory[i] = null
-			inventory_updated.emit()
-			return true
-	return false
+# Create a physical instance of the Item scene on the map underneath /Items node
+func spawn_item(data, position):
+	var item_scene = preload("res://Scenes/Inventory/Inventory_Item.tscn")
+	var item_instance = item_scene.instantiate()
+	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"])
+	item_instance.global_position = position
+	items.add_child(item_instance)
 
 #@rpc("any_peer", "call_local", "reliable")
 #func setCamera():

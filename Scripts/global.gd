@@ -33,25 +33,10 @@ func set_player_reference(player):
 	player_node = player
 	
 # Adds an item to the inventory, returns true if successful
-func add_item(item, to_hotbar = false):
-	var added_to_hotbar = false
-	if to_hotbar:
-		added_to_hotbar = add_hotbar_item(item)
-		inventory_updated.emit()
-	if not added_to_hotbar:	
-		for i in range(inventory.size()):
-			# Check if the item exists in the inventory and matches both type and effect
-			if inventory[i] != null and inventory[i]["type"] == item["type"] and inventory[i]["effect"] == item["effect"]:
-				inventory[i]["quantity"] += item["quantity"]
-				inventory_updated.emit()
-				print("Item added", inventory)
-				return true
-			elif inventory[i] == null:
-				inventory[i] = item
-				inventory_updated.emit()
-				print("Item added", inventory)
-				return true
-		return false
+func add_item(item, to_hotbar = true):
+	add_hotbar_item(item)
+	inventory_updated.emit()
+		
 
 # Removes an item from the inventory based on type and effect
 func remove_item(item_type, item_effect):
@@ -92,9 +77,17 @@ func adjust_drop_position(position):
 
 # Try adding to hotbar
 func add_hotbar_item(item):
-	for i in range(hotbar_size):
-		if hotbar_inventory[i] == null:
+	for i in range(inventory.size()):
+			# Check if the item exists in the inventory and matches both type and effect
+		if hotbar_inventory[i] != null and hotbar_inventory[i]["type"] == item["type"] and hotbar_inventory[i]["effect"] == item["effect"]:
+			hotbar_inventory[i]["quantity"] += item["quantity"]
+			inventory_updated.emit()
+			print("Item added", hotbar_inventory)
+			return true
+		elif hotbar_inventory[i] == null:
 			hotbar_inventory[i] = item
+			inventory_updated.emit()
+			print("Item added", hotbar_inventory)
 			return true
 	return false
 

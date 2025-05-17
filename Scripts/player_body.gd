@@ -34,7 +34,7 @@ const JUMP_VELOCITY = -400.0
 
 func _ready() -> void:
 	#if not $InputSynchronizer.is_multiplayer_authority(): return
-	
+	Global.set_player_reference(self)
 	_set_random_spawn_pos()
 	#camera_2d.make_current()
 	player_sprite.play("idle_down")

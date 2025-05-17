@@ -10,7 +10,7 @@ extends Control
 @onready var item_type = $DetailsPanel/ItemType
 @onready var item_effect = $DetailsPanel/ItemEffect
 @onready var usage_panel = $UsagePanel
-@onready var assign_button = $UsagePanel/AssignButton
+#@onready var assign_button = $UsagePanel/AssignButton
 
 # Slot Item
 var item = null
