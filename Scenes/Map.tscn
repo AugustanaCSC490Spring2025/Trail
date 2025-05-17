@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://4wq4cgxvclco"]
+[gd_scene load_steps=24 format=3 uid="uid://4wq4cgxvclco"]
 
 [ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
@@ -1311,11 +1311,17 @@ properties/12/replication_mode = 1
 properties/13/path = NodePath(".:playerSet")
 properties/13/spawn = true
 properties/13/replication_mode = 1
+properties/14/path = NodePath(".:items")
+properties/14/spawn = true
+properties/14/replication_mode = 1
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r08cw"]
 vertices = PackedVector2Array(1620, 2013.07, -1782.77, 2038.92, -1707.2, -1467.36, 1620, -1593.61)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-1793, 2049, 1630, 2023, 1630, -1604, -1844, -1630)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngcqm"]
+size = Vector2(500, 500)
 
 [node name="Map" type="Node2D"]
 y_sort_enabled = true
@@ -1367,6 +1373,7 @@ spawn_path = NodePath("../SpawnerNodes")
 replication_config = SubResource("SceneReplicationConfig_etk83")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(0, -7)
 navigation_polygon = SubResource("NavigationPolygon_r08cw")
 
 [node name="Wolf Timer" type="Timer" parent="."]
@@ -1392,5 +1399,12 @@ position = Vector2(-680, 680)
 
 [node name="Marker2D3" type="Marker2D" parent="Wolf Spawns"]
 position = Vector2(-680, -680)
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="ItemSpawnArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemSpawnArea"]
+shape = SubResource("RectangleShape2D_ngcqm")
 
 [connection signal="timeout" from="Wolf Timer" to="." method="spawn_wolves"]
