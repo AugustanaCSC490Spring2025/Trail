@@ -10,6 +10,14 @@ var side = true
 @onready var multiplayer_spawner = $"../BulletSpawner"
 @onready var timer = $Timer
 
+func _ready() -> void:
+	pass
+	#the sprite change code does not position the weapon right, needs some work
+	#sprite.texture = preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/pistol/colt_peacemaker.svg")
+	#sprite.scale = Vector2(0.1, 0.1)
+	#sprite.rotation = 45.3
+	#sprite.position = Vector2(16.675, 0.345)
+
 func _physics_process(delta: float) -> void:
 	if (input_synchronizer.enable):
 		if input_synchronizer.shoot_input:
