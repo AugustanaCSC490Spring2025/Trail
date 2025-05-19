@@ -466,6 +466,9 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath(".:facing")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+properties/7/path = NodePath("AnimatedSprite2D:scale")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [node name="Wolf" type="CharacterBody2D" groups=["Hurtable"]]
 scale = Vector2(1.5, 1.5)

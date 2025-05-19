@@ -2,6 +2,7 @@ extends Area2D
 const speed = 1
 @onready var direction = null
 @onready var sprite = $Sprite2D
+var attack_damage = 10
 var velocity = 600
 var x_speed = 0
 var y_speed = 0
@@ -14,6 +15,9 @@ var origin
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
+
+func set_damage(damage: int) -> void:
+	attack_damage = damage
 
 func fire(starting_location: Vector2, target_position: Vector2) -> void:
 	origin = starting_location

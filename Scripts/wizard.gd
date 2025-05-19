@@ -12,6 +12,8 @@ extends CharacterBody2D
 @export var maxHP = 50
 @export var HP = 50
 @export var speed = 150
+@export var attack_damage = 10
+@export var attack_speed = 0.5
 var accel = 2
 var dead = false  # Track the death state of the wizard
 
@@ -19,8 +21,18 @@ var dead = false  # Track the death state of the wizard
 @onready var nav_agent = $NavigationAgent2D
 
 func _ready() -> void:
-	pass
+	randomize_stats()
 	# global_position = Vector2(350, 350)
+
+func randomize_stats() -> void:
+	var detection_scale = randi_range(1, 2)
+	player_detection_radius.scale = Vector2(detection_scale, detection_scale)
+	speed = randi_range(200, 400)
+	maxHP = randi_range(50, 150)
+	HP = maxHP
+	self.scale = Vector2(maxHP/50, maxHP/50)
+	attack_damage = randi_range(10, 20)
+	attack_speed = randf_range(0.2, 0.5)
 
 func _physics_process(delta: float) -> void:
 	if not dead:  # Check if the wizard is dead before doing anything
@@ -71,9 +83,10 @@ func blast(target: Node2D):
 			sprite.flip_h = false
 			sprite.play("side_attack")
 		var attack_point = target.global_position
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(attack_speed).timeout
 		var blast_attack = blast_hitbox.instantiate()
 		attack.add_child(blast_attack, true)
+		blast_attack.set_damage(attack_damage)
 		blast_attack.fire(self.global_position, target.global_position)
 		attacking = false
 

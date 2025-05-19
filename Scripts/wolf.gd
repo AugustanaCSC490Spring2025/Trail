@@ -14,14 +14,25 @@ extends CharacterBody2D
 @export var maxHP = 50
 @export var HP = 50
 @export var speed = 300
+@export var attack_damage = 10
 var accel = 2
 
 @onready var wolf_detection_radius = $Area2D
 @onready var nav_agent = $NavigationAgent2D
 
 func _ready() -> void:
+	randomize_stats()
 	pass
 	#global_position = Vector2(350, 350)
+
+func randomize_stats() -> void:
+	var detection_scale = randi_range(1, 2)
+	wolf_detection_radius.scale = Vector2(detection_scale, detection_scale)
+	speed = randi_range(200, 400)
+	maxHP = randi_range(50, 150)
+	HP = maxHP
+	self.scale = Vector2(maxHP/50, maxHP/50)
+	attack_damage = randi_range(10, 20)
 
 func _physics_process(delta: float) -> void:
 	if not dead:
@@ -77,6 +88,7 @@ func bite(target: Node2D):
 		var bite_attack = bite_hitbox.instantiate()
 		#add_child(bite_attack, true)
 		#bite_attack.set_global_position(attack_point)
+		#bite_attack.set_damage(attack_damage)
 		attacking = false
 
 @rpc("authority", "call_local", "reliable")

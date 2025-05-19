@@ -94,6 +94,9 @@ func _ready():
 	tree_noise = tree_noise_texture.noise
 	#print("YES")
 	generate_world()
+	#spawn more to test randomness
+	spawn_test_wolf()
+	spawn_test_wolf()
 	spawn_test_wolf()
 	setLocalPlayer()
 	spawn_random_items(10)
@@ -116,8 +119,8 @@ func spawn_test_wolf():
 	#multiplayer_spawner.spawn()
 	spawned_nodes.add_child(spawn_wizard, true)
 	spawned_nodes.add_child(spawn_wolf, true)
-	spawn_wolf.set_global_position(Vector2(500.0, 300.0))
-	spawn_wizard.set_global_position(Vector2(600.0, 0.0))
+	spawn_wolf.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
+	spawn_wizard.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
 
 #func spawn_wolves():
 	#for marker in wolf_spawn_locations.get_children():
