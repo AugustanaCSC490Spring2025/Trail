@@ -80,6 +80,7 @@ var fire_pos = Vector2i(
 
 func _ready():
 	#hotbar_inventory.resize(hotbar_size) 
+	rng.seed = mapSeed
 	building_rng.seed = mapSeed
 	house_atlas_rng.seed = mapSeed
 	player_spawn_rng.seed = mapSeed
@@ -427,9 +428,9 @@ func addPlayer(player):
 	var player_body = player.getPlayerBody()
 	spawned_nodes.add_child(player_body, true)
 	# Position the player near the campfire
-	var offset = Vector2(player_spawn_rng.randi_range(-2, 2), player_spawn_rng.randi_range(-2, 2)) * 16  # small random spread
+	var offset = Vector2(player_spawn_rng.randf_range(-2, 2), player_spawn_rng.randf_range(-2, 2)) * 16  # small random spread
 	var spawn_pos = grass_tilemaplayer.map_to_local(fire_pos)
-	while used_spawn_positions.has(spawn_pos):
+	while used_spawn_positions.has(spawn_pos) or building_arr.has(spawn_pos):
 		print("collisions")
 		spawn_pos = grass_tilemaplayer.map_to_local(fire_pos) + offset
 	used_spawn_positions[spawn_pos] = true
@@ -439,8 +440,8 @@ func addPlayer(player):
 	
 func get_random_position():
 	var area_rect = collision_shape.shape.get_rect()
-	var x = randf_range(0, area_rect.position.x)
-	var y = randf_range(0, area_rect.position.y)
+	var x = rng.randf_range(0, area_rect.position.x)
+	var y = rng.randf_range(0, area_rect.position.y)
 	return item_spawn_area.to_global(Vector2(x, y))
 	
 # Spawn random items from the Global list up until the max amount (10) has been reached
@@ -459,6 +460,7 @@ func spawn_item(data, position):
 	var item_instance = item_scene.instantiate()
 	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"])
 	item_instance.global_position = position
+	#item_instance.set_multiplayer_authority(1)
 	items.add_child(item_instance)
 
 #@rpc("any_peer", "call_local", "reliable")
@@ -470,7 +472,9 @@ func spawn_item(data, position):
 	
 func setLocalPlayer():
 	for playerBody in spawned_nodes.get_children():
+		print("Network ID: ", network.networkID)
 		if playerBody.is_in_group("Players") && playerBody.playerID == network.networkID:
+			print(" PlayerID: ", playerBody.playerID)
 			localPlayer = playerBody
 			playerBody.enableCamera()
 			

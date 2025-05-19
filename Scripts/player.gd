@@ -27,4 +27,5 @@ func getPlayerBody():
 	
 func createBody():
 	playerBody = playerBodyScene.instantiate()
+	#playerBody.set_multiplayer_authority(playerID)
 	playerBody.setPlayerID(playerID)

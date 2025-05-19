@@ -58,7 +58,7 @@ func _on_use_button_pressed():
 	if item != null:
 		if Global.player_node:
 			Global.player_node.apply_item_effect(item)
-			Global.remove_item(item["type"], item["effect"])
+			#Global.remove_item(item["type"], item["effect"])
 			Global.remove_hotbar_item(item["type"], item["effect"])
 		else:
 			print("Player node not found")
@@ -70,7 +70,7 @@ func _on_drop_button_pressed():
 		var drop_offset = Vector2(50, 0)
 		drop_offset = drop_offset.rotated(Global.player_node.rotation)
 		Global.drop_item(item, drop_position + drop_offset)
-		Global.remove_item(item["type"], item["effect"])
+		#Global.remove_item(item["type"], item["effect"])
 		Global.remove_hotbar_item(item["type"], item["effect"])
 		usage_panel.visible = false
 	

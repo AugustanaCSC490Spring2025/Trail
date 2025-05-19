@@ -59,10 +59,31 @@ func increase_inventory_size(extra_slots):
 func drop_item(item_data, drop_position):
 	var item_scene = load(item_data["scene_path"])
 	var item_instance = item_scene.instantiate()
+	var texture = item_data["texture"].resource_path
 	item_instance.set_item_data(item_data)
 	drop_position = adjust_drop_position(drop_position)
-	item_instance.global_position = drop_position
-	get_tree().current_scene.add_child(item_instance)
+	item_instance.global_position = Vector2i(drop_position)
+	#get_tree().current_scene.add_child(item_instance)
+	drop_item_local(item_data, drop_position, texture)
+	
+@rpc("authority", "call_local" ,"reliable")
+func drop_item_local(item_data, drop_position, texture):
+	var item_scene = load(item_data["scene_path"])
+	var item_instance = item_scene.instantiate()
+	item_data["texture"] = load(texture)
+	item_instance.set_item_data(item_data)
+	item_instance.global_position = Vector2i(drop_position)
+	get_node("/root/Game/Scene/Map/Items").add_child(item_instance)
+	drop_item_everywhere.rpc(item_data, drop_position, texture)
+	
+@rpc("any_peer", "call_remote" ,"reliable")
+func drop_item_everywhere(item_data, drop_position, texture):
+	var item_scene = load(item_data["scene_path"])
+	var item_instance = item_scene.instantiate()
+	item_data["texture"] = load(texture)
+	item_instance.set_item_data(item_data)
+	item_instance.global_position = Vector2i(drop_position)
+	get_node("/root/Game/Scene/Map/Items").add_child(item_instance)
 
 # Adjusts the drop position to avoid overlapping with nearby items
 func adjust_drop_position(position):

@@ -15,7 +15,7 @@ func _update_hotbar():
 	for i in range(Global.hotbar_size):
 		#var item = Global.hotbar_inventory[i]
 		var slot = Global.inventory_slot_scene.instantiate()
-		print(i)
+		#print(i)
 		slot.set_slot_index(i)  # Set the index here
 		hotbar_container.add_child(slot)
 		if Global.hotbar_inventory[i] != null:
