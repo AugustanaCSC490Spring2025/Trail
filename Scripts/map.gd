@@ -1,12 +1,25 @@
 extends Node2D
+class_name Map
 
 @onready var timer = $"Wolf Timer"
 @onready var wolf = preload("res://Scenes/Enemies/wolf.tscn")
+@onready var wizard = preload("res://Scenes/Enemies/wizard.tscn")
 @onready var campfire = preload("res://Scenes/Campfire.tscn")
 @onready var wolf_spawn_locations = $"Wolf Spawns"
 @onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
 @onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
 var radius = 30
+
+@onready var items = $Items
+@onready var item_spawn_area = $ItemSpawnArea
+@onready var collision_shape = $ItemSpawnArea/CollisionShape2D
+
+var used_spawn_positions = {}
+#signal inventory_updated
+#@onready var inventory_slot_scene = preload("res://Scenes/Inventory/Inventory_Slot.tscn")
+
+#var hotbar_size = 5
+#var hotbar_inventory = []
 
 @export var noise_texture : NoiseTexture2D
 @export var tree_noise_texture : NoiseTexture2D
@@ -62,9 +75,10 @@ var campfire_scene
 var fire_pos
 var world_position
 
-
 func generate(seed):
 	mapSeed = seed
+	#hotbar_inventory.resize(hotbar_size) 
+	rng.seed = mapSeed
 	building_rng.seed = mapSeed
 	house_atlas_rng.seed = mapSeed
 	player_spawn_rng.seed = mapSeed
@@ -80,6 +94,7 @@ func generate(seed):
 	#print("YES")
 	generate_world()
 	spawn_test_wolf()
+
 	#print("end")
 	#spawn_test_wolf()
 	#for player in network.players:
@@ -89,8 +104,11 @@ func generate(seed):
 func spawn_test_wolf():
 	if(Network.networkID == 1):
 		var spawn_wolf = wolf.instantiate()
+    var spawn_wizard = wizard.instantiate()
 		Network.enemies.add_child(spawn_wolf, true)
-		spawn_wolf.set_global_position(Vector2(500.0, 300.0))
+    Network.enemies.add_child(spawn_wizard, true)
+		spawn_wolf.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
+    spawn_wizard.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
 
 #func spawn_wolves():
 	#for marker in wolf_spawn_locations.get_children():
@@ -139,7 +157,7 @@ func generate_world():
 	#for player in network.players:
 		#addPlayer(player)
 	# Generate a few random towns within bounds
-	for i in range(8):
+	for i in range(6):
 		var town_pos = Vector2i(town_width_rng.randi_range(int(-half_width) + 30, int(half_width) - 30), town_width_rng.randi_range(int(-half_height) + 30, int(half_height) - 30))
 		var size = Vector2i(town_size_rng.randi_range(10, 40), town_size_rng.randi_range(10, 40))
 		generate_city_blocks(town_pos, size)
