@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5rmstsqmrkn2"]
+[gd_scene load_steps=4 format=3 uid="uid://b2ukcwwappaxo"]
 
-[ext_resource type="Script" path="res://Scripts/temp_map.gd" id="1_rh6oi"]
+[ext_resource type="Script" uid="uid://lo1gs1llgnk8" path="res://Scripts/temp_map.gd" id="1_rh6oi"]
 
 [sub_resource type="Gradient" id="Gradient_osem8"]
 offsets = PackedFloat32Array(0, 0.514451, 1)
@@ -13,13 +13,5 @@ gradient = SubResource("Gradient_osem8")
 script = ExtResource("1_rh6oi")
 
 [node name="Map Texture" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(681, 375)
 scale = Vector2(6.30078, 849.5)
 texture = SubResource("GradientTexture1D_rh6oi")
-
-[node name="Players" type="Node2D" parent="."]
-
-[node name="PlayerBodySpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://byqwsd2vi25ya")
-spawn_path = NodePath("../Players")

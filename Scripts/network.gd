@@ -17,6 +17,7 @@ var tempMapScene = preload("res://Scenes/TempMap.tscn")
 var map
 var networkID
 var playerNames = []
+var localPlayer
 
 var all_addresses = IP.get_local_addresses()
 var lan_addresses = Array(all_addresses).filter(func(ip): 
@@ -53,9 +54,8 @@ func _on_player_connected(id):
 	var player = playerScene.instantiate()
 	player.setID(id)
 	player.name = str(id)
-	player.createBody.rpc()
-	#players.append(player)
 	players.add_child(player)
+	setLocalPlayer.rpc()
 	playerNames = []
 	for tempPlayer in players.get_children():
 		playerNames.append(tempPlayer.playerName)
@@ -64,9 +64,9 @@ func _on_player_connected(id):
 	#print("Players: %d" % players.size())
 
 func _on_player_disconnected(id):
-	for player in players:
-		if player.getID() == id:
-			players.erase(player)
+	#for player in players:
+		#if player.getID() == id:
+			#players.erase(player)
 
 	print("Player %s left the game." % id)
 
@@ -97,6 +97,13 @@ func updateLobbyPlayers(playerNames):
 	#print(lobby)
 	if(lobby != null):
 		lobby.updatePlayers(playerNames)
+
+@rpc("authority", "call_local", "reliable")
+func setLocalPlayer():
+	if localPlayer == null:
+		for player in players.get_children():
+			if player.playerID == networkID:
+				localPlayer = player
 
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func readyPlayer(id):

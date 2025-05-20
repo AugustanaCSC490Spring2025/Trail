@@ -10,11 +10,13 @@ var map
 var gameReady = false
 var fullscreen = false
 @onready var scene = $Scene
+@onready var camera = $Camera2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	menu = menuScene.instantiate()
 	add_child(menu, true)
+	setCamera()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -47,9 +49,7 @@ func startGame():
 	if has_node("Lobby"):
 		get_node("Lobby").queue_free()
 	if(network.networkID == 1):
-		for player in network.players.get_children():
-			print(player)
-			map.addPlayer(player)
+		map.setPlayerValues()
 	#print(multiplayer.get_unique_id())
 	#get_node("/root/Game/Scene/Map").playerSet = false
 	#gameStarted = true
@@ -71,6 +71,9 @@ func leaveGame():
 	#get_node("/root/Game/Scene/Map").queue_free()
 	menu = menuScene.instantiate()
 	add_child(menu, true)
+
+func setCamera():
+	camera.make_current()
 
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func isGameStarted():

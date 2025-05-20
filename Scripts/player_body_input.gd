@@ -1,7 +1,7 @@
 extends MultiplayerSynchronizer
 
 @onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
-@onready var network = get_tree().get_nodes_in_group("GameManager")[1]
+@onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
 
 @export var vertical_input : int
 @export var horizontal_input : int
@@ -9,12 +9,14 @@ extends MultiplayerSynchronizer
 @export var mouse_position : Vector2
 @onready var enable = false
 
-func _ready():
+func setInputSyncronizer():
 	# disable the _physics_process function for all
 	# who does not control this player
-	if get_multiplayer_authority() != multiplayer.get_unique_id():
+	#print(get_multiplayer_authority())
+	if get_multiplayer_authority() != Network.networkID:
 		set_physics_process(false)
 	else:
+		set_physics_process(true)
 		enable = true
 
 func _physics_process(delta):

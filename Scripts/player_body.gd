@@ -14,10 +14,11 @@ const JUMP_VELOCITY = -400.0
 @export var username : String
 
 @export var player_facing = "down"
-@export var playerID : int = 1:
+@export var playerID : int:
 	set(id):
 		playerID = id
 		$InputSynchronizer.set_multiplayer_authority(id)
+		$InputSynchronizer.setInputSyncronizer()
 		$Name.text = "Player " + str(id)
 @export var maxHP: float = 100
 @export var HP: float = 100
@@ -30,10 +31,11 @@ const JUMP_VELOCITY = -400.0
 
 func _ready() -> void:
 	#if not $InputSynchronizer.is_multiplayer_authority(): return
-	
+	playerID = get_parent().getID()
 	_set_random_spawn_pos()
 	#camera_2d.make_current()
 	player_sprite.play("idle_down")
+	hpGradient = hpGradient.duplicate()
 
 func _set_random_spawn_pos() -> void:
 	position = Vector2(randf_range(-SPAWN_RADIUS, SPAWN_RADIUS), randf_range(-SPAWN_RADIUS, SPAWN_RADIUS))
@@ -46,7 +48,6 @@ func _process(delta):
 	hpBar.max_value = maxHP
 	hpBar.value = HP
 	hpBar.get("theme_override_styles/fill").bg_color = hpGradient.sample(HP / maxHP)
-	pass
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -55,7 +56,7 @@ func _physics_process(delta: float) -> void:
 		_move(delta)
 		changeAnimation.rpc(player_facing)
 		#print(camera_2d.zoom)
-	print(position)
+	#print(position)
 
 func _move(delta):
 	if input_synchronizer.vertical_input == -1:
@@ -127,7 +128,10 @@ func changeAnimation(facing: String):
 func setPlayerID(id):
 	playerID = id
 
-func enableCamera():
+func setPosition(x, y):
+	position = Vector2(x, y)
+
+func setCamera():
 	#print(str(multiplayer.get_unique_id()) + " + " + str(playerID))
 	#if playerID == multiplayer.get_unique_id():
 	camera_2d.make_current()

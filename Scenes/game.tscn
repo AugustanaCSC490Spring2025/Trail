@@ -9,7 +9,6 @@ script = ExtResource("1_gl6un")
 
 [node name="LoadingScreen" type="Sprite2D" parent="."]
 z_index = -100
-position = Vector2(647, 358)
 scale = Vector2(0.691667, 0.691667)
 texture = ExtResource("2_kldst")
 
@@ -23,7 +22,9 @@ spawn_path = NodePath("../Players")
 [node name="Players" type="Node2D" parent="Network"]
 
 [node name="SceneSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://4wq4cgxvclco")
+_spawnable_scenes = PackedStringArray("uid://4wq4cgxvclco", "uid://b2ukcwwappaxo")
 spawn_path = NodePath("../Scene")
 
 [node name="Scene" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
