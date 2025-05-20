@@ -79,7 +79,7 @@ func generate(seed):
 	tree_noise = tree_noise_texture.noise
 	#print("YES")
 	generate_world()
-	#spawn_test_wolf()
+	spawn_test_wolf()
 	#print("end")
 	#spawn_test_wolf()
 	#for player in network.players:

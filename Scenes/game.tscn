@@ -41,4 +41,5 @@ spawn_path = NodePath("../Scene")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
 navigation_polygon = SubResource("NavigationPolygon_j5yw3")

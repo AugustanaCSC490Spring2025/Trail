@@ -26,15 +26,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var direction = Vector2()
 	if hunting and not attacking:
-		#print(str(global_position.distance_squared_to(target.global_position)))
 		var target_location = target.global_position
-		#print(target.position)
 		nav_agent.target_position = target_location
-		direction = nav_agent.get_next_path_position() - target.position
-		print(direction)
+		direction = nav_agent.get_next_path_position() - global_position
 		direction = direction.normalized()
 		velocity = velocity.lerp(direction * speed, accel * delta)
-		#print(velocity)
 		move_and_slide()
 		animate(velocity)
 		
