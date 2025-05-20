@@ -1,9 +1,8 @@
 extends Node
 
 var playerBodyScene = preload("res://Scenes/PlayerBody.tscn")
-@export var gameStarted = false
 @export var gameReady = false
-@export var playerName = "Player"
+@export var playerName = ""
 @export var playerID = 0
 @onready var playerBody = $PlayerBody
 
@@ -13,11 +12,17 @@ func _ready():
 func getName():
 	return playerName
 
+@rpc("any_peer", "call_local", "reliable")
 func setName(name):
 	playerName = name
+	playerBody.nameText.text = name
 
 func getID():
 	return playerID
 
 func setID(ID):
 	playerID = ID
+	
+@rpc("any_peer", "call_local", "reliable")
+func setGameReady(ready):
+	gameReady = ready

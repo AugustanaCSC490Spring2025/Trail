@@ -79,7 +79,7 @@ func generate(seed):
 	tree_noise = tree_noise_texture.noise
 	#print("YES")
 	generate_world()
-	spawn_test_wolf()
+	#spawn_test_wolf()
 	#print("end")
 	#spawn_test_wolf()
 	#for player in network.players:
@@ -87,12 +87,10 @@ func generate(seed):
 		#spawned_nodes.add_child(player_body, true)
 
 func spawn_test_wolf():
-	#multiplayer_spawner.add_spawnable_scene("res://Scenes/Enemies/wolf.tscn")
-	var spawn_wolf = wolf.instantiate()
-	
-	#multiplayer_spawner.spawn()
-	spawned_nodes.add_child(spawn_wolf, true)
-	spawn_wolf.set_global_position(Vector2(500.0, 300.0))
+	if(Network.networkID == 1):
+		var spawn_wolf = wolf.instantiate()
+		Network.enemies.add_child(spawn_wolf, true)
+		spawn_wolf.set_global_position(Vector2(500.0, 300.0))
 
 #func spawn_wolves():
 	#for marker in wolf_spawn_locations.get_children():

@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var facing = ""
 @export var attacking = false
 @export var hunting = false
-@export var target = 0
+@export var target: CharacterBody2D
 @onready var sprite = $AnimatedSprite2D
 @onready var bite_hitbox = preload("res://Scenes/Enemies/BiteHitbox.tscn")
 @onready var attack = $Attack
@@ -28,11 +28,13 @@ func _physics_process(delta: float) -> void:
 	if hunting and not attacking:
 		#print(str(global_position.distance_squared_to(target.global_position)))
 		var target_location = target.global_position
+		#print(target.position)
 		nav_agent.target_position = target_location
-		direction = nav_agent.get_next_path_position() - global_position
+		direction = nav_agent.get_next_path_position() - target.position
+		print(direction)
 		direction = direction.normalized()
 		velocity = velocity.lerp(direction * speed, accel * delta)
-			
+		#print(velocity)
 		move_and_slide()
 		animate(velocity)
 		

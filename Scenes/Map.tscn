@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://4wq4cgxvclco"]
+[gd_scene load_steps=21 format=3 uid="uid://4wq4cgxvclco"]
 
 [ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
@@ -1268,11 +1268,6 @@ sources/1 = SubResource("TileSetAtlasSource_5i587")
 sources/2 = SubResource("TileSetAtlasSource_r08cw")
 sources/3 = SubResource("TileSetAtlasSource_00287")
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_r08cw"]
-vertices = PackedVector2Array(1620, 2013.07, -1782.77, 2038.92, -1707.2, -1467.36, 1620, -1593.61)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-1793, 2049, 1630, 2023, 1630, -1604, -1844, -1630)])
-
 [node name="Map" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_gxtgv")
@@ -1313,33 +1308,8 @@ z_index = 2
 y_sort_enabled = true
 tile_set = SubResource("TileSet_emjxx")
 
-[node name="SpawnerNodes" type="Node2D" parent="."]
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-navigation_polygon = SubResource("NavigationPolygon_r08cw")
-
 [node name="Wolf Timer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
-
-[node name="Wolf Spawns" type="Node2D" parent="."]
-
-[node name="Marker2D" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(680, -680)
-
-[node name="Marker2D2" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(680, 680)
-
-[node name="Marker2D4" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(0, 680)
-
-[node name="Marker2D5" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(0, -680)
-
-[node name="Marker2D6" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(-680, 680)
-
-[node name="Marker2D3" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(-680, -680)
 
 [connection signal="timeout" from="Wolf Timer" to="." method="spawn_wolves"]

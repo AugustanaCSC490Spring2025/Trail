@@ -19,12 +19,12 @@ const JUMP_VELOCITY = -400.0
 		playerID = id
 		$InputSynchronizer.set_multiplayer_authority(id)
 		$InputSynchronizer.setInputSyncronizer()
-		$Name.text = "Player " + str(id)
 @export var maxHP: float = 100
 @export var HP: float = 100
 @export var alive = true
 @export var hpGradient: Gradient
 @onready var hpBar = $PlayerHealth
+@onready var nameText = $Name
 
 #func _enter_tree():
 	#$InputSynchronizer.set_multiplayer_authority(playerID)

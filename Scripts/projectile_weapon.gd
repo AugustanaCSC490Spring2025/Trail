@@ -25,7 +25,6 @@ func flip():
 	sprite.scale.y *= -1
 	sprite.position.y *= -1
 	right = !right
-	swap = true
 
 @rpc("any_peer", "call_local", "reliable")
 func shoot():
@@ -52,5 +51,4 @@ func pointGun():
 func _on_timer_timeout():
 	if((pivot_point.global_position.x > input_synchronizer.mouse_position.x && right) || (pivot_point.global_position.x < input_synchronizer.mouse_position.x && !right)):
 		flip()
-	else:
-		swap = true
+	swap = true

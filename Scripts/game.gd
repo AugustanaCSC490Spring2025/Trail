@@ -9,9 +9,8 @@ var mapScene = preload("res://Scenes/Map.tscn")
 var map
 var syncScene = preload("res://Scenes/Sync.tscn")
 var sync
-var gameReady = false
 var fullscreen = false
-var mapSeed
+
 @onready var scene = $Scene
 @onready var camera = $Camera2D
 
@@ -48,15 +47,13 @@ func createMap():
 	map = mapScene.instantiate()
 	add_child(map, true)
 	map.generate(getSync().getMapSeed(0))
-	print("Done")
-	#add_child(map, true)
 	
-#@rpc("authority", "call_local", "reliable")
 func startGame():
 	closeLobby.rpc()
 	createMap.rpc()
 	if(network.networkID == 1):
 		map.setPlayerValues()
+	getSync().gameStarted = true
 	#print(multiplayer.get_unique_id())
 	#get_node("/root/Game/Scene/Map").playerSet = false
 	#gameStarted = true

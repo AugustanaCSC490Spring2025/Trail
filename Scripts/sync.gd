@@ -4,6 +4,7 @@ extends Node
 @onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
 
 @export var mapSeeds = []
+@export var gameStarted = false
 
 func _ready():
 	if(Network.networkID == 1):
