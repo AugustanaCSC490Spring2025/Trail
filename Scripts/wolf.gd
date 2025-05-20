@@ -31,7 +31,7 @@ func randomize_stats() -> void:
 	speed = randi_range(200, 400)
 	maxHP = randi_range(50, 150)
 	HP = maxHP
-	self.scale = Vector2(maxHP/50, maxHP/50)
+	scale = Vector2(maxHP/50, maxHP/50)
 	attack_damage = randi_range(10, 20)
 
 func _physics_process(delta: float) -> void:

@@ -69,16 +69,23 @@ var town_size_rng := RandomNumberGenerator.new()
 var road_dir_rng := RandomNumberGenerator.new()
 var tree_rng := RandomNumberGenerator.new()
 var fire_rng := RandomNumberGenerator.new()
+var biome_rng := RandomNumberGenerator.new()
 var towns = []
 var campfire_tile_pos : Vector2i
 var campfire_scene
 var fire_pos
 var world_position
 
+var biomes = ["Plains", "Forest", "Snow", "Desert", "Swamp"]
+var biome
+
+var generated = false
+
 func generate(seed):
 	mapSeed = seed
 	#hotbar_inventory.resize(hotbar_size) 
 	rng.seed = mapSeed
+	biome_rng.seed = mapSeed
 	building_rng.seed = mapSeed
 	house_atlas_rng.seed = mapSeed
 	player_spawn_rng.seed = mapSeed
@@ -100,6 +107,7 @@ func generate(seed):
 	#for player in network.players:
 		#var player_body = player.getPlayerBody()
 		#spawned_nodes.add_child(player_body, true)
+	generated = true
 
 func spawn_test_wolf():
 	#multiplayer_spawner.add_spawnable_scene("res://Scenes/Enemies/wolf.tscn")
@@ -134,6 +142,7 @@ func generate_world():
 	fire_rng.randi_range(int(-half_width) + 60, int(half_width) - 60),
 	fire_rng.randi_range(int(-half_height) + 60, int(half_height) - 60)
 	)
+	setBiome()
 	var tree_noise_val
 	var total = width * height
 	grass_positions = PackedVector2Array()
@@ -171,6 +180,26 @@ func generate_world():
 	grass_positions.clear()
 	dirt_arr.clear()
 
+
+func setBiome():
+	biome = biomes[biome_rng.randi_range(0, 4)]
+	#grass_tilemaplayer.modulate = Color.from_hsv(1, 0, 10, 1)
+	#dirt_tilemaplayer.modulate = Color.from_hsv(1, -0.5, 1.2, 1)
+	#object_tilemaplayer.modulate = Color.from_hsv(1, -1, 1, 1)
+	if(biome == "Plains"):
+		grass_tilemaplayer.modulate = Color.from_hsv(0.35, 0.5, 1.5, 1)
+	if(biome == "Forest"):
+		grass_tilemaplayer.modulate = Color.from_hsv(0.45, 10, 0.25, 1)
+		dirt_tilemaplayer.modulate = Color.from_hsv(0.155, 1.5, 0.5, 1)
+	if(biome == "Snow"):
+		grass_tilemaplayer.modulate = Color.from_hsv(1, 0, 10, 1)
+		dirt_tilemaplayer.modulate = Color.from_hsv(1, -0.5, 1.2, 1)
+		object_tilemaplayer.modulate = Color.from_hsv(1, -1, 1, 1)
+	if(biome == "Desert"):
+		grass_tilemaplayer.modulate = Color.from_hsv(1, 0.4, 2.5, 1)
+	if(biome == "Swamp"):
+		grass_tilemaplayer.modulate = Color.from_hsv(0.83, 10, 0.8, 1)
+		dirt_tilemaplayer.modulate = Color.from_hsv(0.155, 2, 0.5, 1)
 
 func generate_campfire_location(center: Vector2i):
 	# Clear a 6x7 dirt area
