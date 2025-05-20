@@ -1,11 +1,10 @@
 extends Node
 
-var playerName = "Player"
-var playerID
 var playerBodyScene = preload("res://Scenes/PlayerBody.tscn")
-var playerBody
-@export var gameStarted = false
 @export var gameReady = false
+@export var playerName = ""
+@export var playerID = 0
+@onready var playerBody = $PlayerBody
 
 func _ready():
 	pass
@@ -13,8 +12,10 @@ func _ready():
 func getName():
 	return playerName
 
+@rpc("any_peer", "call_local", "reliable")
 func setName(name):
 	playerName = name
+	playerBody.nameText.text = name
 
 func getID():
 	return playerID
@@ -22,10 +23,6 @@ func getID():
 func setID(ID):
 	playerID = ID
 	
-func getPlayerBody():
-	return playerBody
-	
-func createBody():
-	playerBody = playerBodyScene.instantiate()
-	#playerBody.set_multiplayer_authority(playerID)
-	playerBody.setPlayerID(playerID)
+@rpc("any_peer", "call_local", "reliable")
+func setGameReady(ready):
+	gameReady = ready
