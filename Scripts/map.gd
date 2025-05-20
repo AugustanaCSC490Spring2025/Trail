@@ -102,6 +102,8 @@ func generate(seed):
 		#spawned_nodes.add_child(player_body, true)
 
 func spawn_test_wolf():
+	#multiplayer_spawner.add_spawnable_scene("res://Scenes/Enemies/wolf.tscn")
+	
 	if(Network.networkID == 1):
 		var spawn_wolf = wolf.instantiate()
 		var spawn_wizard = wizard.instantiate()
