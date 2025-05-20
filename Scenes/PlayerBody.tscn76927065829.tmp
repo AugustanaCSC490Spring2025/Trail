@@ -851,7 +851,7 @@ theme_override_font_sizes/font_size = 24
 text = "Press \"E\" to Pick Up"
 
 [node name="RateOfFire" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.5
 
 [connection signal="timeout" from="HealthRegeneration" to="." method="_on_health_regeneration_timeout"]
 [connection signal="timeout" from="RateOfFire" to="Weapon Pivot" method="_on_rate_of_fire_timeout"]

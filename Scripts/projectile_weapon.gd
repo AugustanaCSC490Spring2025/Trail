@@ -9,18 +9,21 @@ var side = true
 @onready var input_synchronizer = get_parent().get_node("InputSynchronizer")
 @onready var multiplayer_spawner = $"../BulletSpawner"
 @onready var timer = $Timer
+@onready var rate_of_fire_timer = $"../RateOfFire"
+@export var rate_of_fire = .1
+@export var can_fire = true
 
 func _ready() -> void:
 	pass
 	#the sprite change code does not position the weapon right, needs some work
-	#sprite.texture = preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/pistol/colt_peacemaker.svg")
-	#sprite.scale = Vector2(0.1, 0.1)
-	#sprite.rotation = 45.3
-	#sprite.position = Vector2(16.675, 0.345)
+	sprite.texture = preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/assault_rifle/m16.svg")
+	sprite.scale = Vector2(0.1, 0.1)
+	sprite.rotation_degrees = 45
+	sprite.position = Vector2(15, .4)
 
 func _physics_process(delta: float) -> void:
 	if (input_synchronizer.enable):
-		if input_synchronizer.shoot_input:
+		if input_synchronizer.shoot_input and can_fire:
 			rpc("shoot")
 	pointGun()#.rpc()
 	
@@ -29,11 +32,14 @@ func _physics_process(delta: float) -> void:
 		#pointing_tip.target_position = mouse_position
 
 func flip():
+	sprite.rotation_degrees *= -1
 	sprite.scale.y *= -1
 	sprite.position.y *= -1
 
 @rpc("any_peer", "call_local", "reliable")
 func shoot():
+	can_fire =  false
+	rate_of_fire_timer.start(rate_of_fire)
 	#print("shooting " + str(randi_range(1, 10)))
 	var shot = bullet.instantiate()
 	bullets.add_child(shot, true)
@@ -56,3 +62,7 @@ func pointGun():
 	
 func _on_timer_timeout():
 	flip()
+
+
+func _on_rate_of_fire_timeout() -> void:
+	can_fire = true

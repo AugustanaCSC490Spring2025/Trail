@@ -95,9 +95,9 @@ func _ready():
 	#print("YES")
 	generate_world()
 	#spawn more to test randomness
-	spawn_test_wolf()
-	spawn_test_wolf()
-	spawn_test_wolf()
+	#spawn_test_wolf()
+	#spawn_test_wolf()
+	#spawn_test_wolf()
 	setLocalPlayer()
 	spawn_random_items(10)
 	#print("end")
