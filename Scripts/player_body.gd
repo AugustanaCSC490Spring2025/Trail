@@ -138,6 +138,7 @@ func changeAnimation(facing: String):
 func setPlayerID(id):
 	playerID = id
 
+@rpc("any_peer", "call_remote", "reliable", 1)
 func setPosition(x, y):
 	position = Vector2(x, y)
 
@@ -145,6 +146,10 @@ func setCamera():
 	#print(str(multiplayer.get_unique_id()) + " + " + str(playerID))
 	#if playerID == multiplayer.get_unique_id():
 	camera_2d.make_current()
+
+@rpc("any_peer", "call_local", "reliable")
+func setVisible(v):
+	visible = v
 
 func damagePlayer(damage):
 	HP -= damage

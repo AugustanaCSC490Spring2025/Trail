@@ -60,9 +60,9 @@ func _on_player_connected(id):
 	#print("Players: %d" % players.size())
 
 func _on_player_disconnected(id):
-	#for player in players:
-		#if player.getID() == id:
-			#players.erase(player)
+	for player in players.get_children():
+		if player.getID() == id:
+			player.queue_free()
 
 	print("Player %s left the game." % id)
 
@@ -74,6 +74,7 @@ func _connected_to_server():
 func _connection_failed():
 	print("Connection failed!")
 	OnServerDisconnected.emit()
+	
 func _server_disconnected():
 	Game.leaveGame()
 	print("Server disconnected.")
