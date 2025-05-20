@@ -29,9 +29,15 @@ spawn_path = NodePath("../Players")
 _spawnable_scenes = PackedStringArray("uid://cb507tsb5q3ph", "uid://dd4q76gnaeokq")
 spawn_path = NodePath("../Enemies")
 
+[node name="ItemSpawner" type="MultiplayerSpawner" parent="Network"]
+_spawnable_scenes = PackedStringArray("")
+spawn_path = NodePath("../Items")
+
 [node name="Players" type="Node2D" parent="Network"]
 
 [node name="Enemies" type="Node2D" parent="Network"]
+
+[node name="Items" type="Node2D" parent="Network"]
 
 [node name="SceneSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://c5ixui60h5ufr")
