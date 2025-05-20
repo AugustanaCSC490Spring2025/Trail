@@ -59,19 +59,12 @@ func startGame():
 	#get_node("/root/Game/Scene/Map").playerSet = false
 	#gameStarted = true
 
-func joinDuringGame(id):
+func joinDuringGame():
 	closeLobby()
-	joinDuringGameServer.rpc(id)
-	get_node("/root/Game/Scene/Map").playerSet = false
-
-@rpc("any_peer", "call_remote", "reliable", 1)
-func joinDuringGameServer(id):
-	#print("joining with map")
-	for player in network.players:
-		if(player.playerID == id):
-			map.addPlayer(player)
-	get_node("/root/Game/Scene/Map").playerSet = false
-
+	createMap.rpc()
+	map.addLatePlayer()
+	getSync().gameStarted = true
+	
 func leaveGame():
 	#get_node("/root/Game/Scene/Map").queue_free()
 	menu = menuScene.instantiate()

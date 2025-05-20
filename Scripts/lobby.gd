@@ -104,14 +104,11 @@ func updatePlayers():
 	else:
 		var joinButton = joinScene.instantiate()
 		names.add_child(joinButton, true)
-		#if(Network.getPlayer(Network.networkID).gameStarted):
-			#joinButton.text = "Join"
-			#if start_clicked == false:
-				#start_clicked = true
-				#joinButton.connect("pressed", joinDuringGame)
-		#else:
 		if Network.localPlayer.gameReady:
-			joinButton.text = "Unready"
+			if(Game.getSync().gameStarted):
+				joinButton.text = "Join"
+			else:
+				joinButton.text = "Unready"
 		else:
 			joinButton.text = "Ready Up"
 		joinButton.connect("pressed", joinDuringGame)
@@ -123,11 +120,9 @@ func startGame():
 		Network.localPlayer.setGameReady.rpc(!Network.localPlayer.gameReady)
 		Network.updateLobbyPlayers.rpc()
 func joinDuringGame():
-	if(Game.getSync().gameStarted):
-		pass
-		#Game.closeLobby()
-		#print("joined lobby")
-		#Game.joinDuringGame(Network.networkID)
+	if(Network.localPlayer.gameReady && Game.getSync().gameStarted):
+		Game.closeLobby()
+		Game.joinDuringGame()
 	else:
 		Network.localPlayer.setGameReady.rpc(!Network.localPlayer.gameReady)
 		Network.updateLobbyPlayers.rpc()

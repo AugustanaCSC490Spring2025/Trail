@@ -413,13 +413,12 @@ func setPlayerValues():
 	var numPlayers = Network.players.get_child_count()
 	var count = 0
 	for player in Network.players.get_children():
-		player.playerBody.setPosition(cos(2 * PI * count / float(numPlayers)) * radius + world_position.x, sin(2 * PI * count / float(numPlayers)) * radius + world_position.y)
-		#print(player.playerBody.position)
+		player.playerBody.setPosition.rpc(cos(2 * PI * count / float(numPlayers)) * radius + world_position.x, sin(2 * PI * count / float(numPlayers)) * radius + world_position.y)
+		player.playerBody.setVisible.rpc(true)
 		count += 1
-	#setPlayerCameras.rpc()
 	Network.setLocalPlayerCamera.rpc()
 
-#@rpc("authority", "call_local", "reliable")
-#func setPlayerCameras():
-	#print(Network.localPlayer.playerBody.playerID)
-	#Network.localPlayer.playerBody.setCamera()	
+func addLatePlayer():
+	Network.localPlayer.playerBody.setPosition.rpc(world_position.x, world_position.y - radius)
+	Network.localPlayer.playerBody.setVisible.rpc(true)
+	Network.setLocalPlayerCamera.rpc()

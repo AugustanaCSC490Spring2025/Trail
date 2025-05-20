@@ -722,6 +722,9 @@ properties/6/replication_mode = 1
 properties/7/path = NodePath(".:alive")
 properties/7/spawn = true
 properties/7/replication_mode = 1
+properties/8/path = NodePath(".:visible")
+properties/8/spawn = true
+properties/8/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mhctf"]
 properties/0/path = NodePath("InputSynchronizer:vertical_input")
@@ -744,6 +747,7 @@ bg_color = Color(0, 0, 0, 0.392157)
 bg_color = Color(0, 1, 0.235294, 1)
 
 [node name="PlayerBody" type="CharacterBody2D" groups=["Hurtable", "Players"]]
+visible = false
 z_index = 2
 y_sort_enabled = true
 motion_mode = 1
