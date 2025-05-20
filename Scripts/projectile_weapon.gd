@@ -15,6 +15,7 @@ var right = true
 @export var can_fire = true
 var can_move = true
 var weapons_dict
+var shotgun = false
 
 func _ready() -> void:
 	var m16 = {
@@ -52,7 +53,8 @@ func _ready() -> void:
 	"weapon_sprite_path": "res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/twin_barrel_shotgun.svg",
 	"weapon_scale": Vector2(0.15, 0.15),
 	"weapon_rotation": 39,
-	"weapon_position": Vector2(27, 4)
+	"weapon_position": Vector2(15, 4),
+	"shotgun": true
 	}
 	var winchester_1873 = {
 	"rate_of_fire": .5,
@@ -69,14 +71,17 @@ func _ready() -> void:
 		"double_barrel_shotgun": double_barrel_shotgun,
 		"winchester_1873": winchester_1873
 	}
-	#swap_weapon(double_barrel_shotgun)
+	swap_weapon(double_barrel_shotgun)
 
 func _physics_process(delta: float) -> void:
 	if not can_move:
 		return
 	if (input_synchronizer.enable):
 		if input_synchronizer.shoot_input and can_fire:
-			rpc("shoot")
+			if shotgun:
+				shoot_shotgun(input_synchronizer.mouse_position)
+			else:
+				rpc("shoot", input_synchronizer.mouse_position)
 	pointGun()#.rpc()
 	
 			
@@ -84,6 +89,10 @@ func _physics_process(delta: float) -> void:
 		#pointing_tip.target_position = mouse_position
 
 func swap_weapon(weapon_info: Dictionary):
+	if weapon_info.has("shotgun"):
+		shotgun = true
+	else:
+		shotgun = false
 	rate_of_fire = weapon_info["rate_of_fire"]
 	sprite.texture = load(weapon_info["weapon_sprite_path"])
 	sprite.scale = weapon_info["weapon_scale"]
@@ -97,15 +106,28 @@ func flip():
 	right = !right
 
 @rpc("any_peer", "call_local", "reliable")
-func shoot():
+func shoot(target):
+	print(str(shotgun) + " shooting")
 	can_fire =  false
 	rate_of_fire_timer.start(rate_of_fire)
 	#print("shooting " + str(randi_range(1, 10)))
 	var shot = bullet.instantiate()
 	bullets.add_child(shot, true)
 	shot.global_position = pivot_point.global_position
-	shot.look_at(input_synchronizer.mouse_position)
-	shot.fire(pivot_point.global_position, input_synchronizer.mouse_position)
+	shot.look_at(target)
+	shot.fire(pivot_point.global_position, target)
+
+func shoot_shotgun(target):
+	#buggy, different spread based on location of player cursor
+	var spread_x = target.x / float(50.0)
+	var spread_y = target.y / float(50.0)
+	var wide_spread_x = target.x / float(40.0)
+	var wide_spread_y = target.y / float(40.0)
+	rpc("shoot", target)
+	rpc("shoot", Vector2(target.x + wide_spread_x, target.y + wide_spread_y))
+	rpc("shoot", Vector2(target.x + spread_x, target.y + spread_y))
+	rpc("shoot", Vector2(target.x - spread_x, target.y - spread_y))
+	rpc("shoot", Vector2(target.x - wide_spread_x, target.y - wide_spread_y))
 
 #@rpc("any_peer", "call_local", "reliable")
 func pointGun():
