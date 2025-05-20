@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2ukcwwappaxo"]
+
+[ext_resource type="Script" path="res://Scripts/temp_map.gd" id="1_rh6oi"]
+
+[sub_resource type="Gradient" id="Gradient_osem8"]
+offsets = PackedFloat32Array(0, 0.514451, 1)
+colors = PackedColorArray(0.893809, 0.283623, 0.382051, 1, 0.91183, 0.094188, 0.676159, 1, 0.982265, 0, 0.169615, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rh6oi"]
+gradient = SubResource("Gradient_osem8")
+
+[node name="Temp Map" type="Node2D"]
+script = ExtResource("1_rh6oi")
+
+[node name="Map Texture" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(681, 375)
+scale = Vector2(6.30078, 849.5)
+texture = SubResource("GradientTexture1D_rh6oi")
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerBodySpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://byqwsd2vi25ya")
+spawn_path = NodePath("../Players")
