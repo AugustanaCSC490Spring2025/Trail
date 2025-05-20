@@ -116,11 +116,11 @@ func spawn_test_wolf():
 	var spawn_wizard = wizard.instantiate()
 	var spawn_wolf = wolf.instantiate()
 	
-	#multiplayer_spawner.spawn()
-	#spawned_nodes.add_child(spawn_wizard, true)
-	#spawned_nodes.add_child(spawn_wolf, true)
-	#spawn_wolf.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
-	#spawn_wizard.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
+	multiplayer_spawner.spawn()
+	spawned_nodes.add_child(spawn_wizard, true)
+	spawned_nodes.add_child(spawn_wolf, true)
+	spawn_wolf.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
+	spawn_wizard.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
 
 #func spawn_wolves():
 	#for marker in wolf_spawn_locations.get_children():
