@@ -9,6 +9,7 @@ var side = true
 @onready var input_synchronizer = get_parent().get_node("InputSynchronizer")
 @onready var multiplayer_spawner = $"../BulletSpawner"
 @onready var timer = $Timer
+var can_move = true
 
 func _ready() -> void:
 	pass
@@ -19,6 +20,8 @@ func _ready() -> void:
 	#sprite.position = Vector2(16.675, 0.345)
 
 func _physics_process(delta: float) -> void:
+	if not can_move:
+		return
 	if (input_synchronizer.enable):
 		if input_synchronizer.shoot_input:
 			rpc("shoot")

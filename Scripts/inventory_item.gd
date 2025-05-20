@@ -4,6 +4,8 @@ extends Node2D
 @export var item_name = ""
 @export var item_texture: Texture
 @export var item_effect = ""
+@export var item_duration = 0
+
 var scene_path: String = "res://Scenes/Inventory/Inventory_Item.tscn"
 
 @onready var icon_sprite = $Sprite2D
@@ -29,6 +31,7 @@ func pickup_item():
 		"name": item_name,
 		"effect": item_effect,
 		"texture": item_texture,
+		"duration": item_duration,
 		"scene_path": scene_path
 	}
 	# Add item to local player's inventory only
@@ -74,11 +77,12 @@ func _on_area_2d_body_exited(body):
 
 		
 # Set the items values for spawning
-func initiate_items(type, name, effect, texture):
+func initiate_items(type, name, effect, texture, duration):
 	item_type = type
 	item_name = name
 	item_effect = effect
 	item_texture = texture
+	item_duration = duration
 	
 # Sets the item's dictionary data
 func set_item_data(data):
@@ -86,3 +90,4 @@ func set_item_data(data):
 	item_name = data["name"]
 	item_effect = data["effect"]
 	item_texture = data["texture"]
+	item_duration = data["duration"]
