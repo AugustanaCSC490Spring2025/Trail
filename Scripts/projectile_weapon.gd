@@ -16,12 +16,14 @@ var right = true
 var can_move = true
 
 func _ready() -> void:
-	pass
-	#the sprite change code does not position the weapon right, needs some work
-	sprite.texture = preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/assault_rifle/m16.svg")
-	sprite.scale = Vector2(0.1, 0.1)
-	sprite.rotation_degrees = 45
-	sprite.position = Vector2(15, .4)
+	var ar15_dict = {
+	"rate_of_fire": .1,
+	"weapon_sprite_path": "res://Sprites/Weapons/firearm-ocal-scalable/scalable/assault_rifle/m16.svg",
+	"weapon_scale": Vector2(0.1, 0.1),
+	"weapon_rotation": 45,
+	"weapon_position": Vector2(15, .4)
+	}
+	swap_weapon(ar15_dict)
 
 func _physics_process(delta: float) -> void:
 	if not can_move:
@@ -34,6 +36,13 @@ func _physics_process(delta: float) -> void:
 			
 		#weapon_tip.position = mouse_position
 		#pointing_tip.target_position = mouse_position
+
+func swap_weapon(weapon_info: Dictionary):
+	rate_of_fire = weapon_info["rate_of_fire"]
+	sprite.texture = load(weapon_info["weapon_sprite_path"])
+	sprite.scale = weapon_info["weapon_scale"]
+	sprite.rotation_degrees = weapon_info["weapon_rotation"]
+	sprite.position = weapon_info["weapon_position"]
 
 func flip():
 	sprite.rotation_degrees *= -1
