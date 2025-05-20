@@ -14,16 +14,62 @@ var right = true
 @export var rate_of_fire = .1
 @export var can_fire = true
 var can_move = true
+var weapons_dict
 
 func _ready() -> void:
-	var ar15_dict = {
+	var m16 = {
 	"rate_of_fire": .1,
 	"weapon_sprite_path": "res://Sprites/Weapons/firearm-ocal-scalable/scalable/assault_rifle/m16.svg",
 	"weapon_scale": Vector2(0.1, 0.1),
 	"weapon_rotation": 45,
-	"weapon_position": Vector2(15, .4)
+	"weapon_position": Vector2(27, .4)
 	}
-	swap_weapon(ar15_dict)
+	var taurus_raging_bull = {
+	"rate_of_fire": .8,
+	"weapon_sprite_path": "res://Sprites/Weapons/firearm-ocal-scalable/scalable/pistol/357_revolver.svg",
+	"weapon_scale": Vector2(0.1, 0.1),
+	"weapon_rotation": 45,
+	"weapon_position": Vector2(17, 3.5)
+	}
+	var mauser_C96 = {
+	"rate_of_fire": .5,
+	"weapon_sprite_path": "res://Sprites/Weapons/firearm-ocal-scalable/scalable/machine_pistol/mauser_c96.svg",
+	"weapon_scale": Vector2(0.07, 0.07),
+	"weapon_rotation": 25,
+	"weapon_position": Vector2(15, 3.5)
+	}
+	var brown_bess_musket = {
+	"rate_of_fire": 3,
+	"weapon_sprite_path": "res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/musket.svg",
+	"weapon_scale": Vector2(0.17, 0.17),
+	"weapon_rotation": 40,
+	"weapon_position": Vector2(27, 2.8)
+	}
+	#the "double barrel shotgun" is the worst fucking pixel art gun I've seen in a while
+	#YOU CANT JUST STAPLE 2 BARRELS ONTO A SINGLE BARREL SEMI AUTOMATIC SHOTGUN AND EXPECT IT TO WORK
+	var double_barrel_shotgun = {
+	"rate_of_fire": 1.5,
+	"weapon_sprite_path": "res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/twin_barrel_shotgun.svg",
+	"weapon_scale": Vector2(0.15, 0.15),
+	"weapon_rotation": 39,
+	"weapon_position": Vector2(27, 4)
+	}
+	var winchester_1873 = {
+	"rate_of_fire": .5,
+	"weapon_sprite_path": "res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/lever_action_shotgun.svg",
+	"weapon_scale": Vector2(0.15, 0.15),
+	"weapon_rotation": 37,
+	"weapon_position": Vector2(27, 4)
+	}
+	weapons_dict = {
+		"m16": m16,
+		"taurus_raging_bull": taurus_raging_bull,
+		"mauser_C96": mauser_C96,
+		"brown_bess_musket": brown_bess_musket,
+		"double_barrel_shotgun": double_barrel_shotgun,
+		"winchester_1873": winchester_1873
+	}
+	#swap_weapon(double_barrel_shotgun)
 
 func _physics_process(delta: float) -> void:
 	if not can_move:
