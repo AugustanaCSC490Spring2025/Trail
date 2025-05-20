@@ -10,6 +10,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.662345, 0.0967262, 2.88785e-07, 1, 0.795
 gradient = SubResource("Gradient_0d0pp")
 
 [node name="Menu" type="Node2D"]
+z_index = 1000
 script = ExtResource("1_2qjrc")
 
 [node name="Camera2D" type="Camera2D" parent="."]

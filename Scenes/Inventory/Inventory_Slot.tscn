@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://cn3ytkgwfhagi"]
 
-[ext_resource type="Script" uid="uid://dbhvct2ano3xg" path="res://Scripts/inventory_slot.gd" id="1_fuqgh"]
+[ext_resource type="Script" path="res://Scripts/inventory_slot.gd" id="1_fuqgh"]
 [ext_resource type="Texture2D" uid="uid://dk68ssjyw150w" path="res://Sprites/Weapons/1851 Colt Navy/transparent.png" id="2_glw52"]
 
 [sub_resource type="FontVariation" id="FontVariation_1jyjo"]

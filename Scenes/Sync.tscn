@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c5ixui60h5ufr"]
 
-[ext_resource type="Script" uid="uid://efvkro34v3gi" path="res://Scripts/sync.gd" id="1_6nice"]
+[ext_resource type="Script" path="res://Scripts/sync.gd" id="1_6nice"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8bp8s"]
 properties/0/path = NodePath(".:mapSeeds")

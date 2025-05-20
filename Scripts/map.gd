@@ -93,7 +93,7 @@ func generate(seed):
 	tree_noise = tree_noise_texture.noise
 	#print("YES")
 	generate_world()
-	spawn_test_wolf()
+	#spawn_test_wolf()
 
 	#print("end")
 	#spawn_test_wolf()
@@ -104,11 +104,11 @@ func generate(seed):
 func spawn_test_wolf():
 	if(Network.networkID == 1):
 		var spawn_wolf = wolf.instantiate()
-    var spawn_wizard = wizard.instantiate()
+		var spawn_wizard = wizard.instantiate()
 		Network.enemies.add_child(spawn_wolf, true)
-    Network.enemies.add_child(spawn_wizard, true)
+		Network.enemies.add_child(spawn_wizard, true)
 		spawn_wolf.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
-    spawn_wizard.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
+		spawn_wizard.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
 
 #func spawn_wolves():
 	#for marker in wolf_spawn_locations.get_children():

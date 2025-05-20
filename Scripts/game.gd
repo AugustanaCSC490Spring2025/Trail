@@ -53,6 +53,7 @@ func startGame():
 	#createMap.rpc()
 	if(network.networkID == 1):
 		map.setPlayerValues()
+		map.spawn_test_wolf()
 	getSync().gameStarted = true
 	#print(multiplayer.get_unique_id())
 	#get_node("/root/Game/Scene/Map").playerSet = false
