@@ -100,6 +100,7 @@ func generate(seed):
 	tree_noise = tree_noise_texture.noise
 	#print("YES")
 	generate_world()
+	spawn_random_items(10)
 	#spawn_test_wolf()
 
 	#print("end")
@@ -437,6 +438,36 @@ func generate_wall(x, y):
 		#object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_atlas[0])
 	if barrier_val:
 		object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_val)
+
+func get_random_position():
+	var area_rect = collision_shape.shape.get_rect()
+	var x = rng.randf_range(0, area_rect.position.x)
+	var y = rng.randf_range(0, area_rect.position.y)
+	return item_spawn_area.to_global(Vector2(x, y))
+	
+# Spawn random items from the Global list up until the max amount (10) has been reached
+func spawn_random_items(count):
+	var attempts = 0
+	var spawned_count = 0
+	while spawned_count < count and attempts < 100:
+		var position = get_random_position()
+		spawn_item(Global.spawnable_items[rng.randi() % Global.spawnable_items.size()], position)
+		spawned_count += 1
+		attempts += 1
+
+# Create a physical instance of the Item scene on the map underneath /Items node
+func spawn_item(data, position):
+	var item_scene = preload("res://Scenes/Inventory/Inventory_Item.tscn")
+	var item_instance = item_scene.instantiate()
+	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
+	if data["type"] == "Weapon":
+		item_instance.set_item_data(data)
+		item_instance.scale = data["weapon_scale"]
+	else:
+		item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
+	item_instance.global_position = position
+	#item_instance.set_multiplayer_authority(1)
+	items.add_child(item_instance)
 
 func setPlayerValues():
 	var numPlayers = Network.players.get_child_count()

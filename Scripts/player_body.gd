@@ -37,6 +37,7 @@ var is_local_player := false
 
 func _ready() -> void:
 	#if not $InputSynchronizer.is_multiplayer_authority(): return
+	Global.set_player_reference(self)
 	playerID = get_parent().getID()
 	#camera_2d.make_current()
 	player_sprite.play("idle_down")

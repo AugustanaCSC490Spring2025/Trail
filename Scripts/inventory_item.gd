@@ -5,6 +5,10 @@ extends Node2D
 @export var item_texture: Texture
 @export var item_effect = ""
 @export var item_duration = 0
+@export var item_rate_of_fire = 0
+@export var item_weapon_scale = 0
+@export var item_weapon_rotation = 0
+@export var item_weapon_position = 0
 
 var scene_path: String = "res://Scenes/Inventory/Inventory_Item.tscn"
 
@@ -32,12 +36,17 @@ func pickup_item():
 		"effect": item_effect,
 		"texture": item_texture,
 		"duration": item_duration,
-		"scene_path": scene_path
+		"scene_path": scene_path,
+		"rate_of_fire": item_rate_of_fire,
+		"weapon_scale": item_weapon_scale,
+		"weapon_position": item_weapon_position,
+		"weapon_rotation": item_weapon_rotation
 	}
 	# Add item to local player's inventory only
 	if Global.player_node:
-		Global.add_item(item, false)
-
+		print("Add")
+		Global.add_item(item, true)
+	print(item)
 	# Ask server to remove this item
 	#request_item_removal()
 	remove_item_local.rpc()
@@ -91,3 +100,12 @@ func set_item_data(data):
 	item_effect = data["effect"]
 	item_texture = data["texture"]
 	item_duration = data["duration"]
+	item_rate_of_fire = data["rate_of_fire"]
+	item_weapon_scale = data["weapon_scale"]
+	item_weapon_rotation = data["weapon_rotation"]
+	item_weapon_position = data["weapon_position"]
+	
+#"rate_of_fire": .8,
+	#"weapon_scale": Vector2(0.1, 0.1),
+	#"weapon_rotation": 45,
+	#"weapon_position": Vector2(17, 3.5)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://4wq4cgxvclco"]
+[gd_scene load_steps=22 format=3 uid="uid://4wq4cgxvclco"]
 
 [ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
@@ -1268,6 +1268,9 @@ sources/1 = SubResource("TileSetAtlasSource_5i587")
 sources/2 = SubResource("TileSetAtlasSource_r08cw")
 sources/3 = SubResource("TileSetAtlasSource_00287")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r08cw"]
+size = Vector2(1000, 1000)
+
 [node name="Map" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_gxtgv")
@@ -1311,5 +1314,12 @@ tile_set = SubResource("TileSet_emjxx")
 [node name="Wolf Timer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="ItemSpawnArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemSpawnArea"]
+shape = SubResource("RectangleShape2D_r08cw")
 
 [connection signal="timeout" from="Wolf Timer" to="." method="spawn_wolves"]
