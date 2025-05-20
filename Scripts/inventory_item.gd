@@ -36,8 +36,9 @@ func pickup_item():
 	}
 	# Add item to local player's inventory only
 	if Global.player_node:
-		Global.add_item(item, false)
-
+		print("Add")
+		Global.add_item(item, true)
+	print(item)
 	# Ask server to remove this item
 	#request_item_removal()
 	remove_item_local.rpc()
