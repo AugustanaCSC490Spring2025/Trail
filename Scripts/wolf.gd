@@ -52,7 +52,7 @@ func _physics_process(delta: float) -> void:
 #=======
 	if not dead:
 		var direction = Vector2()
-		if hunting and not attacking:
+		if hunting and not attacking and target != null:
 			#print(str(global_position.distance_squared_to(target.global_position)))
 			var target_location = target.global_position
 			nav_agent.target_position = target_location

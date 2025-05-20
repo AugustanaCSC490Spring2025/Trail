@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbkx1f74eh2pi"]
+[gd_scene load_steps=5 format=3 uid="uid://dmam81gw6tjq5"]
 
 [ext_resource type="Script" uid="uid://c6cvgv7rrskkp" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://yl7lem5c55yf" path="res://Scripts/network.gd" id="2_j5yw3"]
@@ -13,6 +13,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-5080, 5170, 4577, 5204
 script = ExtResource("1_gl6un")
 
 [node name="LoadingScreen" type="Sprite2D" parent="."]
+visible = false
 z_index = -100
 scale = Vector2(0.691667, 0.691667)
 texture = ExtResource("2_kldst")
@@ -25,7 +26,7 @@ _spawnable_scenes = PackedStringArray("uid://b043ubenlerri")
 spawn_path = NodePath("../Players")
 
 [node name="EnemySpawner" type="MultiplayerSpawner" parent="Network"]
-_spawnable_scenes = PackedStringArray("uid://cb507tsb5q3ph")
+_spawnable_scenes = PackedStringArray("uid://cb507tsb5q3ph", "uid://dd4q76gnaeokq")
 spawn_path = NodePath("../Enemies")
 
 [node name="Players" type="Node2D" parent="Network"]

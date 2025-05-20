@@ -50,7 +50,7 @@ func createMap():
 	
 func startGame():
 	closeLobby.rpc()
-	#createMap.rpc()
+	createMap.rpc()
 	if(network.networkID == 1):
 		map.setPlayerValues()
 		map.spawn_test_wolf()
