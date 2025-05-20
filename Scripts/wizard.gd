@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var facing = ""
 @export var attacking = false
 @export var hunting = false
-@export var target = CharacterBody2D
+@export var target: CharacterBody2D
 @onready var sprite = $AnimatedSprite2D
 @onready var blast_hitbox = preload("res://Scenes/Enemies/blast.tscn")
 @onready var attack = $Attack
@@ -37,7 +37,7 @@ func randomize_stats() -> void:
 func _physics_process(delta: float) -> void:
 	if not dead:  # Check if the wizard is dead before doing anything
 		var direction = Vector2()
-		if hunting and not attacking:
+		if hunting and not attacking and target != null:
 			var target_location = target.global_position
 			nav_agent.target_position = target_location
 			direction = nav_agent.get_next_path_position() - global_position

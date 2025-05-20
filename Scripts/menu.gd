@@ -15,11 +15,12 @@ func _process(delta: float) -> void:
 func create_lobby() -> void:
 	Game.openLobby()
 	network.startHost()
-	Game.createMap.rpc()
+	#Game.createMap()
 
 func join_lobby() -> void:
 	Game.openLobby()
 	network.startClient()
+	#Game.createMap()
 
 func _on_code_text_changed(new_text):
 	network._on_code_text_changed(new_text)

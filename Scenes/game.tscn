@@ -1,23 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://rsqnq8t4ocyv"]
+[gd_scene load_steps=5 format=3 uid="uid://dmam81gw6tjq5"]
 
 [ext_resource type="Script" uid="uid://c6cvgv7rrskkp" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://yl7lem5c55yf" path="res://Scripts/network.gd" id="2_j5yw3"]
 [ext_resource type="Texture2D" uid="uid://bb0n3au28oh7" path="res://Sprites/Loading Sceen/Snake.jpg" id="2_kldst"]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_j5yw3"]
+vertices = PackedVector2Array(4567.06, 5193.96, -5069.99, 5160.03, -5064, -5955.01, 4634.93, -5972.98)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-5080, 5170, 4577, 5204, 4645, -5983, -5074, -5965)])
+
 [node name="Game" type="Node2D" groups=["GameManager"]]
 script = ExtResource("1_gl6un")
 
 [node name="LoadingScreen" type="Sprite2D" parent="."]
+visible = false
 z_index = -100
-position = Vector2(592, 323)
 scale = Vector2(0.691667, 0.691667)
 texture = ExtResource("2_kldst")
 
 [node name="Network" type="Node" parent="." groups=["GameManager"]]
 script = ExtResource("2_j5yw3")
 
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="Network"]
+_spawnable_scenes = PackedStringArray("uid://b043ubenlerri")
+spawn_path = NodePath("../Players")
+
+[node name="EnemySpawner" type="MultiplayerSpawner" parent="Network"]
+_spawnable_scenes = PackedStringArray("uid://cb507tsb5q3ph", "uid://dd4q76gnaeokq")
+spawn_path = NodePath("../Enemies")
+
+[node name="Players" type="Node2D" parent="Network"]
+
+[node name="Enemies" type="Node2D" parent="Network"]
+
 [node name="SceneSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://4wq4cgxvclco")
+_spawnable_scenes = PackedStringArray("uid://c5ixui60h5ufr")
 spawn_path = NodePath("../Scene")
 
-[node name="Scene" type="Node2D" parent="."]
+[node name="Scene" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+visible = false
+navigation_polygon = SubResource("NavigationPolygon_j5yw3")

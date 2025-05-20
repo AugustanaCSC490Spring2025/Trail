@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var facing = ""
 @export var attacking = false
 @export var hunting = false
-@export var target = 0
+@export var target: CharacterBody2D
 @onready var sprite = $AnimatedSprite2D
 @onready var bite_hitbox = preload("res://Scenes/Enemies/BiteHitbox.tscn")
 
@@ -35,9 +35,24 @@ func randomize_stats() -> void:
 	attack_damage = randi_range(10, 20)
 
 func _physics_process(delta: float) -> void:
+#<<<<<<< PlayerRework
+	#var direction = Vector2()
+	#if hunting and not attacking:
+		#var target_location = target.global_position
+		#nav_agent.target_position = target_location
+		#direction = nav_agent.get_next_path_position() - global_position
+		#direction = direction.normalized()
+		#velocity = velocity.lerp(direction * speed, accel * delta)
+		#move_and_slide()
+		#animate(velocity)
+		
+		#if global_position.distance_squared_to(target.global_position) < 1000:
+			#pass
+			#bite(target)
+#=======
 	if not dead:
 		var direction = Vector2()
-		if hunting and not attacking:
+		if hunting and not attacking and target != null:
 			#print(str(global_position.distance_squared_to(target.global_position)))
 			var target_location = target.global_position
 			nav_agent.target_position = target_location
@@ -51,6 +66,7 @@ func _physics_process(delta: float) -> void:
 			if global_position.distance_squared_to(target.global_position) < 1000:
 				#pass
 				bite(target)
+#>>>>>>> main
 
 func animate(velocity: Vector2):
 	if not dead:
