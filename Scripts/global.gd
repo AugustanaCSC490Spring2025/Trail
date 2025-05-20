@@ -5,16 +5,20 @@ extends Node
 # Scene and node references
 @onready var inventory_slot_scene = preload("res://Scenes/Inventory/Inventory_Slot.tscn")
 var player_node: Node = null
-
 # Inventory items
 var inventory = []
 var spawnable_items = [
 	{"type": "Consumable", "name": "Berry", "effect": "Health", "texture": preload("res://Sprites/Icons/icon31.png"), "duration": 3},
 	{"type": "Consumable", "name": "Water", "effect": "Stamina", "texture": preload("res://Sprites/Icons/icon9.png"), "duration": 2},
 	{"type": "Consumable", "name": "Mushroom", "effect": "Armor", "texture": preload("res://Sprites/Icons/icon32.png"), "duration": 4},
-	{"type": "Consumable", "name": "Roids", "effect": "Brawn", "texture": preload("res://Sprites/Icons/icon4.png"), "duration": 4},
+	{"type": "Consumable", "name": "Roids", "effect": "Brawn", "texture": preload("res://Sprites/Icons/icon4.png"), "duration": 4}
+	#{"type": "Weapon", "name": "m16", "effect": "Gun", "texture": preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/assault_rifle/m16.svg"), "duration": 0},
+	#{"type": "Weapon", "name": "taurus_raging_bull", "effect": "Gun", "texture": preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/pistol/357_revolver.svg"), "duration": 0},
+	#{"type": "Weapon", "name": "mauser_C96", "effect": "Gun", "texture": preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/machine_pistol/mauser_c96.svg"), "duration": 0},
+	#{"type": "Weapon", "name": "brown_bess_musket", "effect": "Gun", "texture": preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/musket.svg"), "duration": 0},
+	#{"type": "Weapon", "name": "double_barrel_shotgun", "effect": "Gun", "texture": preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/twin_barrel_shotgun.svg"), "duration": 0},
+	#{"type": "Weapon", "name": "winchester_1873", "effect": "Gun", "texture": preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/lever_action_shotgun.svg"), "duration": 0}
 ]
-
 # Custom signals
 signal inventory_updated
 
@@ -100,7 +104,7 @@ func adjust_drop_position(position):
 func add_hotbar_item(item):
 	for i in range(inventory.size()):
 			# Check if the item exists in the inventory and matches both type and effect
-		if hotbar_inventory[i] != null and hotbar_inventory[i]["type"] == item["type"] and hotbar_inventory[i]["effect"] == item["effect"]:
+		if hotbar_inventory[i] != null and hotbar_inventory[i]["name"] == item["name"] and hotbar_inventory[i]["effect"] == item["effect"]:
 			hotbar_inventory[i]["quantity"] += item["quantity"]
 			inventory_updated.emit()
 			print("Item added", hotbar_inventory)

@@ -431,6 +431,11 @@ func spawn_item(data, position):
 	var item_scene = preload("res://Scenes/Inventory/Inventory_Item.tscn")
 	var item_instance = item_scene.instantiate()
 	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
+	if data["type"] == "Weapon":
+		item_instance.set_item_data(data)
+		item_instance.scale = data["weapon_scale"]
+	else:
+		item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
 	item_instance.global_position = position
 	#item_instance.set_multiplayer_authority(1)
 	items.add_child(item_instance)
