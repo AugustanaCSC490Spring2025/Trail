@@ -104,7 +104,7 @@ func updatePlayers(playerNames):
 			joinButton.connect("pressed", joinDuringGame)
 	
 func startGame():
-	Game.startGame.rpc()
+	Game.startGame()
 
 func joinDuringGame():
 	#if(Network.getPlayer(Network.networkID).gameStarted):

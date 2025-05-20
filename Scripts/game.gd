@@ -9,6 +9,7 @@ var mapScene = preload("res://Scenes/Map.tscn")
 var map
 var gameReady = false
 var fullscreen = false
+var mapSeed
 @onready var scene = $Scene
 @onready var camera = $Camera2D
 
@@ -35,19 +36,23 @@ func openLobby():
 	lobby = lobbyScene.instantiate()
 	add_child(lobby, true)
 
+@rpc("authority", "call_local", "reliable")
 func closeLobby():
-	get_node("Lobby").queue_free()
-
-@rpc("authority", "call_local", "reliable")
-func createMap():
-	map = network.map
-	#print("start %s" % map)
-	scene.add_child(map, true)
-	
-@rpc("authority", "call_local", "reliable")
-func startGame():
 	if has_node("Lobby"):
 		get_node("Lobby").queue_free()
+
+@rpc("authority", "call_local", "reliable")
+func createMap(seed):
+	map = mapScene.instantiate()
+	add_child(map, true)
+	map.generate(seed)
+	print("Done")
+	#add_child(map, true)
+	
+#@rpc("authority", "call_local", "reliable")
+func startGame():
+	closeLobby.rpc()
+	createMap.rpc(mapSeed)
 	if(network.networkID == 1):
 		map.setPlayerValues()
 	#print(multiplayer.get_unique_id())

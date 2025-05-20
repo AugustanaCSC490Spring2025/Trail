@@ -14,7 +14,6 @@ var playerScene = preload("res://Scenes/Player.tscn")
 @onready var players = $Players
 var mapScene = preload("res://Scenes/Map.tscn")
 var tempMapScene = preload("res://Scenes/TempMap.tscn")
-var map
 var networkID
 var playerNames = []
 var localPlayer
@@ -28,9 +27,8 @@ func _ready():
 	pass # Replace with function body.
 
 func startHost():
+	Game.mapSeed = randi_range(0, 1000000000)
 	var peer = ENetMultiplayerPeer.new()
-	#map = mapScene.instantiate()
-	map = tempMapScene.instantiate()
 	var lan_ip = "0.0.0.0" if lan_addresses.is_empty() else lan_addresses[0]
 	print(lan_ip)
 	peer.set_bind_ip(lan_ip)
