@@ -12,6 +12,7 @@ var side = true
 @onready var rate_of_fire_timer = $"../RateOfFire"
 @export var rate_of_fire = .1
 @export var can_fire = true
+var can_move = true
 
 func _ready() -> void:
 	pass
@@ -22,6 +23,8 @@ func _ready() -> void:
 	sprite.position = Vector2(15, .4)
 
 func _physics_process(delta: float) -> void:
+	if not can_move:
+		return
 	if (input_synchronizer.enable):
 		if input_synchronizer.shoot_input and can_fire:
 			rpc("shoot")

@@ -117,10 +117,10 @@ func spawn_test_wolf():
 	var spawn_wolf = wolf.instantiate()
 	
 	#multiplayer_spawner.spawn()
-	spawned_nodes.add_child(spawn_wizard, true)
-	spawned_nodes.add_child(spawn_wolf, true)
-	spawn_wolf.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
-	spawn_wizard.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
+	#spawned_nodes.add_child(spawn_wizard, true)
+	#spawned_nodes.add_child(spawn_wolf, true)
+	#spawn_wolf.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
+	#spawn_wizard.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
 
 #func spawn_wolves():
 	#for marker in wolf_spawn_locations.get_children():
@@ -461,7 +461,7 @@ func spawn_random_items(count):
 func spawn_item(data, position):
 	var item_scene = preload("res://Scenes/Inventory/Inventory_Item.tscn")
 	var item_instance = item_scene.instantiate()
-	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"])
+	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
 	item_instance.global_position = position
 	#item_instance.set_multiplayer_authority(1)
 	items.add_child(item_instance)

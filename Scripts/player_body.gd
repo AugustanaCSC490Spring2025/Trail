@@ -9,7 +9,7 @@ extends CharacterBody2D
 @onready var interact_ui = $InteractUI
 @onready var inventory_hotbar = $InventoryHotbar
 
-
+var can_move = true
 
 const SPAWN_RADIUS: float = 100
 @export var speed = 200.0
@@ -59,7 +59,11 @@ func _process(delta):
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
+	if not can_move:
+		$"Weapon Pivot".can_move = false
+		return
 	if multiplayer.is_server():
+		$"Weapon Pivot".can_move = true
 		_move(delta)
 		changeAnimation.rpc(player_facing)
 		#print(camera_2d.zoom)
@@ -157,7 +161,15 @@ func use_hotbar_item(slot_index):
 		if item != null:
 			# Use item
 			apply_item_effect(item)
-			print(item["quantity"])
+			var progress_scene = preload("res://Scenes/ProgressBar.tscn")
+			var progress_ui = progress_scene.instantiate()
+			progress_ui.duration = item["duration"]
+			add_child(progress_ui)
+			can_move = false
+			await progress_ui.simulate_loading(progress_ui.duration)
+			can_move = true
+			#remove_child(progress_ui)
+
 			# Remove item
 			item["quantity"] -= 1
 			if item["quantity"] <= 0:
@@ -199,7 +211,12 @@ func apply_item_effect(item):
 		"Stamina":
 			speed += 50
 			print(multiplayer.get_unique_id(), " speed increased to ", speed)
-		#"Slot Boost":
+		"Armor":
+			maxHP += 10
+			print(multiplayer.get_unique_id(), " hp increased to ", maxHP)
+		"Health":
+			HP += 30
+			print(multiplayer.get_unique_id(), " hp increased to ", HP)
 			#Global.increase_inventory_size(5)
 			#print("Inventory increased to ", Global.inventory.size())
 		#_:

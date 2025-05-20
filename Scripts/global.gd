@@ -9,10 +9,10 @@ var player_node: Node = null
 # Inventory items
 var inventory = []
 var spawnable_items = [
-	{"type": "Consumable", "name": "Berry", "effect": "Health", "texture": preload("res://Sprites/Icons/icon31.png")},
-	{"type": "Consumable", "name": "Water", "effect": "Stamina", "texture": preload("res://Sprites/Icons/icon9.png")},
-	{"type": "Consumable", "name": "Mushroom", "effect": "Armor", "texture": preload("res://Sprites/Icons/icon32.png")},
-	{"type": "Gift", "name": "Gemstone", "effect": "", "texture": preload("res://Sprites/Icons/icon21.png")},
+	{"type": "Consumable", "name": "Berry", "effect": "Health", "texture": preload("res://Sprites/Icons/icon31.png"), "duration": 3},
+	{"type": "Consumable", "name": "Water", "effect": "Stamina", "texture": preload("res://Sprites/Icons/icon9.png"), "duration": 2},
+	{"type": "Consumable", "name": "Mushroom", "effect": "Armor", "texture": preload("res://Sprites/Icons/icon32.png"), "duration": 4},
+	{"type": "Consumable", "name": "Roids", "effect": "Brawn", "texture": preload("res://Sprites/Icons/icon4.png"), "duration": 4},
 ]
 
 # Custom signals
