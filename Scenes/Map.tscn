@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://4wq4cgxvclco"]
+[gd_scene load_steps=21 format=3 uid="uid://4wq4cgxvclco"]
 
 [ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
@@ -1268,61 +1268,6 @@ sources/1 = SubResource("TileSetAtlasSource_5i587")
 sources/2 = SubResource("TileSetAtlasSource_r08cw")
 sources/3 = SubResource("TileSetAtlasSource_00287")
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_etk83"]
-properties/0/path = NodePath(".:mapSeed")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:grass_tilemaplayer")
-properties/1/spawn = false
-properties/1/replication_mode = 1
-properties/2/path = NodePath(".:dirt_tilemaplayer")
-properties/2/spawn = false
-properties/2/replication_mode = 1
-properties/3/path = NodePath(".:object_tilemaplayer")
-properties/3/spawn = false
-properties/3/replication_mode = 1
-properties/4/path = NodePath(".:fire_pos")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath(".:building_rng")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath(".:house_atlas_rng")
-properties/6/spawn = true
-properties/6/replication_mode = 1
-properties/7/path = NodePath(".:player_spawn_rng")
-properties/7/spawn = true
-properties/7/replication_mode = 1
-properties/8/path = NodePath(".:town_width_rng")
-properties/8/spawn = true
-properties/8/replication_mode = 1
-properties/9/path = NodePath(".:town_height_rng")
-properties/9/spawn = true
-properties/9/replication_mode = 1
-properties/10/path = NodePath(".:town_size_rng")
-properties/10/spawn = true
-properties/10/replication_mode = 1
-properties/11/path = NodePath(".:road_dir_rng")
-properties/11/spawn = true
-properties/11/replication_mode = 1
-properties/12/path = NodePath(".:tree_noise")
-properties/12/spawn = true
-properties/12/replication_mode = 1
-properties/13/path = NodePath(".:playerSet")
-properties/13/spawn = true
-properties/13/replication_mode = 1
-properties/14/path = NodePath(".:items")
-properties/14/spawn = true
-properties/14/replication_mode = 1
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_r08cw"]
-vertices = PackedVector2Array(1620, 2013.07, -1782.77, 2038.92, -1707.2, -1467.36, 1620, -1593.61)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-1793, 2049, 1630, 2023, 1630, -1604, -1844, -1630)])
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngcqm"]
-size = Vector2(500, 500)
-
 [node name="Map" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_gxtgv")
@@ -1363,48 +1308,8 @@ z_index = 2
 y_sort_enabled = true
 tile_set = SubResource("TileSet_emjxx")
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://byqwsd2vi25ya", "uid://cb507tsb5q3ph", "uid://dd4q76gnaeokq")
-spawn_path = NodePath("../SpawnerNodes")
-
-[node name="SpawnerNodes" type="Node2D" parent="."]
-
-[node name="MapSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_etk83")
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-position = Vector2(0, -7)
-navigation_polygon = SubResource("NavigationPolygon_r08cw")
-
 [node name="Wolf Timer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
-
-[node name="Wolf Spawns" type="Node2D" parent="."]
-
-[node name="Marker2D" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(680, -680)
-
-[node name="Marker2D2" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(680, 680)
-
-[node name="Marker2D4" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(0, 680)
-
-[node name="Marker2D5" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(0, -680)
-
-[node name="Marker2D6" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(-680, 680)
-
-[node name="Marker2D3" type="Marker2D" parent="Wolf Spawns"]
-position = Vector2(-680, -680)
-
-[node name="Items" type="Node2D" parent="."]
-
-[node name="ItemSpawnArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemSpawnArea"]
-shape = SubResource("RectangleShape2D_ngcqm")
 
 [connection signal="timeout" from="Wolf Timer" to="." method="spawn_wolves"]

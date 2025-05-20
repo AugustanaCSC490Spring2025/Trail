@@ -1,15 +1,14 @@
 extends Node2D
 class_name Map
 
-@onready var multiplayer_spawner = $MultiplayerSpawner
 @onready var timer = $"Wolf Timer"
 @onready var wolf = preload("res://Scenes/Enemies/wolf.tscn")
 @onready var wizard = preload("res://Scenes/Enemies/wizard.tscn")
 @onready var campfire = preload("res://Scenes/Campfire.tscn")
 @onready var wolf_spawn_locations = $"Wolf Spawns"
 @onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
-@onready var network = get_tree().get_nodes_in_group("GameManager")[1]
-var localPlayer
+@onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
+var radius = 30
 
 @onready var items = $Items
 @onready var item_spawn_area = $ItemSpawnArea
@@ -59,8 +58,7 @@ var dirt_dict := {}
 
 var random_grass_atlas_arr = [Vector2i(1,0),Vector2i(2,0),Vector2i(3,0),Vector2i(4,0),Vector2i(5,0)]
 @onready var spawned_nodes = $SpawnerNodes
-@export var playerSet = false
-var mapSeed = randi_range(0,100)
+var mapSeed
 var rng := RandomNumberGenerator.new()
 var building_rng := RandomNumberGenerator.new()
 var house_atlas_rng := RandomNumberGenerator.new()
@@ -70,15 +68,15 @@ var town_height_rng := RandomNumberGenerator.new()
 var town_size_rng := RandomNumberGenerator.new()
 var road_dir_rng := RandomNumberGenerator.new()
 var tree_rng := RandomNumberGenerator.new()
+var fire_rng := RandomNumberGenerator.new()
 var towns = []
 var campfire_tile_pos : Vector2i
 var campfire_scene
-var fire_pos = Vector2i(
-	randi_range(int(-half_width) + 60, int(half_width) - 60),
-	randi_range(int(-half_height) + 60, int(half_height) - 60)
-)
+var fire_pos
+var world_position
 
-func _ready():
+func generate(seed):
+	mapSeed = seed
 	#hotbar_inventory.resize(hotbar_size) 
 	rng.seed = mapSeed
 	building_rng.seed = mapSeed
@@ -89,38 +87,28 @@ func _ready():
 	town_size_rng.seed = mapSeed
 	road_dir_rng.seed = mapSeed
 	tree_rng.seed = mapSeed
+	fire_rng.seed = mapSeed
 	noise = noise_texture.noise
 	noise.set_seed(mapSeed)
 	tree_noise = tree_noise_texture.noise
 	#print("YES")
 	generate_world()
-	#spawn more to test randomness
-	#spawn_test_wolf()
-	#spawn_test_wolf()
-	#spawn_test_wolf()
-	setLocalPlayer()
-	spawn_random_items(10)
+	spawn_test_wolf()
+
 	#print("end")
 	#spawn_test_wolf()
 	#for player in network.players:
 		#var player_body = player.getPlayerBody()
 		#spawned_nodes.add_child(player_body, true)
 
-func _process(delta):
-	if not playerSet:
-		setLocalPlayer()
-		playerSet = true
-
 func spawn_test_wolf():
-	#multiplayer_spawner.add_spawnable_scene("res://Scenes/Enemies/wolf.tscn")
-	var spawn_wizard = wizard.instantiate()
-	var spawn_wolf = wolf.instantiate()
-	
-	#multiplayer_spawner.spawn()
-	#spawned_nodes.add_child(spawn_wizard, true)
-	#spawned_nodes.add_child(spawn_wolf, true)
-	#spawn_wolf.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
-	#spawn_wizard.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
+	if(Network.networkID == 1):
+		var spawn_wolf = wolf.instantiate()
+    var spawn_wizard = wizard.instantiate()
+		Network.enemies.add_child(spawn_wolf, true)
+    Network.enemies.add_child(spawn_wizard, true)
+		spawn_wolf.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
+    spawn_wizard.set_global_position(Vector2(randf_range(-500, 500), randf_range(-500, 500)))
 
 #func spawn_wolves():
 	#for marker in wolf_spawn_locations.get_children():
@@ -132,13 +120,6 @@ func spawn_test_wolf():
 	#timer.wait_time *= .9
 	#if(timer.wait_time < 1):
 		#timer.wait_time = 1
-
-func generate_random_numbers(count, rand_min, rand_max):
-	var numbers = []
-	for i in range(count):
-		var random_number = randi_range(rand_min, rand_max)
-		numbers.append(random_number)
-	return numbers
 	
 #func _process(_delta):
 	#if not cameraSet:
@@ -147,6 +128,10 @@ func generate_random_numbers(count, rand_min, rand_max):
 # lowest noise: -.6271
 # highest noise: .4845
 func generate_world():
+	fire_pos = Vector2i(
+	fire_rng.randi_range(int(-half_width) + 60, int(half_width) - 60),
+	fire_rng.randi_range(int(-half_height) + 60, int(half_height) - 60)
+	)
 	var tree_noise_val
 	var total = width * height
 	grass_positions = PackedVector2Array()
@@ -194,7 +179,7 @@ func generate_campfire_location(center: Vector2i):
 				dirt_arr.append(pos)
 				dirt_dict[pos] = true
 	
-	var world_position = object_tilemaplayer.map_to_local(center)
+	world_position = object_tilemaplayer.map_to_local(center)
 	campfire_tile_pos = center
 	campfire_scene.position = world_position
 	campfire_scene.get_node("CampfireSprite").play("fire")
@@ -203,11 +188,6 @@ func generate_campfire_location(center: Vector2i):
 					Vector2i(world_position.x+1,world_position.y),
 					Vector2i(world_position.x,world_position.y-1),
 					Vector2i(world_position.x,world_position.y+1)]
-	var player_count = 0
-	for player in network.players:
-		var player_body = player.getPlayerBody()
-		player_body.position = (spawn_arr[player_count])
-		player_count+=1
 
 func generate_road_path(start: Vector2i, end: Vector2i, dir: int) -> Array:
 	var path = []
@@ -427,57 +407,17 @@ func generate_wall(x, y):
 	if barrier_val:
 		object_tilemaplayer.set_cell(Vector2(x,y), 0,barrier_val)
 
-func addPlayer(player):
-	var player_body = player.getPlayerBody()
-	spawned_nodes.add_child(player_body, true)
-	# Position the player near the campfire
-	var offset = Vector2(player_spawn_rng.randf_range(-2, 2), player_spawn_rng.randf_range(-2, 2)) * 16  # small random spread
-	var spawn_pos = grass_tilemaplayer.map_to_local(fire_pos)
-	while used_spawn_positions.has(spawn_pos) or building_arr.has(spawn_pos):
-		print("collisions")
-		spawn_pos = grass_tilemaplayer.map_to_local(fire_pos) + offset
-	used_spawn_positions[spawn_pos] = true
-	player_body.position = spawn_pos
-	#spawn_count+=2
-	player_body.enableCamera()
-	
-func get_random_position():
-	var area_rect = collision_shape.shape.get_rect()
-	var x = rng.randf_range(0, area_rect.position.x)
-	var y = rng.randf_range(0, area_rect.position.y)
-	return item_spawn_area.to_global(Vector2(x, y))
-	
-# Spawn random items from the Global list up until the max amount (10) has been reached
-func spawn_random_items(count):
-	var attempts = 0
-	var spawned_count = 0
-	while spawned_count < count and attempts < 100:
-		var position = get_random_position()
-		spawn_item(Global.spawnable_items[rng.randi() % Global.spawnable_items.size()], position)
-		spawned_count += 1
-		attempts += 1
+func setPlayerValues():
+	var numPlayers = Network.players.get_child_count()
+	var count = 0
+	for player in Network.players.get_children():
+		player.playerBody.setPosition(cos(2 * PI * count / float(numPlayers)) * radius + world_position.x, sin(2 * PI * count / float(numPlayers)) * radius + world_position.y)
+		#print(player.playerBody.position)
+		count += 1
+	#setPlayerCameras.rpc()
+	Network.setLocalPlayerCamera.rpc()
 
-# Create a physical instance of the Item scene on the map underneath /Items node
-func spawn_item(data, position):
-	var item_scene = preload("res://Scenes/Inventory/Inventory_Item.tscn")
-	var item_instance = item_scene.instantiate()
-	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
-	item_instance.global_position = position
-	#item_instance.set_multiplayer_authority(1)
-	items.add_child(item_instance)
-
-#@rpc("any_peer", "call_local", "reliable")
-#func setCamera():
-	#print(multiplayer.get_unique_id())
-	#for playerBody in spawned_nodes.get_children():
-		#if playerBody.is_in_group("Players"):
-			#playerBody.enableCamera()
-	
-func setLocalPlayer():
-	for playerBody in spawned_nodes.get_children():
-		print("Network ID: ", network.networkID)
-		if playerBody.is_in_group("Players") && playerBody.playerID == network.networkID:
-			print(" PlayerID: ", playerBody.playerID)
-			localPlayer = playerBody
-			playerBody.enableCamera()
-			
+#@rpc("authority", "call_local", "reliable")
+#func setPlayerCameras():
+	#print(Network.localPlayer.playerBody.playerID)
+	#Network.localPlayer.playerBody.setCamera()	

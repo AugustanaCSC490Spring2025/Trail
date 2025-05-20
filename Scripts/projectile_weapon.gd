@@ -1,6 +1,7 @@
 extends Node2D
 
-var side = true
+var swap = true
+var right = true
 @onready var bullet = preload("res://Scenes/Weapons/Projectiles/bullet.tscn")
 @onready var weapon_tip = $Sprite2D/Tip
 @onready var pivot_point = $"."
@@ -38,6 +39,7 @@ func flip():
 	sprite.rotation_degrees *= -1
 	sprite.scale.y *= -1
 	sprite.position.y *= -1
+	right = !right
 
 @rpc("any_peer", "call_local", "reliable")
 func shoot():
@@ -55,8 +57,8 @@ func pointGun():
 	#mouse_position = get_global_mouse_position()
 	#print(str(multiplayer.get_unique_id()) + " " + str(input_synchronizer.get_multiplayer_authority()))
 	pivot_point.look_at(input_synchronizer.mouse_position)
-	if((pivot_point.global_position.x > input_synchronizer.mouse_position.x && side) || (pivot_point.global_position.x < input_synchronizer.mouse_position.x && !side)):
-		side = !side
+	if(swap):
+		swap = false
 		timer.start()
 	if(pivot_point.global_position.y > input_synchronizer.mouse_position.y):
 		z_index = -1
@@ -64,8 +66,9 @@ func pointGun():
 		z_index = 1
 	
 func _on_timer_timeout():
-	flip()
-
+	if((pivot_point.global_position.x > input_synchronizer.mouse_position.x && right) || (pivot_point.global_position.x < input_synchronizer.mouse_position.x && !right)):
+		flip()
+	swap = true
 
 func _on_rate_of_fire_timeout() -> void:
 	can_fire = true

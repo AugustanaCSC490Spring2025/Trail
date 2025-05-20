@@ -11,11 +11,13 @@ var portInput = 8080
 var IPinput = "localhost"
 var localUsername = "Player"
 var playerScene = preload("res://Scenes/Player.tscn")
-var players = []
+@onready var players = $Players
+@onready var enemies = $Enemies
 var mapScene = preload("res://Scenes/Map.tscn")
-var map
+var tempMapScene = preload("res://Scenes/TempMap.tscn")
 var networkID
 var playerNames = []
+var localPlayer
 
 var all_addresses = IP.get_local_addresses()
 var lan_addresses = Array(all_addresses).filter(func(ip): 
@@ -27,7 +29,6 @@ func _ready():
 
 func startHost():
 	var peer = ENetMultiplayerPeer.new()
-	map = mapScene.instantiate()
 	var lan_ip = "0.0.0.0" if lan_addresses.is_empty() else lan_addresses[0]
 	print(lan_ip)
 	peer.set_bind_ip(lan_ip)
@@ -36,6 +37,7 @@ func startHost():
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	networkID = multiplayer.get_unique_id()
+	Game.addGameSync()
 	_on_player_connected(networkID)
 
 func startClient():
@@ -51,19 +53,16 @@ func _on_player_connected(id):
 	var player = playerScene.instantiate()
 	player.setID(id)
 	player.name = str(id)
-	player.createBody()
-	players.append(player)
-	playerNames = []
-	for tempPlayer in players:
-		playerNames.append(tempPlayer.playerName)
-	updateLobbyPlayers.rpc(playerNames)
+	players.add_child(player)
+	setLocalPlayer.rpc()
+	updateLobbyPlayers.rpc()
 	print("Player %s joined the game." % id)
 	#print("Players: %d" % players.size())
 
 func _on_player_disconnected(id):
-	for player in players:
-		if player.getID() == id:
-			players.erase(player)
+	#for player in players:
+		#if player.getID() == id:
+			#players.erase(player)
 
 	print("Player %s left the game." % id)
 
@@ -84,16 +83,25 @@ func _on_code_text_changed(new_text):
 	if(IPinput == ""):
 		IPinput = "localhost"
 
-@rpc("any_peer", "call_remote", "reliable", 1)
-func refreshLobby():
-	updateLobbyPlayers.rpc(playerNames)
-
-@rpc("authority", "call_local", "reliable")
-func updateLobbyPlayers(playerNames):
+@rpc("any_peer", "call_local", "reliable")
+func updateLobbyPlayers():
+	print(localPlayer.playerName)
 	var lobby = Game.get_node_or_null("Lobby")
 	#print(lobby)
 	if(lobby != null):
-		lobby.updatePlayers(playerNames)
+		lobby.updatePlayers()
+
+@rpc("authority", "call_local", "reliable")
+func setLocalPlayer():
+	if localPlayer == null:
+		for player in players.get_children():
+			if player.playerID == networkID:
+				localPlayer = player
+	print(localPlayer.playerID)
+
+@rpc("authority", "call_local", "reliable")
+func setLocalPlayerCamera():
+	localPlayer.playerBody.setCamera()
 
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func readyPlayer(id):
