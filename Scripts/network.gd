@@ -27,7 +27,6 @@ func _ready():
 	pass # Replace with function body.
 
 func startHost():
-	Game.mapSeed = randi_range(0, 1000000000)
 	var peer = ENetMultiplayerPeer.new()
 	var lan_ip = "0.0.0.0" if lan_addresses.is_empty() else lan_addresses[0]
 	print(lan_ip)
@@ -37,6 +36,7 @@ func startHost():
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	networkID = multiplayer.get_unique_id()
+	Game.addGameSync()
 	_on_player_connected(networkID)
 
 func startClient():
@@ -102,6 +102,10 @@ func setLocalPlayer():
 		for player in players.get_children():
 			if player.playerID == networkID:
 				localPlayer = player
+
+@rpc("authority", "call_local", "reliable")
+func setLocalPlayerCamera():
+	localPlayer.playerBody.setCamera()
 
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func readyPlayer(id):

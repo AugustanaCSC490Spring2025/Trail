@@ -398,9 +398,10 @@ func setPlayerValues():
 		player.playerBody.setPosition(cos(2 * PI * count / float(numPlayers)) * radius + world_position.x, sin(2 * PI * count / float(numPlayers)) * radius + world_position.y)
 		#print(player.playerBody.position)
 		count += 1
-	setPlayerCameras.rpc()
+	#setPlayerCameras.rpc()
+	Network.setLocalPlayerCamera.rpc()
 
-@rpc("authority", "call_local", "reliable")
-func setPlayerCameras():
+#@rpc("authority", "call_local", "reliable")
+#func setPlayerCameras():
 	#print(Network.localPlayer.playerBody.playerID)
-	Network.localPlayer.playerBody.setCamera()			
+	#Network.localPlayer.playerBody.setCamera()	

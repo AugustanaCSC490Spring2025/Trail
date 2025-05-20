@@ -22,9 +22,9 @@ spawn_path = NodePath("../Players")
 [node name="Players" type="Node2D" parent="Network"]
 
 [node name="SceneSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://4wq4cgxvclco", "uid://b2ukcwwappaxo")
+_spawnable_scenes = PackedStringArray("uid://c5ixui60h5ufr")
 spawn_path = NodePath("../Scene")
 
-[node name="Scene" type="Node2D" parent="."]
+[node name="Scene" type="Node" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]

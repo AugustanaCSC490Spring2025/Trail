@@ -7,6 +7,8 @@ var lobbyScene = preload("res://Scenes/Lobby.tscn")
 var lobby
 var mapScene = preload("res://Scenes/Map.tscn")
 var map
+var syncScene = preload("res://Scenes/Sync.tscn")
+var sync
 var gameReady = false
 var fullscreen = false
 var mapSeed
@@ -42,17 +44,17 @@ func closeLobby():
 		get_node("Lobby").queue_free()
 
 @rpc("authority", "call_local", "reliable")
-func createMap(seed):
+func createMap():
 	map = mapScene.instantiate()
 	add_child(map, true)
-	map.generate(seed)
+	map.generate(getSync().getMapSeed(0))
 	print("Done")
 	#add_child(map, true)
 	
 #@rpc("authority", "call_local", "reliable")
 func startGame():
 	closeLobby.rpc()
-	createMap.rpc(mapSeed)
+	createMap.rpc()
 	if(network.networkID == 1):
 		map.setPlayerValues()
 	#print(multiplayer.get_unique_id())
@@ -79,6 +81,13 @@ func leaveGame():
 
 func setCamera():
 	camera.make_current()
+
+func addGameSync():
+	sync = syncScene.instantiate()
+	scene.add_child(sync, true)
+
+func getSync():
+	return scene.get_node("Sync")
 
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func isGameStarted():
