@@ -13,7 +13,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-5080, 5170, 4577, 5204
 script = ExtResource("1_gl6un")
 
 [node name="LoadingScreen" type="Sprite2D" parent="."]
-visible = false
 z_index = -100
 scale = Vector2(0.691667, 0.691667)
 texture = ExtResource("2_kldst")
@@ -30,6 +29,7 @@ _spawnable_scenes = PackedStringArray("uid://cb507tsb5q3ph", "uid://dd4q76gnaeok
 spawn_path = NodePath("../Enemies")
 
 [node name="ItemSpawner" type="MultiplayerSpawner" parent="Network"]
+_spawnable_scenes = PackedStringArray("uid://bbs8wboa7cjlg")
 spawn_path = NodePath("../Items")
 
 [node name="Players" type="Node2D" parent="Network"]

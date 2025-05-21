@@ -11,20 +11,23 @@
 [node name="Weapon Pivot" type="Node2D"]
 script = ExtResource("1_8i013")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
+[node name="Weapon" type="Sprite2D" parent="."]
 z_index = 1
 position = Vector2(16.645, 3.39)
 rotation = 0.785398
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_pmofs")
 
-[node name="Tip" type="Node2D" parent="Sprite2D"]
+[node name="Tip" type="Node2D" parent="Weapon"]
 position = Vector2(77.5343, -125.476)
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
+[node name="Revolver" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(16.645, 3.39)
+rotation = 0.785398
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_pmofs")
 
 [node name="357Revolver" type="Sprite2D" parent="."]
 visible = false
@@ -55,9 +58,18 @@ scale = Vector2(0.15, 0.15)
 texture = ExtResource("6_hc3r6")
 
 [node name="TwinBarrelShotgun" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(27, 2)
 rotation = 0.680678
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("7_l6s3y")
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="FlipTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Firerate" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="FlipTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Firerate" to="." method="_on_firerate_timeout"]

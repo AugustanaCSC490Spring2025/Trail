@@ -3,6 +3,7 @@ extends Control
 @onready var progress_bar = $ProgressBar
 var duration = 2
 func _ready():
+	print(duration)
 	# Start the loading simulation on ready
 	await simulate_loading(duration)
 	queue_free()

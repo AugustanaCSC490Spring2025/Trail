@@ -1,16 +1,18 @@
 extends Area2D
 const speed = 1
 @onready var direction = null
-@onready var sprite = $Sprite2D
+@onready var sprite = $Sprite
+@onready var shadow = $Shadow
 var velocity = 1200
 var x_speed = 0
 var y_speed = 0
 var origin
-
+var length = 32
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sprite.visible = false
+	shadow.visible = false
 
 func fire(starting_location: Vector2, mouse_position: Vector2) -> void:
 	origin = starting_location
@@ -32,8 +34,9 @@ func fire(starting_location: Vector2, mouse_position: Vector2) -> void:
 func _physics_process(delta: float) -> void:
 	position += Vector2(x_speed, y_speed) * delta
 	var distance = sqrt(pow(position.x, 2.0) + pow(position.y, 2.0))
-	if(!sprite.visible && distance > 32):
+	if(!sprite.visible && distance > length):
 		sprite.visible = true
+		shadow.visible = true
 	if(distance > 10000):
 		queue_free()
 	#print(position)
