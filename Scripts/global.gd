@@ -12,25 +12,29 @@ var spawnable_items = [
 	"name": "Berry",
 	"effect": "Health",
 	"texture": preload("res://Sprites/Icons/icon31.png"),
-	"duration": 3},
+	"duration": 3,
+	"quantity": 1},
 	
 	{"type": "Consumable",
 	"name": "Water",
 	"effect": "Stamina",
 	"texture": preload("res://Sprites/Icons/icon9.png"),
-	"duration": 2},
+	"duration": 2,
+	"quantity": 1},
 	
 	{"type": "Consumable",
 	"name": "Mushroom",
 	"effect": "Armor",
 	"texture": preload("res://Sprites/Icons/icon32.png"),
-	"duration": 4},
+	"duration": 4,
+	"quantity": 1},
 	
 	{"type": "Consumable",
 	"name": "Roids",
 	"effect": "Brawn",
 	"texture": preload("res://Sprites/Icons/icon4.png"),
-	"duration": 4},
+	"duration": 4,
+	"quantity": 1},
 	
 	{"type": "Weapon", 
 	"name": "m16", 
@@ -40,7 +44,8 @@ var spawnable_items = [
 	"weapon_scale": Vector2(0.1, 0.1),
 	"weapon_rotation": 45,
 	"weapon_position": Vector2(17, 0.4),
-	"duration": 0},
+	"duration": 0,
+	"quantity": 1},
 	
 	{"type": "Weapon", 
 	"name": "taurus_raging_bull", 
@@ -50,7 +55,8 @@ var spawnable_items = [
 	"weapon_scale": Vector2(0.1, 0.1),
 	"weapon_rotation": 45,
 	"weapon_position": Vector2(17, 3.5),
-	"duration": 0},
+	"duration": 0,
+	"quantity": 1},
 	
 	{"type": "Weapon", 
 	"name": "mauser_C96", 
@@ -60,7 +66,8 @@ var spawnable_items = [
 	"weapon_scale": Vector2(0.07, 0.07),
 	"weapon_rotation": 25,
 	"weapon_position": Vector2(15, 3.5),
-	"duration": 0},
+	"duration": 0,
+	"quantity": 1},
 	
 	{"type": "Weapon", 
 	"name": "brown_bess_musket", 
@@ -70,7 +77,8 @@ var spawnable_items = [
 	"weapon_scale": Vector2(0.17, 0.17),
 	"weapon_rotation": 40,
 	"weapon_position": Vector2(27, 2.8),
-	"duration": 0},
+	"duration": 0,
+	"quantity": 1},
 	
 	{"type": "Weapon", 
 	"name": "brown_bess_musket", 
@@ -80,7 +88,8 @@ var spawnable_items = [
 	"weapon_scale": Vector2(0.15, 0.15),
 	"weapon_rotation": 39,
 	"weapon_position": Vector2(27, 4),
-	"duration": 0},
+	"duration": 0,
+	"quantity": 1},
 	
 	{"type": "Weapon", 
 	"name": "winchester_1873", 
@@ -90,7 +99,8 @@ var spawnable_items = [
 	"weapon_scale": Vector2(0.15, 0.15),
 	"weapon_rotation": 37,
 	"weapon_position": Vector2(27, 4),
-	"duration": 0},
+	"duration": 0,
+	"quantity": 1},
 	
 	{"type": "Weapon", 
 	"name": "colt_peacemaker", 
@@ -100,7 +110,8 @@ var spawnable_items = [
 	"weapon_scale": Vector2(0.1, 0.1),
 	"weapon_rotation": 45,
 	"weapon_position": Vector2(16.65, 3.4),
-	"duration": 0}
+	"duration": 0,
+	"quantity": 1}
 ]
 # Custom signals
 signal inventory_updated

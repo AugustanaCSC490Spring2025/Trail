@@ -29,8 +29,6 @@ func set_empty():
 func set_item(new_item):
 	item = new_item
 	icon.texture = item["texture"] 
-	if item["type"] == "Weapon":
-		icon.scale = Vector2(.3, .3)
 	quantity_label.text = str(item["quantity"])
 	item_name.text = str(item["name"])
 	item_type.text = str(item["type"])
