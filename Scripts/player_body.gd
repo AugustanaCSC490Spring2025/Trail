@@ -244,6 +244,8 @@ func apply_item_effect(item):
 			stat_change = str("Max HP increased to ", maxHP)
 		"Health":
 			HP += 30
+			if HP > maxHP:
+				HP = maxHP
 			stat_change = str("HP increased to ", HP)
 		"Brawn":
 			weapon.rate_of_fire *= .8
