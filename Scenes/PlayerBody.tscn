@@ -820,6 +820,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="InventoryHotbar" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="InventoryHotbar" parent="InventoryHotbar" instance=ExtResource("9_cnuip")]
 
@@ -857,5 +858,24 @@ text = "Press \"E\" to Pick Up"
 [node name="RateOfFire" type="Timer" parent="."]
 wait_time = 0.1
 
+[node name="StatChange" type="CanvasLayer" parent="."]
+
+[node name="StatChangeLabel" type="Label" parent="StatChange"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -34.0
+offset_right = 281.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "Stat Changed to [blank]"
+vertical_alignment = 2
+
+[node name="HideLabelTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="HealthRegeneration" to="." method="_on_health_regeneration_timeout"]
 [connection signal="timeout" from="RateOfFire" to="Weapon Pivot" method="_on_rate_of_fire_timeout"]
+[connection signal="timeout" from="HideLabelTimer" to="." method="_on_hide_label_timer_timeout"]

@@ -9,6 +9,9 @@ extends CharacterBody2D
 @onready var interact_ui = $InteractUI
 @onready var inventory_hotbar = $InventoryHotbar
 
+@onready var label = $StatChange/StatChangeLabel
+@onready var timer = $HideLabelTimer
+
 var can_move = true
 
 const SPAWN_RADIUS: float = 100
@@ -32,6 +35,7 @@ const JUMP_VELOCITY = -400.0
 
 var is_local_player := false
 
+
 #func _enter_tree():
 	#$InputSynchronizer.set_multiplayer_authority(playerID)
 
@@ -42,6 +46,7 @@ func _ready() -> void:
 	#camera_2d.make_current()
 	player_sprite.play("idle_down")
 	hpGradient = hpGradient.duplicate()
+	label.visible = false
 
 #func _set_random_spawn_pos() -> void:
 	#position = Vector2(randf_range(-SPAWN_RADIUS, SPAWN_RADIUS), randf_range(-SPAWN_RADIUS, SPAWN_RADIUS))
@@ -171,7 +176,6 @@ func use_hotbar_item(slot_index):
 			if item["type"] == "Weapon":
 				$"Weapon Pivot".swap_weapon(item)
 			else:
-				apply_item_effect(item)
 				var progress_scene = preload("res://Scenes/ProgressBar.tscn")
 				var progress_ui = progress_scene.instantiate()
 				progress_ui.duration = item["duration"]
@@ -179,6 +183,7 @@ func use_hotbar_item(slot_index):
 				can_move = false
 				await progress_ui.simulate_loading(progress_ui.duration)
 				can_move = true
+				apply_item_effect(item)
 			#remove_child(progress_ui)
 
 			# Remove item
@@ -217,21 +222,29 @@ func _unhandled_input(event):
 				#drop_hotbar_item(i)
 				#break
 # Apply the effect of the item (if possible)
+
+func show_stat_change(text: String, duration: float = 2.0):
+	label.text = text
+	label.visible = true
+	timer.wait_time = duration
+	timer.start()
+
 func apply_item_effect(item):
+	var stat_change = ""
 	match item["effect"]:
 		"Stamina":
 			speed += 50
-			print(multiplayer.get_unique_id(), " speed increased to ", speed)
+			stat_change = str("speed increased to ", speed)
 		"Armor":
 			maxHP += 10
-			print(multiplayer.get_unique_id(), " hp increased to ", maxHP)
+			stat_change = str("hp increased to ", maxHP)
 		"Health":
 			HP += 30
-			print(multiplayer.get_unique_id(), " hp increased to ", HP)
+			stat_change = str("hp increased to ", HP)
 		"Brawn":
 			$"Weapon Pivot".rate_of_fire *= .8
-			print(multiplayer.get_unique_id(), " rate of fire decreased to ", $"Weapon Pivot".rate_of_fire)
-			#Global.increase_inventory_size(5)
-			#print("Inventory increased to ", Global.inventory.size())
-		#_:
-			#print("No effect for this item")
+			stat_change = str("rate of fire decreased to ", $"Weapon Pivot".rate_of_fire)
+	show_stat_change(stat_change)
+	
+func _on_hide_label_timer_timeout() -> void:
+	label.visible = false
