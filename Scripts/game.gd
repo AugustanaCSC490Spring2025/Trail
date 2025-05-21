@@ -13,6 +13,7 @@ var fullscreen = false
 
 @onready var scene = $Scene
 @onready var camera = $Camera2D
+@onready var timer = $Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,14 +47,11 @@ func closeLobby():
 func createMap():
 	map = mapScene.instantiate()
 	add_child(map, true)
-	map.generate(getSync().getMapSeed(0))
+	timer.start(3)
 	
 func startGame():
 	closeLobby.rpc()
 	createMap.rpc()
-	if(network.networkID == 1):
-		map.setPlayerValues()
-		map.spawn_test_wolf()
 	getSync().gameStarted = true
 	#print(multiplayer.get_unique_id())
 	#get_node("/root/Game/Scene/Map").playerSet = false
@@ -83,4 +81,9 @@ func getSync():
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func isGameStarted():
 	#return gameStarted
-	
+
+func _on_timer_timeout():
+	map.generate(getSync().getMapSeed(0))
+	if(network.networkID == 1):
+		map.setPlayerValues()
+		map.spawn_test_wolf()

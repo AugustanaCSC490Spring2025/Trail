@@ -46,7 +46,7 @@ size_flags_horizontal = 3
 
 [node name="Code" type="LineEdit" parent="MenuUI/VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-placeholder_text = "Room Code"
+placeholder_text = "IP Address"
 alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MenuUI/VBoxContainer/HBoxContainer"]

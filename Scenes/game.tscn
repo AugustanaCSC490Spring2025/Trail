@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c6cvgv7rrskkp" path="res://Scripts/game.gd" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://yl7lem5c55yf" path="res://Scripts/network.gd" id="2_j5yw3"]
-[ext_resource type="Texture2D" uid="uid://bb0n3au28oh7" path="res://Sprites/Loading Sceen/Snake.jpg" id="2_kldst"]
+[ext_resource type="PackedScene" uid="uid://b1w7m67rucpg5" path="res://Scenes/Transition.tscn" id="3_3dryh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_j5yw3"]
 vertices = PackedVector2Array(4567.06, 5193.96, -5069.99, 5160.03, -5064, -5955.01, 4634.93, -5972.98)
@@ -12,10 +12,8 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-5080, 5170, 4577, 5204
 [node name="Game" type="Node2D" groups=["GameManager"]]
 script = ExtResource("1_gl6un")
 
-[node name="LoadingScreen" type="Sprite2D" parent="."]
-z_index = -100
-scale = Vector2(0.691667, 0.691667)
-texture = ExtResource("2_kldst")
+[node name="Transition" parent="." instance=ExtResource("3_3dryh")]
+z_index = -1000
 
 [node name="Network" type="Node" parent="." groups=["GameManager"]]
 script = ExtResource("2_j5yw3")
@@ -49,3 +47,8 @@ spawn_path = NodePath("../Scene")
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_j5yw3")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

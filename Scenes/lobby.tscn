@@ -89,6 +89,7 @@ size_flags_horizontal = 3
 [node name="Username" type="LineEdit" parent="Control/VBoxContainer2/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 placeholder_text = "Player"
+max_length = 20
 
 [node name="MarginContainer3" type="MarginContainer" parent="Control/VBoxContainer2/HBoxContainer"]
 layout_mode = 2
@@ -102,6 +103,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Description" type="Label" parent="Control/VBoxContainer2/MarginContainer2"]
+visible = false
 layout_mode = 2
 text = "Description"
 

@@ -37,7 +37,7 @@ var spawnable_items = [
 	"quantity": 1},
 	
 	{"type": "Weapon", 
-	"name": "m16", 
+	"name": "M16", 
 	"effect": "Gun", 
 	"texture": load("res://Sprites/Weapons/firearm-ocal-scalable/scalable/assault_rifle/m16.svg"),
 	"rate_of_fire": 0.1,
@@ -48,7 +48,7 @@ var spawnable_items = [
 	"quantity": 1},
 	
 	{"type": "Weapon", 
-	"name": "taurus_raging_bull", 
+	"name": "Taurus Raging Bull", 
 	"effect": "Gun", 
 	"texture": load("res://Sprites/Weapons/firearm-ocal-scalable/scalable/pistol/357_revolver.svg"),
 	"rate_of_fire": 0.4,
@@ -59,7 +59,7 @@ var spawnable_items = [
 	"quantity": 1},
 	
 	{"type": "Weapon", 
-	"name": "mauser_C96", 
+	"name": "Mauser C96", 
 	"effect": "Gun", 
 	"texture": load("res://Sprites/Weapons/firearm-ocal-scalable/scalable/machine_pistol/mauser_c96.svg"),
 	"rate_of_fire": 0.25,
@@ -70,7 +70,7 @@ var spawnable_items = [
 	"quantity": 1},
 	
 	{"type": "Weapon", 
-	"name": "brown_bess_musket", 
+	"name": "Brown Bess Musket", 
 	"effect": "Gun", 
 	"texture": load("res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/musket.svg"),
 	"rate_of_fire": 3,
@@ -81,7 +81,7 @@ var spawnable_items = [
 	"quantity": 1},
 	
 	{"type": "Weapon", 
-	"name": "brown_bess_musket", 
+	"name": "Double Barrel Shotgun", 
 	"effect": "Gun", 
 	"texture": load("res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/twin_barrel_shotgun.svg"),
 	"rate_of_fire": 1.5,
@@ -92,7 +92,7 @@ var spawnable_items = [
 	"quantity": 1},
 	
 	{"type": "Weapon", 
-	"name": "winchester_1873", 
+	"name": "Winchester 1873", 
 	"effect": "Gun", 
 	"texture": load("res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/lever_action_shotgun.svg"),
 	"rate_of_fire": 0.5,
@@ -103,7 +103,7 @@ var spawnable_items = [
 	"quantity": 1},
 	
 	{"type": "Weapon", 
-	"name": "colt_peacemaker", 
+	"name": "Colt Peacemaker", 
 	"effect": "Gun", 
 	"texture": load("res://Sprites/Weapons/firearm-ocal-scalable/scalable/pistol/colt_peacemaker.svg"),
 	"rate_of_fire": 0.35,
@@ -155,33 +155,37 @@ func increase_inventory_size(extra_slots):
 
 # Drops an item at a specified position, adjusting for nearby items
 func drop_item(item_data, drop_position):
-	var item_scene = load(item_data["scene_path"])
-	var item_instance = item_scene.instantiate()
-	var texture = item_data["texture"].resource_path
-	item_instance.set_item_data(item_data)
-	drop_position = adjust_drop_position(drop_position)
-	item_instance.global_position = Vector2i(drop_position)
+	var map = get_node_or_null("/root/Game/Map")
+	print(drop_position)
+	if map != null:
+		map.spawn_item.rpc(item_data, drop_position)
+	#var item_scene = load(item_data["scene_path"])
+	#var item_instance = item_scene.instantiate()
+	#var texture = item_data["texture"].resource_path
+	#item_instance.set_item_data(item_data)
+	#drop_position = adjust_drop_position(drop_position)
+	#item_instance.global_position = Vector2i(drop_position)
 	#get_tree().current_scene.add_child(item_instance)
-	drop_item_local(item_data, drop_position, texture)
+	#drop_item_local(item_data, drop_position, texture)
 	
-@rpc("authority", "call_local" ,"reliable")
-func drop_item_local(item_data, drop_position, texture):
-	var item_scene = load(item_data["scene_path"])
-	var item_instance = item_scene.instantiate()
-	item_data["texture"] = load(texture)
-	item_instance.set_item_data(item_data)
-	item_instance.global_position = Vector2i(drop_position)
-	get_node("/root/Game/Scene/Items").add_child(item_instance)
-	drop_item_everywhere.rpc(item_data, drop_position, texture)
+#@rpc("authority", "call_local" ,"reliable")
+#func drop_item_local(item_data, drop_position, texture):
+	#var item_scene = load(item_data["scene_path"])
+	#var item_instance = item_scene.instantiate()
+	#item_data["texture"] = load(texture)
+	#item_instance.set_item_data(item_data)
+	#item_instance.global_position = Vector2i(drop_position)
+	#get_node("/root/Game/Network/Items").add_child(item_instance)
+	#drop_item_everywhere.rpc(item_data, drop_position, texture)
 	
-@rpc("any_peer", "call_remote" ,"reliable")
-func drop_item_everywhere(item_data, drop_position, texture):
-	var item_scene = load(item_data["scene_path"])
-	var item_instance = item_scene.instantiate()
-	item_data["texture"] = load(texture)
-	item_instance.set_item_data(item_data)
-	item_instance.global_position = Vector2i(drop_position)
-	get_node("/root/Game/Scene/Items").add_child(item_instance)
+#@rpc("any_peer", "call_remote" ,"reliable")
+#func drop_item_everywhere(item_data, drop_position, texture):
+	#var item_scene = load(item_data["scene_path"])
+	#var item_instance = item_scene.instantiate()
+	#item_data["texture"] = load(texture)
+	#item_instance.set_item_data(item_data)
+	#item_instance.global_position = Vector2i(drop_position)
+	#get_node("/root/Game/Network/Items").add_child(item_instance)
 
 # Adjusts the drop position to avoid overlapping with nearby items
 func adjust_drop_position(position):

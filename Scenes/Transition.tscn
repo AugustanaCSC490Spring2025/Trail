@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1w7m67rucpg5"]
+
+[ext_resource type="Texture2D" uid="uid://b08ks0t7b8ats" path="res://Sprites/Loading Sceen/Wheel.png" id="1_ml2rw"]
+[ext_resource type="Script" uid="uid://b6ma8jw56tvak" path="res://Scripts/transition.gd" id="1_rr8bd"]
+
+[node name="Transition" type="ColorRect"]
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_rr8bd")
+
+[node name="Wheel" type="Sprite2D" parent="."]
+position = Vector2(1180, 620)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_ml2rw")
+
+[node name="Day" type="Label" parent="."]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 312.0
+offset_right = 919.0
+offset_bottom = 402.0
+theme_override_font_sizes/font_size = 56
+text = "Day 1"
+horizontal_alignment = 1

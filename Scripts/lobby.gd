@@ -3,7 +3,7 @@ extends Node2D
 @onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
 @onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
 var characterProfiles = [preload("res://Sprites/Character Portraits/Girl1.png"), preload("res://Sprites/Character Portraits/Guy1.png")]
-var characterIndex = 0
+var characterIndex = 1
 @onready var textureRect = $Control/VBoxContainer2/MarginContainer/TextureRect
 @onready var nameEdit = $Control/VBoxContainer2/HBoxContainer/MarginContainer2/Username
 #var startButton
