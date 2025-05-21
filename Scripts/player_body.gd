@@ -213,9 +213,9 @@ func _unhandled_input(event):
 			if Input.is_action_just_pressed("hotbar_" + str(i + 1)):
 				use_hotbar_item(i)
 				break
-			if Input.is_action_just_pressed("drop_hotbar_" + str(i + 1)):
-				drop_hotbar_item(i)
-				break
+			#if Input.is_action_just_pressed("drop_hotbar_" + str(i + 1)):
+				#drop_hotbar_item(i)
+				#break
 # Apply the effect of the item (if possible)
 func apply_item_effect(item):
 	match item["effect"]:
@@ -228,6 +228,9 @@ func apply_item_effect(item):
 		"Health":
 			HP += 30
 			print(multiplayer.get_unique_id(), " hp increased to ", HP)
+		"Brawn":
+			$"Weapon Pivot".rate_of_fire *= .8
+			print(multiplayer.get_unique_id(), " rate of fire decreased to ", $"Weapon Pivot".rate_of_fire)
 			#Global.increase_inventory_size(5)
 			#print("Inventory increased to ", Global.inventory.size())
 		#_:

@@ -29,7 +29,10 @@ func _process(_delta):
 
 	if player_in_range and Input.is_action_just_pressed("ui_add"):
 		pickup_item()
-
+	for i in range(Global.hotbar_size):
+		#Input is F1-5 keys designated for each slot
+		if player_in_range and Input.is_action_just_pressed("drop_hotbar_" + str(i + 1)):
+			replace_item(i)
 #  Local client picks up item, informs server
 func pickup_item():
 	var item = {
@@ -54,6 +57,26 @@ func pickup_item():
 	#request_item_removal()
 	remove_item_local.rpc()
 # Server receives pickup request and broadcasts removal
+
+func replace_item(index):
+	var item = {
+		"quantity": 1,
+		"type": item_type,
+		"name": item_name,
+		"effect": item_effect,
+		"texture": item_texture,
+		"duration": item_duration,
+		"scene_path": scene_path,
+		"rate_of_fire": item_rate_of_fire,
+		"weapon_scale": item_weapon_scale,
+		"weapon_position": item_weapon_position,
+		"weapon_rotation": item_weapon_rotation
+	}
+	# Add item to local player's inventory only
+	if Global.player_node:
+		print("Replace")
+		Global.replace_hotbar_item(item, index)
+	queue_free()
 
 func request_item_removal():
 	# Tell all clients to remove the item

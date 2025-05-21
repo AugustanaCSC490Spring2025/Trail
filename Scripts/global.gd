@@ -115,6 +115,20 @@ func add_hotbar_item(item):
 			print("Item added", hotbar_inventory)
 			return true
 	return false
+	
+func replace_hotbar_item(item, index):
+			# Check if the item exists in the inventory and matches both type and effect
+	if hotbar_inventory[index] != null and hotbar_inventory[index]["name"] == item["name"] and hotbar_inventory[index]["effect"] == item["effect"]:
+		hotbar_inventory[index]["quantity"] += item["quantity"]
+		inventory_updated.emit()
+		print("Item added", hotbar_inventory)
+		return true
+	else:
+		hotbar_inventory[index] = item
+		inventory_updated.emit()
+		print("Item added", hotbar_inventory)
+		return true
+	return false
 
 # Removes an item from the hotbar
 func remove_hotbar_item(item_type, item_effect):
