@@ -474,10 +474,12 @@ func setPlayerValues():
 	for player in Network.players.get_children():
 		player.playerBody.setPosition.rpc(cos(2 * PI * count / float(numPlayers)) * radius + world_position.x, sin(2 * PI * count / float(numPlayers)) * radius + world_position.y)
 		player.playerBody.setVisible.rpc(true)
+		Network.localPlayer.playerBody.inventory_hotbar.visible = true
 		count += 1
 	Network.setLocalPlayerCamera.rpc()
 
 func addLatePlayer():
 	Network.localPlayer.playerBody.setPosition.rpc(world_position.x, world_position.y - radius)
 	Network.localPlayer.playerBody.setVisible.rpc(true)
+	Network.localPlayer.playerBody.inventory_hotbar.visible = true
 	Network.setLocalPlayerCamera.rpc()
