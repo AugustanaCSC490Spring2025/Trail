@@ -24,7 +24,7 @@ func _ready() -> void:
 	"rate_of_fire": .1,
 	"weapon_scale": Vector2(0.1, 0.1),
 	"weapon_rotation": 45,
-	"weapon_position": Vector2(27, .4),
+	"weapon_position": Vector2(17, .4),
 	"duration": 0
 	}
 	var taurus_raging_bull = {
@@ -98,7 +98,7 @@ func _ready() -> void:
 		"double_barrel_shotgun": double_barrel_shotgun,
 		"winchester_1873": winchester_1873
 	}
-	swap_weapon(m16)
+	#swap_weapon(m16)
 
 func _physics_process(delta: float) -> void:
 	if not can_move:
@@ -114,7 +114,8 @@ func _physics_process(delta: float) -> void:
 
 func swap_weapon(weapon_info: Dictionary):
 	rate_of_fire = weapon_info["rate_of_fire"]
-	sprite.texture = load(weapon_info["texture"].resource_path)
+	sprite.texture = null
+	sprite.texture = weapon_info["texture"]
 	sprite.scale = weapon_info["weapon_scale"]
 	sprite.rotation_degrees = weapon_info["weapon_rotation"]
 	sprite.position = weapon_info["weapon_position"]

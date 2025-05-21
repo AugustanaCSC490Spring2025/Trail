@@ -8,10 +8,10 @@ var player_node: Node = null
 # Inventory items
 var inventory = []
 var spawnable_items = [
-	{"type": "Consumable", "name": "Berry", "effect": "Health", "texture": preload("res://Sprites/Icons/icon31.png"), "duration": 3},
+	{"type": "Consumable", "name": "Berry", "effect": "Health", "texture": preload("res://Sprites/Icons/icon31.png"), "duration": 1},
 	{"type": "Consumable", "name": "Water", "effect": "Stamina", "texture": preload("res://Sprites/Icons/icon9.png"), "duration": 2},
-	{"type": "Consumable", "name": "Mushroom", "effect": "Armor", "texture": preload("res://Sprites/Icons/icon32.png"), "duration": 4},
-	{"type": "Consumable", "name": "Roids", "effect": "Brawn", "texture": preload("res://Sprites/Icons/icon4.png"), "duration": 4}
+	{"type": "Consumable", "name": "Mushroom", "effect": "Armor", "texture": preload("res://Sprites/Icons/icon32.png"), "duration": 3},
+	{"type": "Consumable", "name": "Roids", "effect": "Brawn", "texture": preload("res://Sprites/Icons/icon4.png"), "duration": 2}
 	#{"type": "Weapon", "name": "m16", "effect": "Gun", "texture": preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/assault_rifle/m16.svg"), "duration": 0},
 	#{"type": "Weapon", "name": "taurus_raging_bull", "effect": "Gun", "texture": preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/pistol/357_revolver.svg"), "duration": 0},
 	#{"type": "Weapon", "name": "mauser_C96", "effect": "Gun", "texture": preload("res://Sprites/Weapons/firearm-ocal-scalable/scalable/machine_pistol/mauser_c96.svg"), "duration": 0},

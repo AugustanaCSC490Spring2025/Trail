@@ -182,10 +182,10 @@ func use_hotbar_item(slot_index):
 			#remove_child(progress_ui)
 
 			# Remove item
-			item["quantity"] -= 1
-			if item["quantity"] <= 0:
-				Global.hotbar_inventory[slot_index] = null
-				Global.remove_item(item["type"], item["effect"])
+				item["quantity"] -= 1
+				if item["quantity"] <= 0:
+					Global.hotbar_inventory[slot_index] = null
+					Global.remove_item(item["type"], item["effect"])
 			Global.inventory_updated.emit()
 			
 # Use hotbar items on key 1 - 5 press		

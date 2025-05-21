@@ -100,7 +100,7 @@ func generate(seed):
 	tree_noise = tree_noise_texture.noise
 	#print("YES")
 	generate_world()
-	spawn_random_items(10)
+	spawn_random_items(30)
 	#spawn_test_wolf()
 
 	#print("end")

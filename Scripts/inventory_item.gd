@@ -20,7 +20,8 @@ var interacting_player_id: int = -1
 func _ready():
 	if not Engine.is_editor_hint():
 		icon_sprite.texture = item_texture
-	collision_shape.scale *=3
+	if item_type == "Weapon":
+		collision_shape.scale *=3
 
 func _process(_delta):
 	if Engine.is_editor_hint():
