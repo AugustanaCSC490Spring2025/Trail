@@ -24,7 +24,7 @@ func _ready() -> void:
 	"rate_of_fire": .1,
 	"weapon_scale": Vector2(0.1, 0.1),
 	"weapon_rotation": 45,
-	"weapon_position": Vector2(27, .4),
+	"weapon_position": Vector2(17, .4),
 	"duration": 0
 	}
 	var taurus_raging_bull = {

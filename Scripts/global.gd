@@ -39,7 +39,7 @@ var spawnable_items = [
 	"rate_of_fire": 0.1,
 	"weapon_scale": Vector2(0.1, 0.1),
 	"weapon_rotation": 45,
-	"weapon_position": Vector2(27, .4),
+	"weapon_position": Vector2(17, 0.4),
 	"duration": 0},
 	
 	{"type": "Weapon", 
@@ -197,6 +197,20 @@ func add_hotbar_item(item):
 			inventory_updated.emit()
 			print("Item added", hotbar_inventory)
 			return true
+	return false
+	
+func replace_hotbar_item(item, index):
+			# Check if the item exists in the inventory and matches both type and effect
+	if hotbar_inventory[index] != null and hotbar_inventory[index]["name"] == item["name"] and hotbar_inventory[index]["effect"] == item["effect"]:
+		hotbar_inventory[index]["quantity"] += item["quantity"]
+		inventory_updated.emit()
+		print("Item added", hotbar_inventory)
+		return true
+	else:
+		hotbar_inventory[index] = item
+		inventory_updated.emit()
+		print("Item added", hotbar_inventory)
+		return true
 	return false
 
 # Removes an item from the hotbar

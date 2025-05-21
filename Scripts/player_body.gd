@@ -172,22 +172,23 @@ func use_hotbar_item(slot_index):
 		var item = Global.hotbar_inventory[slot_index]
 		if item != null:
 			# Use item
-			apply_item_effect(item)
-			var progress_scene = preload("res://Scenes/ProgressBar.tscn")
-			var progress_ui = progress_scene.instantiate()
-			progress_ui.duration = item["duration"]
-			if(progress_ui.duration > 0):
+			if item["type"] == "Weapon":
+				weapon.swap_weapon(item)
+			else:
+				apply_item_effect(item)
+				var progress_scene = preload("res://Scenes/ProgressBar.tscn")
+				var progress_ui = progress_scene.instantiate()
+				progress_ui.duration = item["duration"]
 				add_child(progress_ui)
 				can_move = false
 				await progress_ui.simulate_loading(progress_ui.duration)
 				can_move = true
-				#remove_child(progress_ui)
 
 			# Remove item
-			item["quantity"] -= 1
-			if item["quantity"] <= 0:
-				Global.hotbar_inventory[slot_index] = null
-				Global.remove_item(item["type"], item["effect"])
+				item["quantity"] -= 1
+				if item["quantity"] <= 0:
+					Global.hotbar_inventory[slot_index] = null
+					Global.remove_item(item["type"], item["effect"])
 			Global.inventory_updated.emit()
 			
 # Use hotbar items on key 1 - 5 press		
@@ -215,9 +216,9 @@ func _unhandled_input(event):
 			if Input.is_action_just_pressed("hotbar_" + str(i + 1)):
 				use_hotbar_item(i)
 				break
-			if Input.is_action_just_pressed("drop_hotbar_" + str(i + 1)):
-				drop_hotbar_item(i)
-				break
+			#if Input.is_action_just_pressed("drop_hotbar_" + str(i + 1)):
+				#drop_hotbar_item(i)
+				#break
 # Apply the effect of the item (if possible)
 func apply_item_effect(item):
 	match item["effect"]:
@@ -233,6 +234,9 @@ func apply_item_effect(item):
 		"Gun":
 			weapon.swap_weapon(item)
 			print(multiplayer.get_unique_id(), " equipped ", item["name"])
+		"Brawn":
+			weapon.rate_of_fire *= .8
+			print(multiplayer.get_unique_id(), " rate of fire decreased to ", weapon.rate_of_fire)
 			#Global.increase_inventory_size(5)
 			#print("Inventory increased to ", Global.inventory.size())
 		#_:

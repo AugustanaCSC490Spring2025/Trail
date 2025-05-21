@@ -13,12 +13,15 @@ extends Node2D
 var scene_path: String = "res://Scenes/Inventory/Inventory_Item.tscn"
 
 @onready var icon_sprite = $Sprite2D
+@onready var collision_shape = $Area2D/CollisionShape2D
 var player_in_range = false
 var interacting_player_id: int = -1
 
 func _ready():
 	if not Engine.is_editor_hint():
 		icon_sprite.texture = item_texture
+	if item_type == "Weapon":
+		collision_shape.scale *=3
 
 func _process(_delta):
 	if Engine.is_editor_hint():
@@ -26,7 +29,10 @@ func _process(_delta):
 
 	if player_in_range and Input.is_action_just_pressed("ui_add"):
 		pickup_item()
-
+	for i in range(Global.hotbar_size):
+		#Input is F1-5 keys designated for each slot
+		if player_in_range and Input.is_action_just_pressed("drop_hotbar_" + str(i + 1)):
+			replace_item(i)
 #  Local client picks up item, informs server
 func pickup_item():
 	var item = {
@@ -51,6 +57,26 @@ func pickup_item():
 	#request_item_removal()
 	remove_item_local.rpc()
 # Server receives pickup request and broadcasts removal
+
+func replace_item(index):
+	var item = {
+		"quantity": 1,
+		"type": item_type,
+		"name": item_name,
+		"effect": item_effect,
+		"texture": item_texture,
+		"duration": item_duration,
+		"scene_path": scene_path,
+		"rate_of_fire": item_rate_of_fire,
+		"weapon_scale": item_weapon_scale,
+		"weapon_position": item_weapon_position,
+		"weapon_rotation": item_weapon_rotation
+	}
+	# Add item to local player's inventory only
+	if Global.player_node:
+		print("Replace")
+		Global.replace_hotbar_item(item, index)
+	queue_free()
 
 func request_item_removal():
 	# Tell all clients to remove the item

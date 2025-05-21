@@ -16,7 +16,6 @@ z_index = 1
 position = Vector2(16.645, 3.39)
 rotation = 0.785398
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_pmofs")
 
 [node name="Tip" type="Node2D" parent="Weapon"]
 position = Vector2(77.5343, -125.476)
