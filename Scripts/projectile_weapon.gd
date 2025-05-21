@@ -98,7 +98,7 @@ func _ready() -> void:
 		"double_barrel_shotgun": double_barrel_shotgun,
 		"winchester_1873": winchester_1873
 	}
-	#swap_weapon(double_barrel_shotgun)
+	swap_weapon(m16)
 
 func _physics_process(delta: float) -> void:
 	if not can_move:
@@ -114,7 +114,7 @@ func _physics_process(delta: float) -> void:
 
 func swap_weapon(weapon_info: Dictionary):
 	rate_of_fire = weapon_info["rate_of_fire"]
-	sprite.texture = load(weapon_info["weapon_sprite_path"])
+	sprite.texture = load(weapon_info["texture"].resource_path)
 	sprite.scale = weapon_info["weapon_scale"]
 	sprite.rotation_degrees = weapon_info["weapon_rotation"]
 	sprite.position = weapon_info["weapon_position"]

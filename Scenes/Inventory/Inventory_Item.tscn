@@ -10,6 +10,7 @@ script = ExtResource("1_errml")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_0fa1i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

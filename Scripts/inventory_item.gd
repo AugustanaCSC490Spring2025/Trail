@@ -13,12 +13,14 @@ extends Node2D
 var scene_path: String = "res://Scenes/Inventory/Inventory_Item.tscn"
 
 @onready var icon_sprite = $Sprite2D
+@onready var collision_shape = $Area2D/CollisionShape2D
 var player_in_range = false
 var interacting_player_id: int = -1
 
 func _ready():
 	if not Engine.is_editor_hint():
 		icon_sprite.texture = item_texture
+	collision_shape.scale *=3
 
 func _process(_delta):
 	if Engine.is_editor_hint():

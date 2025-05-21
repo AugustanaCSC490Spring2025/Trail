@@ -168,14 +168,17 @@ func use_hotbar_item(slot_index):
 		var item = Global.hotbar_inventory[slot_index]
 		if item != null:
 			# Use item
-			apply_item_effect(item)
-			var progress_scene = preload("res://Scenes/ProgressBar.tscn")
-			var progress_ui = progress_scene.instantiate()
-			progress_ui.duration = item["duration"]
-			add_child(progress_ui)
-			can_move = false
-			await progress_ui.simulate_loading(progress_ui.duration)
-			can_move = true
+			if item["type"] == "Weapon":
+				$"Weapon Pivot".swap_weapon(item)
+			else:
+				apply_item_effect(item)
+				var progress_scene = preload("res://Scenes/ProgressBar.tscn")
+				var progress_ui = progress_scene.instantiate()
+				progress_ui.duration = item["duration"]
+				add_child(progress_ui)
+				can_move = false
+				await progress_ui.simulate_loading(progress_ui.duration)
+				can_move = true
 			#remove_child(progress_ui)
 
 			# Remove item
