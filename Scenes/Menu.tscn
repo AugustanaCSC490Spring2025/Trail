@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://dakoqo34ooen5" path="res://Scripts/menu.gd" id="1_2qjrc"]
 [ext_resource type="Texture2D" uid="uid://bixefufk5l1um" path="res://Sprites/Loading Sceen/West.png" id="2_6pedr"]
 
-[sub_resource type="Gradient" id="Gradient_0d0pp"]
+[sub_resource type="Gradient" id="Gradient_6pedr"]
 offsets = PackedFloat32Array(0, 0.277108, 0.704819, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.662345, 0.0967262, 2.88785e-07, 1, 0.795271, 0.656202, 1.15514e-06, 1, 1, 0.603596, 0.728806, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_lr4hj"]
-gradient = SubResource("Gradient_0d0pp")
+gradient = SubResource("Gradient_6pedr")
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_2qjrc")

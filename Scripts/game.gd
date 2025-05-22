@@ -12,6 +12,8 @@ var syncScene = preload("res://Scenes/Sync.tscn")
 var sync
 var transitionScene = preload("res://Scenes/Transition.tscn")
 var transition
+var winScene = preload("res://Scenes/WinScreen.tscn")
+var win
 var fullscreen = false
 
 @onready var scene = $Scene
@@ -111,6 +113,29 @@ func closeMap():
 		player.playerBody.setVisible(false)
 	if(Network.networkID == 1):
 		openMap()
+
+func finishGame():
+	map.queue_free()
+	setCamera()
+	for enemy in Network.enemies.get_children():
+		enemy.queue_free()
+	for item in Network.items.get_children():
+		item.queue_free()
+	for player in Network.players.get_children():
+		player.playerBody.setVisible(false)
+	getSync().gameStarted = false
+	if(Network.networkID == 1):
+		openWinScreen.rpc()
+
+@rpc("authority", "call_local", "reliable")	
+func openWinScreen():
+	win = winScene.instantiate()
+	add_child(win, true)
+
+func closeWinScreen():
+	win.queue_free()
+	lobby = lobbyScene.instantiate()
+	add_child(lobby, true)
 	
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func isGameStarted():

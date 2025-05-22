@@ -132,8 +132,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if not dead:
 		if body.is_in_group("Players"):
 			#print("began hunting")
-			target = body
-			hunting = true
+			if body.alive:
+				target = body
+				hunting = true
 
 @rpc("any_peer", "call_local", "reliable")
 func damageEnemy(damage):

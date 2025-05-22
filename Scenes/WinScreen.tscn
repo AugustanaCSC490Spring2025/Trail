@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7hxg0yr64jdu"]
+
+[ext_resource type="Texture2D" uid="uid://bixefufk5l1um" path="res://Sprites/Loading Sceen/West.png" id="1_68w7f"]
+[ext_resource type="Script" uid="uid://d2sqjoghutyck" path="res://Scripts/win_screen.gd" id="1_d8xbi"]
+
+[sub_resource type="Gradient" id="Gradient_0d0pp"]
+offsets = PackedFloat32Array(0, 0.277108, 0.704819, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.662345, 0.0967262, 2.88785e-07, 1, 0.795271, 0.656202, 1.15514e-06, 1, 1, 0.603596, 0.728806, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d8xbi"]
+gradient = SubResource("Gradient_0d0pp")
+
+[node name="Win Screen" type="Node2D"]
+script = ExtResource("1_d8xbi")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(5.07067, 748.641)
+texture = SubResource("GradientTexture1D_d8xbi")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("1_68w7f")
+
+[node name="WinLabel" type="Label" parent="."]
+z_index = 10
+offset_left = -212.0
+offset_top = -124.0
+offset_right = 212.0
+offset_bottom = 13.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 13
+theme_override_font_sizes/font_size = 100
+text = "You Win!"
+horizontal_alignment = 1
+
+[node name="MenuUI" type="Control" parent="."]
+z_index = 10
+layout_mode = 3
+anchors_preset = 0
+offset_left = -192.0
+offset_top = -128.0
+offset_right = 192.0
+offset_bottom = 128.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuUI"]
+layout_mode = 0
+offset_top = 150.0
+offset_right = 384.0
+offset_bottom = 213.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuUI/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="QuitGameButton" type="Button" parent="MenuUI/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Quit Game"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MenuUI/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LobbyButton" type="Button" parent="MenuUI/VBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Return to Lobby"
+
+[connection signal="pressed" from="MenuUI/VBoxContainer/HBoxContainer/MarginContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
+[connection signal="pressed" from="MenuUI/VBoxContainer/HBoxContainer/MarginContainer2/LobbyButton" to="." method="_on_lobby_button_pressed"]

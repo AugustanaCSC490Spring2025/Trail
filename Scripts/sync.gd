@@ -40,11 +40,9 @@ func _on_map_timer_timeout():
 		hour = 0
 		mapTimer.stop()
 		if day > maxDays:
-			print("win")
-			#Game.win()
+			Game.finishGame()
 		else:
 			Game.closeMap()
-			#Game.openMap()
 	else:
 		if (hour % 2 == 0):
 			Game._new_hour_spawn()

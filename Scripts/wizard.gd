@@ -119,9 +119,10 @@ func wiz_die():
 # Trigger hunting when the player enters the detection area
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Players") and not hunting and not dead:
-		print("Wizard target: " + str(body) + str(body.playerID))
-		target = body
-		hunting = true
+		#print("Wizard target: " + str(body) + str(body.playerID))
+		if body.alive:
+			target = body
+			hunting = true
 
 # Function to handle damage and call die when HP reaches 0
 @rpc("any_peer", "call_local", "reliable")

@@ -16,11 +16,13 @@ extends CharacterBody2D
 
 @onready var label = $StatChange/StatChangeLabel
 @onready var timer = $HideLabelTimer
+@onready var deathTimer = $DeathTimer
 @onready var hour = $Hour
 
 var can_move = true
 
 const SPAWN_RADIUS: float = 100
+var minSpeed = 50
 @export var speed = 200.0
 const JUMP_VELOCITY = -400.0
 
@@ -32,6 +34,7 @@ const JUMP_VELOCITY = -400.0
 		playerID = id
 		$InputSynchronizer.set_multiplayer_authority(id)
 		$InputSynchronizer.setInputSyncronizer()
+var minHP: float = 25
 @export var maxHP: float = 100
 @export var HP: float = 100
 @export var alive = true
@@ -41,7 +44,7 @@ const JUMP_VELOCITY = -400.0
 @onready var nameText = $Name
 
 var is_local_player := false
-
+@export var respawnPoint = Vector2(0, 0)
 
 #func _enter_tree():
 	#$InputSynchronizer.set_multiplayer_authority(playerID)
@@ -150,12 +153,37 @@ func changeAnimation(facing: String):
 		else:
 			player_sprite.play("walk_right")
 
+func decreaseStats():
+	maxHP *= 0.8
+	if maxHP < minHP:
+		maxHP = minHP
+	HP = maxHP
+	speed *= 0.8
+	if speed < minSpeed:
+		speed = minSpeed
+
+@rpc("any_peer", "call_local", "reliable")
+func die():
+	if(Network.networkID == 1):
+		alive = false
+		visible = false
+		deathTimer.start(5)
+
+@rpc("any_peer", "call_local", "reliable")
+func respawn():
+	if(Network.networkID == 1):
+		alive = true
+		visible = true
+		position = respawnPoint
+		decreaseStats()
+
 func setPlayerID(id):
 	playerID = id
 
 #@rpc("any_peer", "call_remote", "reliable", 1)
 func setPosition(x, y):
 	position = Vector2(x, y)
+	respawnPoint = position
 
 func setCamera():
 	#print(str(multiplayer.get_unique_id()) + " + " + str(playerID))
@@ -171,11 +199,11 @@ func setVisible(v):
 
 @rpc("any_peer", "call_local", "reliable")
 func damagePlayer(damage):
-	if(Network.networkID == 1):
+	if(Network.networkID == 1 && alive):
 		HP -= damage
 		if(HP <= 0):
 			HP = 0
-			alive = false
+			die.rpc()
 
 func _on_health_regeneration_timeout():
 	HP += 1
@@ -278,3 +306,7 @@ func changeHour(h):
 		hour.text = str(h, " AM")
 	else:
 		hour.text = str(h, " PM")
+
+
+func _on_death_timer_timeout():
+	respawn.rpc()

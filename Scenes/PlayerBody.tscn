@@ -728,6 +728,9 @@ properties/8/replication_mode = 1
 properties/9/path = NodePath(".:velocitySync")
 properties/9/spawn = true
 properties/9/replication_mode = 1
+properties/10/path = NodePath(".:respawnPoint")
+properties/10/spawn = true
+properties/10/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mhctf"]
 properties/0/path = NodePath("InputSynchronizer:vertical_input")
@@ -903,5 +906,10 @@ collision_layer = 2
 position = Vector2(-1, 4)
 shape = SubResource("CapsuleShape2D_cnuip")
 
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="timeout" from="HealthRegeneration" to="." method="_on_health_regeneration_timeout"]
 [connection signal="timeout" from="HideLabelTimer" to="." method="_on_hide_label_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
