@@ -77,7 +77,7 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	if not can_move:
-		weapon.can_move = false
+		weapon.can_move = true
 		return
 	if multiplayer.is_server():
 		weapon.can_move = true
@@ -229,7 +229,7 @@ func use_hotbar_item(slot_index):
 				var progress_ui = progress_scene.instantiate()
 				progress_ui.duration = item["duration"]
 				add_child(progress_ui)
-				can_move = false
+				can_move = true
 				await progress_ui.simulate_loading(progress_ui.duration)
 				can_move = true
 				apply_item_effect(item)
