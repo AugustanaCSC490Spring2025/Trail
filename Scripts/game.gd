@@ -85,6 +85,7 @@ func getSync():
 
 func _on_timer_timeout():
 	map.generate(getSync().getMapSeed(0))
+	getSync().startDay()
 	if(Network.networkID == 1):
 		map.setPlayerValues()
 		map.spawn_test_wolf()

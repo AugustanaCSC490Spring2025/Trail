@@ -475,7 +475,7 @@ func setPlayerValues():
 	var count = 0
 	for player in Network.players.get_children():
 		#campfire_scene.global_position
-		player.playerBody.setPosition.rpc(cos(2 * PI * count / float(numPlayers)) * radius + campfire_scene.global_position.x, sin(2 * PI * count / float(numPlayers)) * radius + campfire_scene.global_position.y)
+		player.playerBody.setPosition(cos(2 * PI * count / float(numPlayers)) * radius + world_position.x, sin(2 * PI * count / float(numPlayers)) * radius + world_position.y)
 		#player.playerBody.setPosition.rpc(cos(2 * PI * count / float(numPlayers)) * radius + fire_pos.x, sin(2 * PI * count / float(numPlayers)) * radius + fire_pos.y)
 		player.playerBody.setVisible.rpc(true)
 		

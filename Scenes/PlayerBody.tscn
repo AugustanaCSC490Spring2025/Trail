@@ -882,6 +882,7 @@ vertical_alignment = 2
 one_shot = true
 
 [node name="Hour" type="Label" parent="."]
+visible = false
 offset_left = 182.0
 offset_top = -156.0
 offset_right = 284.0

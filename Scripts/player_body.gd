@@ -152,7 +152,7 @@ func changeAnimation(facing: String):
 func setPlayerID(id):
 	playerID = id
 
-@rpc("any_peer", "call_remote", "reliable", 1)
+#@rpc("any_peer", "call_remote", "reliable", 1)
 func setPosition(x, y):
 	position = Vector2(x, y)
 
@@ -164,7 +164,9 @@ func setCamera():
 @rpc("any_peer", "call_local", "reliable")
 func setVisible(v):
 	visible = v
-	inventory_hotbar.visible = v
+	if(playerID == Network.networkID):
+		inventory_hotbar.visible = v
+		hour.visible = v
 
 func damagePlayer(damage):
 	HP -= damage
@@ -234,10 +236,11 @@ func _unhandled_input(event):
 # Apply the effect of the item (if possible)
 
 func show_stat_change(text: String, duration: float = 2.0):
-	label.text = text
-	label.visible = true
-	timer.wait_time = duration
-	timer.start()
+	if(playerID == Network.networkID):
+		label.text = text
+		label.visible = true
+		timer.wait_time = duration
+		timer.start()
 
 func apply_item_effect(item):
 	var stat_change = ""
@@ -260,3 +263,15 @@ func apply_item_effect(item):
 	
 func _on_hide_label_timer_timeout() -> void:
 	label.visible = false
+
+func changeHour(h):
+	var am = true
+	if(h >= 12):
+		am = false
+	h = h % 12
+	if h == 0:
+		h = 12
+	if am:
+		hour.text = str(h, " AM")
+	else:
+		hour.text = str(h, " PM")

@@ -19,10 +19,13 @@ func getMapSeed(index):
 	return mapSeeds[index]
 
 func startDay():
-	mapTimer.start(5)
+	mapTimer.wait_time = hourLength
+	mapTimer.start()
 
 func _on_map_timer_timeout():
 	hour += 1
 	if hour >= 24:
 		mapTimer.stop()
+	else:
+		Network.localPlayer.playerBody.changeHour(hour)
 	#Network.localPlayer.playerBody
