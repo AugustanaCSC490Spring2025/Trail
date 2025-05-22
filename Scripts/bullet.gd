@@ -1,4 +1,9 @@
 extends Area2D
+
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
+
 const speed = 1
 @onready var direction = null
 @onready var sprite = $Sprite
@@ -54,10 +59,10 @@ func _on_body_entered(body: Node2D) -> void:
 		#body.rpc("wolf_die")
 		#body.die()
 		print("damage wizard")
-		body.damageEnemy(damage)
+		body.damageEnemy.rpc(damage)
 		self.queue_free()
 	else:
 		if body.is_in_group("Players"):
-			if(body.playerID != multiplayer.get_unique_id()):
-				body.damagePlayer(damage / 2)
+			if(body.playerID != Network.localPlayer.playerID):
+				body.damagePlayer.rpc(damage / 2)
 				self.queue_free()

@@ -35,7 +35,7 @@ func randomize_stats() -> void:
 	speed = randi_range(200, 400)
 	maxHP = randi_range(50, 150)
 	HP = maxHP
-	scale = Vector2(maxHP/50, maxHP/50)
+	scale = Vector2(maxHP/50.0, maxHP/50.0)
 	attack_damage = randi_range(10, 20)
 
 func _physics_process(delta: float) -> void:
@@ -135,8 +135,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			target = body
 			hunting = true
 
+@rpc("any_peer", "call_local", "reliable")
 func damageEnemy(damage):
-	if not dead:
-		HP -= damage
-		if(HP <= 0):
-			wolf_die.rpc()
+	if(Network.networkID == 1):
+		if not dead:
+			HP -= damage
+			if(HP <= 0):
+				wolf_die.rpc()

@@ -21,10 +21,13 @@ func setInputSyncronizer():
 		enable = true
 
 func _physics_process(delta):
-	vertical_input = Input.get_axis("move up", "move down")
-	horizontal_input = Input.get_axis("move left", "move right")
-	shoot_input = Input.is_action_pressed("shoot")
-	mouse_position = Game.get_global_mouse_position()
+	var sync = Game.getSync()
+	if(sync != null):
+		if(sync.gameStarted):
+			vertical_input = Input.get_axis("move up", "move down")
+			horizontal_input = Input.get_axis("move left", "move right")
+			shoot_input = Input.is_action_pressed("shoot")
+			mouse_position = Game.get_global_mouse_position()
 	#if(multiplayer.get_unique_id() != 1):
 		#print(str(horizontal_input) + " " + str(vertical_input) + " " + str(shoot_input) + " " + str(multiplayer.get_unique_id()))
 	#print(str(vertical_input) + " vertical " + str(multiplayer.get_unique_id()))

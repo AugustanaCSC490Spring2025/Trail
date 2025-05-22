@@ -13,7 +13,8 @@ config_version=5
 config/name="Wacky West"
 run/main_scene="res://Scenes/Game.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
-boot_splash/image="uid://dswqhpgjt4ro6"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://bixefufk5l1um"
 config/icon="res://Sprites/icon.svg"
 
 [autoload]

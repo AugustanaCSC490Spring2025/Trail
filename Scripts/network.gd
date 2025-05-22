@@ -15,6 +15,7 @@ var playerScene = preload("res://Scenes/Player.tscn")
 @onready var players = $Players
 @onready var enemies = $Enemies
 @onready var items = $Items
+@onready var attacks = $Attacks
 var mapScene = preload("res://Scenes/Map.tscn")
 var tempMapScene = preload("res://Scenes/TempMap.tscn")
 var networkID

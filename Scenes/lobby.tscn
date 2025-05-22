@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4qcijggwn06n"]
+[gd_scene load_steps=6 format=3 uid="uid://b4qcijggwn06n"]
 
 [ext_resource type="Texture2D" uid="uid://dfoylyuv2gfax" path="res://Sprites/Character Portraits/Guy1.png" id="1_dgv81"]
 [ext_resource type="Script" uid="uid://c1he0flhobso3" path="res://Scripts/lobby.gd" id="1_lrd0j"]
+[ext_resource type="Texture2D" uid="uid://bixefufk5l1um" path="res://Sprites/Loading Sceen/West.png" id="2_wgubu"]
 
 [sub_resource type="Gradient" id="Gradient_robt6"]
 offsets = PackedFloat32Array(0, 0.277108, 0.704819, 1)
@@ -11,7 +12,6 @@ colors = PackedColorArray(0, 0, 0, 1, 0.233334, 0, 1, 1, 0.083928, 0.784989, 0.5
 gradient = SubResource("Gradient_robt6")
 
 [node name="Lobby" type="Node2D"]
-z_index = 1000
 script = ExtResource("1_lrd0j")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -20,7 +20,11 @@ script = ExtResource("1_lrd0j")
 scale = Vector2(5.08665, 751)
 texture = SubResource("GradientTexture1D_8w0yt")
 
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("2_wgubu")
+
 [node name="Control" type="Control" parent="."]
+z_index = 10
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -46,7 +50,7 @@ size_flags_vertical = 3
 
 [node name="Character" type="ColorRect" parent="Control/VBoxContainer2/MarginContainer"]
 layout_mode = 2
-color = Color(0.41, 0.882, 1, 1)
+color = Color(1, 0.6755, 0.41, 0.705882)
 
 [node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer2/MarginContainer"]
 layout_mode = 2

@@ -469,6 +469,21 @@ properties/6/replication_mode = 1
 properties/7/path = NodePath("AnimatedSprite2D:scale")
 properties/7/spawn = true
 properties/7/replication_mode = 1
+properties/8/path = NodePath("Area2D:scale")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath(".:speed")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+properties/10/path = NodePath(".:HP")
+properties/10/spawn = true
+properties/10/replication_mode = 1
+properties/11/path = NodePath(".:maxHP")
+properties/11/spawn = true
+properties/11/replication_mode = 1
+properties/12/path = NodePath(".:scale")
+properties/12/spawn = true
+properties/12/replication_mode = 1
 
 [node name="Wolf" type="CharacterBody2D" groups=["Hurtable"]]
 scale = Vector2(1.5, 1.5)
@@ -490,6 +505,7 @@ debug_path_custom_point_size = 8.04
 debug_path_custom_line_width = 5.18
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 3
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 5)

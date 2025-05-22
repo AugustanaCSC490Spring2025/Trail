@@ -53,6 +53,7 @@ func _ready() -> void:
 	#camera_2d.make_current()
 	player_sprite.play("idle_down")
 	hpGradient = hpGradient.duplicate()
+	visible = false
 	label.visible = false
 
 #func _set_random_spawn_pos() -> void:
@@ -168,11 +169,13 @@ func setVisible(v):
 		inventory_hotbar.visible = v
 		hour.visible = v
 
+@rpc("any_peer", "call_local", "reliable")
 func damagePlayer(damage):
-	HP -= damage
-	if(HP <= 0):
-		HP = 0
-		alive = false
+	if(Network.networkID == 1):
+		HP -= damage
+		if(HP <= 0):
+			HP = 0
+			alive = false
 
 func _on_health_regeneration_timeout():
 	HP += 1

@@ -8,14 +8,22 @@ extends Node
 @export var gameStarted = false
 @export var day = 1
 @onready var mapTimer = $MapTimer
-var hourLength = 1
+var hourLength = 10
 var hour = 0
 var maxDays = 3
 
 func _ready():
 	if(Network.networkID == 1):
-		for i in range(maxDays):
-			mapSeeds.append(randi_range(0, 1000000000))
+		#for i in range(maxDays):
+			#mapSeeds.append(i)
+			#mapSeeds.append(randi_range(0, 1000000000))
+		mapSeeds = [248160797, 925007009, 1]
+	#248160797 - Plains
+	#925007009 - Desert
+	#346121659 - Swamp
+	#258572012 - Forest
+	#1         - Snow
+	print(mapSeeds)
 
 func getMapSeed(index):
 	return mapSeeds[index]

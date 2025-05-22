@@ -17,6 +17,11 @@ var fullscreen = false
 @onready var scene = $Scene
 @onready var camera = $Camera2D
 @onready var timer = $Timer
+@onready var dayCycle = $DayCycle
+var gradientNum = 0
+var gradientMax = 5000.0
+
+@export var dayGradient: Gradient
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,6 +31,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	setGradient()
 	if Input.is_action_just_pressed("fullscreen"):
 		if fullscreen:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
@@ -55,7 +61,6 @@ func createMap():
 func startGame():
 	closeLobby.rpc()
 	openMap()
-	getSync().gameStarted = true
 	#print(multiplayer.get_unique_id())
 	#get_node("/root/Game/Scene/Map").playerSet = false
 	#gameStarted = true
@@ -79,7 +84,7 @@ func addGameSync():
 	scene.add_child(sync, true)
 
 func getSync():
-	return scene.get_node("Sync")
+	return scene.get_node_or_null("Sync")
 
 @rpc("authority", "call_local", "reliable")
 func openTransitionScreen():
@@ -87,7 +92,7 @@ func openTransitionScreen():
 	add_child(transition, true)
 	transition.setDay(getSync().day)
 
-@rpc("authority", "call_local", "reliable")
+#@rpc("authority", "call_local", "reliable")
 func closeTransitionScreen():
 	transition.queue_free()
 
@@ -116,8 +121,25 @@ func _new_hour_spawn():
 
 func _on_timer_timeout():
 	map.generate(getSync().getMapSeed(getSync().day - 1))
-	closeTransitionScreen.rpc()
+	closeTransitionScreen()#.rpc()
 	getSync().startDay()
+	getSync().gameStarted = true
 	if(Network.networkID == 1):
 		map.setPlayerValues()
-		map.spawn_test_wolf()
+		#map.spawn_test_wolf()
+
+func setGradient():
+	var s = getSync()
+	if s == null:
+		dayCycle.color = dayGradient.sample(gradientNum / gradientMax)
+		gradientNum += 1
+	else:
+		if s.gameStarted:
+			dayCycle.color = dayGradient.sample(0)
+			gradientNum = 0
+		else:
+			dayCycle.color = dayGradient.sample(gradientNum / gradientMax)
+			gradientNum += 1
+	if(gradientNum > gradientMax):
+		gradientNum = 0
+	

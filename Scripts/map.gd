@@ -194,6 +194,7 @@ func generate_world():
 
 func setBiome():
 	biome = biomes[biome_rng.randi_range(0, 4)]
+	#biome = "Snow"
 	if(biome == "Plains"):
 		grass_tilemaplayer.modulate = Color.from_hsv(0.35, 0.5, 1.5, 1)
 	if(biome == "Forest"):

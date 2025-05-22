@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://byqwsd2vi25ya"]
+[gd_scene load_steps=90 format=3 uid="uid://byqwsd2vi25ya"]
 
 [ext_resource type="Script" uid="uid://5stlyos7s8wc" path="res://Scripts/player_body.gd" id="1_t42vw"]
 [ext_resource type="Texture2D" uid="uid://cuv6igowfg42r" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Player/Player Angle 1 Sheet.png" id="2_fml75"]
@@ -749,8 +749,11 @@ bg_color = Color(0, 0, 0, 0.392157)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yef0c"]
 bg_color = Color(0, 1, 0.235294, 1)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cnuip"]
+radius = 8.0
+height = 32.0
+
 [node name="PlayerBody" type="CharacterBody2D" groups=["Hurtable", "Players"]]
-visible = false
 z_index = 2
 y_sort_enabled = true
 motion_mode = 1
@@ -892,6 +895,13 @@ theme_override_constants/outline_size = 13
 theme_override_font_sizes/font_size = 24
 text = "12 AM"
 horizontal_alignment = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, 4)
+shape = SubResource("CapsuleShape2D_cnuip")
 
 [connection signal="timeout" from="HealthRegeneration" to="." method="_on_health_regeneration_timeout"]
 [connection signal="timeout" from="HideLabelTimer" to="." method="_on_hide_label_timer_timeout"]

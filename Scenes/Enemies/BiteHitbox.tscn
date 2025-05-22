@@ -5,6 +5,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_uw8sj"]
 
 [node name="BiteHitbox" type="Area2D"]
+collision_layer = 3
 script = ExtResource("1_s50oa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmam81gw6tjq5"]
+[gd_scene load_steps=6 format=3 uid="uid://dmam81gw6tjq5"]
 
 [ext_resource type="Script" uid="uid://c6cvgv7rrskkp" path="res://Scripts/game.gd" id="1_gl6un"]
-[ext_resource type="PackedScene" path="res://Scenes/Global.tscn" id="2_3dryh"]
+[ext_resource type="PackedScene" uid="uid://djce7yajepss4" path="res://Scenes/Global.tscn" id="2_3dryh"]
 [ext_resource type="Script" uid="uid://yl7lem5c55yf" path="res://Scripts/network.gd" id="2_j5yw3"]
+
+[sub_resource type="Gradient" id="Gradient_wrm1d"]
+offsets = PackedFloat32Array(0.10241, 0.391566, 0.60241, 0.921687)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0.3, 0.705882, 0, 0, 0.3, 0.705882, 0, 0, 0.3, 0)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_j5yw3"]
 vertices = PackedVector2Array(4567.06, 5193.96, -5069.99, 5160.03, -5064, -5955.01, 4634.93, -5972.98)
@@ -11,6 +15,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-5080, 5170, 4577, 5204
 
 [node name="Game" type="Node2D" groups=["GameManager"]]
 script = ExtResource("1_gl6un")
+dayGradient = SubResource("Gradient_wrm1d")
 
 [node name="Global" parent="." instance=ExtResource("2_3dryh")]
 
@@ -29,11 +34,17 @@ spawn_path = NodePath("../Enemies")
 _spawnable_scenes = PackedStringArray("uid://bbs8wboa7cjlg")
 spawn_path = NodePath("../Items")
 
+[node name="AttackSpawner" type="MultiplayerSpawner" parent="Network"]
+_spawnable_scenes = PackedStringArray("uid://d2in45datil1g")
+spawn_path = NodePath("../Attacks")
+
 [node name="Players" type="Node2D" parent="Network"]
 
 [node name="Enemies" type="Node2D" parent="Network"]
 
 [node name="Items" type="Node2D" parent="Network"]
+
+[node name="Attacks" type="Node2D" parent="Network"]
 
 [node name="SceneSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://c5ixui60h5ufr")
@@ -49,5 +60,13 @@ navigation_polygon = SubResource("NavigationPolygon_j5yw3")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="DayCycle" type="ColorRect" parent="."]
+z_index = 5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(1, 1, 1, 0)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

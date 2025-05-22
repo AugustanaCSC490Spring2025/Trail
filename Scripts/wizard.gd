@@ -124,9 +124,11 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		hunting = true
 
 # Function to handle damage and call die when HP reaches 0
+@rpc("any_peer", "call_local", "reliable")
 func damageEnemy(damage):
-	if not dead:
-		HP -= damage
-		print(str(HP))
-		if HP <= 0:
-			wiz_die.rpc()
+	if(Network.networkID == 1):
+		if not dead:
+			HP -= damage
+			print(str(HP))
+			if HP <= 0:
+				wiz_die.rpc()

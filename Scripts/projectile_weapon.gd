@@ -131,7 +131,8 @@ func _physics_process(delta: float) -> void:
 			if shotgun:
 				shoot_shotgun(input_synchronizer.mouse_position)
 			else:
-				rpc("shoot", input_synchronizer.mouse_position)
+				#rpc("shoot", input_synchronizer.mouse_position)
+				shoot(input_synchronizer.mouse_position)
 	pointGun()#.rpc()
 	
 			
@@ -159,16 +160,17 @@ func flip():
 	sprite.scale.y *= -1
 	sprite.position.y *= -1
 
-@rpc("any_peer", "call_local", "reliable")
+#@rpc("any_peer", "call_local", "reliable")
 func shoot(target):
 	print(str(shotgun) + " shooting")
-	can_fire =  false
+	can_fire = false
 	rate_of_fire_timer.start(rate_of_fire)
 	#print("shooting " + str(randi_range(1, 10)))
 	var shot = bullet.instantiate()
 	shot.set_damage(damage)
 	shot.set_speed(bullet_speed)
-	bullets.add_child(shot, true)
+	#print(target)
+	Network.attacks.add_child(shot, true)
 	shot.global_position = pivot_point.global_position
 	shot.look_at(target)
 	shot.fire(pivot_point.global_position, target)
@@ -185,7 +187,8 @@ func shoot_shotgun(target):
 		var angle_offset = (i - center_index) * spread_angle
 		var rotated_direction = direction.rotated(angle_offset)
 		var spread_target = player_position + rotated_direction * distance
-		rpc("shoot", spread_target)
+		shoot(spread_target)
+		#rpc("shoot", spread_target)
 
 
 func pointGun():
