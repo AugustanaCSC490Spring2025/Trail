@@ -82,6 +82,10 @@ func getSync():
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func isGameStarted():
 	#return gameStarted
+func _new_hour_spawn():
+	if(Network.networkID == 1):
+		map.spawn_test_wolf()
+		map.spawn_random_items(10)
 
 func _on_timer_timeout():
 	map.generate(getSync().getMapSeed(0))

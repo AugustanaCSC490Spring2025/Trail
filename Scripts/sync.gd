@@ -27,5 +27,7 @@ func _on_map_timer_timeout():
 	if hour >= 24:
 		mapTimer.stop()
 	else:
+		if (hour % 3 == 0):
+			Game._new_hour_spawn()
 		Network.localPlayer.playerBody.changeHour(hour)
 	#Network.localPlayer.playerBody
