@@ -45,7 +45,7 @@ func _on_map_timer_timeout():
 		else:
 			Game.closeMap()
 	else:
-		if (hour % 3 == 0):
+		if (hour % (4-day) == 0):
 			Game._new_hour_spawn()
 		Network.localPlayer.playerBody.changeHour(hour)
 		Game.map.setDayTexture(hour)
