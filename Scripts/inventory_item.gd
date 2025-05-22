@@ -13,6 +13,8 @@ extends Node2D
 @export var item_weapon_scale = 0
 @export var item_weapon_rotation = 0
 @export var item_weapon_position = 0
+@export var item_weapon_damage = 0
+@export var item_weapon_bullet_speed = 0
 
 var scene_path: String = "res://Scenes/Inventory/Inventory_Item.tscn"
 
@@ -50,7 +52,9 @@ func pickup_item():
 		"rate_of_fire": item_rate_of_fire,
 		"weapon_scale": item_weapon_scale,
 		"weapon_position": item_weapon_position,
-		"weapon_rotation": item_weapon_rotation
+		"weapon_rotation": item_weapon_rotation,
+		"weapon_damage": item_weapon_damage,
+		"weapon_bullet_speed": item_weapon_bullet_speed
 	}
 	# Add item to local player's inventory only
 	if Global.player_node:
@@ -74,7 +78,9 @@ func replace_item(index):
 		"rate_of_fire": item_rate_of_fire,
 		"weapon_scale": item_weapon_scale,
 		"weapon_position": item_weapon_position,
-		"weapon_rotation": item_weapon_rotation
+		"weapon_rotation": item_weapon_rotation,
+		"weapon_damage": item_weapon_damage,
+		"weapon_bullet_speed": item_weapon_bullet_speed
 	}
 	# Add item to local player's inventory only
 	if Global.player_node:
@@ -134,7 +140,8 @@ func set_item_data(data):
 	item_weapon_scale = data["weapon_scale"]
 	item_weapon_rotation = data["weapon_rotation"]
 	item_weapon_position = data["weapon_position"]
-	
+	item_weapon_damage = data["damage"]
+	item_weapon_bullet_speed = data["bullet_speed"]
 #"rate_of_fire": .8,
 	#"weapon_scale": Vector2(0.1, 0.1),
 	#"weapon_rotation": 45,
