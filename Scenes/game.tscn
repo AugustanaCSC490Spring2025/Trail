@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dmam81gw6tjq5"]
 
 [ext_resource type="Script" uid="uid://c6cvgv7rrskkp" path="res://Scripts/game.gd" id="1_gl6un"]
-[ext_resource type="PackedScene" uid="uid://djce7yajepss4" path="res://Scenes/Global.tscn" id="2_3dryh"]
+[ext_resource type="PackedScene" path="res://Scenes/Global.tscn" id="2_3dryh"]
 [ext_resource type="Script" uid="uid://yl7lem5c55yf" path="res://Scripts/network.gd" id="2_j5yw3"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_j5yw3"]

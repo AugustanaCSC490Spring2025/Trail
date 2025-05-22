@@ -110,6 +110,9 @@ func closeMap():
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func isGameStarted():
 	#return gameStarted
+func _new_hour_spawn():
+	map.spawn_test_wolf()
+	map.spawn_random_items(5)
 
 func _on_timer_timeout():
 	map.generate(getSync().getMapSeed(getSync().day - 1))

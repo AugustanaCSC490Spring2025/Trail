@@ -15,28 +15,28 @@ var spawnable_items = [
 	"name": "Berry",
 	"effect": "Health",
 	"texture": preload("res://Sprites/Icons/icon31.png"),
-	"duration": 3,
+	"duration": 1,
 	"quantity": 1},
 	
 	{"type": "Consumable",
 	"name": "Water",
 	"effect": "Stamina",
 	"texture": preload("res://Sprites/Icons/icon9.png"),
-	"duration": 2,
+	"duration": 1,
 	"quantity": 1},
 	
 	{"type": "Consumable",
 	"name": "Mushroom",
 	"effect": "Armor",
 	"texture": preload("res://Sprites/Icons/icon32.png"),
-	"duration": 4,
+	"duration": 2,
 	"quantity": 1},
 	
 	{"type": "Consumable",
 	"name": "Roids",
 	"effect": "Brawn",
 	"texture": preload("res://Sprites/Icons/icon4.png"),
-	"duration": 4,
+	"duration": 2,
 	"quantity": 1},
 	
 	{"type": "Weapon", 
@@ -48,19 +48,23 @@ var spawnable_items = [
 	"weapon_rotation": 45,
 	"weapon_position": Vector2(17, 0.4),
 	"duration": 0,
-	"quantity": 1},
-	
+	"quantity": 1,
+	"damage": 20,
+	"bullet_speed": 1500},
+
 	{"type": "Weapon", 
 	"name": "Taurus Raging Bull", 
 	"effect": "Gun", 
 	"texture": load("res://Sprites/Weapons/firearm-ocal-scalable/scalable/pistol/357_revolver.svg"),
-	"rate_of_fire": 0.4,
+	"rate_of_fire": 0.5,
 	"weapon_scale": Vector2(0.1, 0.1),
 	"weapon_rotation": 45,
 	"weapon_position": Vector2(17, 3.5),
 	"duration": 0,
-	"quantity": 1},
-	
+	"quantity": 1,
+	"damage": 50,
+	"bullet_speed": 1000},
+
 	{"type": "Weapon", 
 	"name": "Mauser C96", 
 	"effect": "Gun", 
@@ -70,19 +74,23 @@ var spawnable_items = [
 	"weapon_rotation": 25,
 	"weapon_position": Vector2(15, 3.5),
 	"duration": 0,
-	"quantity": 1},
-	
+	"quantity": 1,
+	"damage": 15,
+	"bullet_speed": 1200},
+
 	{"type": "Weapon", 
 	"name": "Brown Bess Musket", 
 	"effect": "Gun", 
 	"texture": load("res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/musket.svg"),
-	"rate_of_fire": 3,
+	"rate_of_fire": 5,
 	"weapon_scale": Vector2(0.17, 0.17),
 	"weapon_rotation": 40,
 	"weapon_position": Vector2(27, 2.8),
 	"duration": 0,
-	"quantity": 1},
-	
+	"quantity": 1,
+	"damage": 200,
+	"bullet_speed": 2000},
+
 	{"type": "Weapon", 
 	"name": "Double Barrel Shotgun", 
 	"effect": "Gun", 
@@ -92,8 +100,10 @@ var spawnable_items = [
 	"weapon_rotation": 39,
 	"weapon_position": Vector2(27, 4),
 	"duration": 0,
-	"quantity": 1},
-	
+	"quantity": 1,
+	"damage": 10,
+	"bullet_speed": 1200},
+
 	{"type": "Weapon", 
 	"name": "Winchester 1873", 
 	"effect": "Gun", 
@@ -103,8 +113,10 @@ var spawnable_items = [
 	"weapon_rotation": 37,
 	"weapon_position": Vector2(27, 4),
 	"duration": 0,
-	"quantity": 1},
-	
+	"quantity": 1,
+	"damage": 40,
+	"bullet_speed": 1500},
+
 	{"type": "Weapon", 
 	"name": "Colt Peacemaker", 
 	"effect": "Gun", 
@@ -114,7 +126,9 @@ var spawnable_items = [
 	"weapon_rotation": 45,
 	"weapon_position": Vector2(16.65, 3.4),
 	"duration": 0,
-	"quantity": 1}
+	"quantity": 1,
+	"damage": 25,
+	"bullet_speed": 1200}
 ]
 # Custom signals
 signal inventory_updated
@@ -135,8 +149,9 @@ func set_player_reference(player):
 	
 # Adds an item to the inventory, returns true if successful
 func add_item(item, to_hotbar = true):
-	add_hotbar_item(item)
-	inventory_updated.emit()
+	if hotbar_size > hotbar_inventory.size():
+		add_hotbar_item(item)
+		inventory_updated.emit()
 		
 
 # Removes an item from the inventory based on type and effect
@@ -203,7 +218,7 @@ func adjust_drop_position(position):
 
 # Try adding to hotbar
 func add_hotbar_item(item):
-	for i in range(inventory.size()):
+	for i in range(hotbar_inventory.size()):
 			# Check if the item exists in the inventory and matches both type and effect
 		if hotbar_inventory[i] != null and hotbar_inventory[i]["name"] == item["name"] and hotbar_inventory[i]["effect"] == item["effect"]:
 			hotbar_inventory[i]["quantity"] += item["quantity"]

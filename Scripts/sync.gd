@@ -38,5 +38,7 @@ func _on_map_timer_timeout():
 			Game.closeMap()
 			#Game.openMap()
 	else:
+		if (hour % 2 == 0):
+			Game._new_hour_spawn()
 		Network.localPlayer.playerBody.changeHour(hour)
 		Game.map.setDayTexture(hour)
