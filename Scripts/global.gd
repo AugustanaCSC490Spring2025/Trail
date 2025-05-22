@@ -15,28 +15,28 @@ var spawnable_items = [
 	"name": "Berry",
 	"effect": "Health",
 	"texture": preload("res://Sprites/Icons/icon31.png"),
-	"duration": 3,
+	"duration": 1,
 	"quantity": 1},
 	
 	{"type": "Consumable",
 	"name": "Water",
 	"effect": "Stamina",
 	"texture": preload("res://Sprites/Icons/icon9.png"),
-	"duration": 2,
+	"duration": 1,
 	"quantity": 1},
 	
 	{"type": "Consumable",
 	"name": "Mushroom",
 	"effect": "Armor",
 	"texture": preload("res://Sprites/Icons/icon32.png"),
-	"duration": 4,
+	"duration": 2,
 	"quantity": 1},
 	
 	{"type": "Consumable",
 	"name": "Roids",
 	"effect": "Brawn",
 	"texture": preload("res://Sprites/Icons/icon4.png"),
-	"duration": 4,
+	"duration": 2,
 	"quantity": 1},
 	
 	{"type": "Weapon", 
@@ -149,8 +149,9 @@ func set_player_reference(player):
 	
 # Adds an item to the inventory, returns true if successful
 func add_item(item, to_hotbar = true):
-	add_hotbar_item(item)
-	inventory_updated.emit()
+	if hotbar_size > hotbar_inventory.size():
+		add_hotbar_item(item)
+		inventory_updated.emit()
 		
 
 # Removes an item from the inventory based on type and effect
@@ -217,7 +218,7 @@ func adjust_drop_position(position):
 
 # Try adding to hotbar
 func add_hotbar_item(item):
-	for i in range(inventory.size()):
+	for i in range(hotbar_inventory.size()):
 			# Check if the item exists in the inventory and matches both type and effect
 		if hotbar_inventory[i] != null and hotbar_inventory[i]["name"] == item["name"] and hotbar_inventory[i]["effect"] == item["effect"]:
 			hotbar_inventory[i]["quantity"] += item["quantity"]

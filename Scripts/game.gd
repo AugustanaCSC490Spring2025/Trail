@@ -83,9 +83,8 @@ func getSync():
 #func isGameStarted():
 	#return gameStarted
 func _new_hour_spawn():
-	if(Network.networkID == 1):
-		map.spawn_test_wolf()
-		map.spawn_random_items(10)
+	map.spawn_test_wolf()
+	map.spawn_random_items(5)
 
 func _on_timer_timeout():
 	map.generate(getSync().getMapSeed(0))

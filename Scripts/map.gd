@@ -77,6 +77,7 @@ var campfire_tile_pos : Vector2i
 var campfire_scene
 var fire_pos
 var world_position
+var weapon_count = 0
 
 var biomes = ["Plains", "Forest", "Snow", "Desert", "Swamp"]
 var biome
@@ -102,7 +103,7 @@ func generate(seed):
 	tree_noise = tree_noise_texture.noise
 	#print("YES")
 	generate_world()
-	spawn_random_items(30)
+	spawn_random_items(10)
 	#spawn_test_wolf()
 
 	#print("end")
@@ -441,34 +442,42 @@ func generate_wall(x, y):
 
 func get_random_position():
 	var area_rect = collision_shape.shape.get_rect()
-	var x = rng.randf_range(0, area_rect.position.x)
-	var y = rng.randf_range(0, area_rect.position.y)
-	return item_spawn_area.to_global(Vector2(x, y))
+	var x = rng.randi_range(-half_width + 25, half_width - 25) 
+	var y = rng.randi_range(-half_height + 25, half_height - 25)
+	var pos = object_tilemaplayer.map_to_local(Vector2i(x, y))
+	
+	return pos
 	
 # Spawn random items from the Global list up until the max amount (10) has been reached
 func spawn_random_items(count):
 	#if(Network.networkID == 1):
 	var attempts = 0
 	var spawned_count = 0
+	weapon_count = 0
 	while spawned_count < count and attempts < 100:
-		var position = get_random_position()
-		spawn_item(Global.spawnable_items[rng.randi() % Global.spawnable_items.size()], position)
+		var pos = get_random_position()
+		spawn_item(Global.spawnable_items[rng.randi() % Global.spawnable_items.size()], pos)
 		spawned_count += 1
 		attempts += 1
 
 # Create a physical instance of the Item scene on the map underneath /Items node
-func spawn_item(data, position):
+func spawn_item(data, pos):
 	var item_scene = load("res://Scenes/Inventory/Inventory_Item.tscn")
 	var item_instance = item_scene.instantiate()
 	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
 	if data["type"] == "Weapon":
-		item_instance.set_item_data(data)
-		item_instance.scale = data["weapon_scale"]
+		if weapon_count < 2:
+			weapon_count += 1
+			item_instance.set_item_data(data)
+			item_instance.scale = data["weapon_scale"]
+			item_instance.position = pos
+			Network.items.add_child(item_instance, true)
 	else:
 		item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
 	#item_instance.set_multiplayer_authority(1)
-	Network.items.add_child(item_instance, true)
-	item_instance.global_position = position
+		item_instance.position = pos
+		Network.items.add_child(item_instance, true)
+	
 
 func setPlayerValues():
 	var numPlayers = Network.players.get_child_count()

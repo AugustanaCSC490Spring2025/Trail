@@ -1269,7 +1269,7 @@ sources/2 = SubResource("TileSetAtlasSource_r08cw")
 sources/3 = SubResource("TileSetAtlasSource_00287")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r08cw"]
-size = Vector2(1000, 1000)
+size = Vector2(5000, 5000)
 
 [node name="Map" type="Node2D"]
 y_sort_enabled = true
@@ -1320,6 +1320,7 @@ autostart = true
 [node name="ItemSpawnArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemSpawnArea"]
+position = Vector2(2500, 2500)
 shape = SubResource("RectangleShape2D_r08cw")
 
 [connection signal="timeout" from="Wolf Timer" to="." method="spawn_wolves"]
