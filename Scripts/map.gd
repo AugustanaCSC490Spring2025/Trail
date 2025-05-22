@@ -466,9 +466,9 @@ func spawn_item(data, position):
 			item_instance.scale = data["weapon_scale"]
 		else:
 			item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
-		item_instance.global_position = position
 		#item_instance.set_multiplayer_authority(1)
 		Network.items.add_child(item_instance, true)
+		item_instance.global_position = position
 
 func setPlayerValues():
 	var numPlayers = Network.players.get_child_count()
