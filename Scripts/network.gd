@@ -24,7 +24,7 @@ var localPlayer
 
 var all_addresses = IP.get_local_addresses()
 var lan_addresses = Array(all_addresses).filter(func(ip): 
-	return ip.begins_with("192.") or ip.begins_with("10.") or ip.begins_with("172.") or ip.begins_with("25.")
+	return ip.begins_with("192.") or ip.begins_with("10.") or ip.begins_with("172.")
 )
 
 func _ready():
