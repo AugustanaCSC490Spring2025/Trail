@@ -6,6 +6,9 @@ extends Node
 
 @export var mapSeeds = []
 @export var gameStarted = false
+@onready var mapTimer = $MapTimer
+var hourLength = 5
+var hour = 0
 
 func _ready():
 	if(Network.networkID == 1):
@@ -14,3 +17,12 @@ func _ready():
 
 func getMapSeed(index):
 	return mapSeeds[index]
+
+func startDay():
+	mapTimer.start(5)
+
+func _on_map_timer_timeout():
+	hour += 1
+	if hour >= 24:
+		mapTimer.stop()
+	#Network.localPlayer.playerBody

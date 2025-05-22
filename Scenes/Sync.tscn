@@ -15,3 +15,8 @@ script = ExtResource("1_6nice")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_8bp8s")
+
+[node name="MapTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="timeout" from="MapTimer" to="." method="_on_map_timer_timeout"]

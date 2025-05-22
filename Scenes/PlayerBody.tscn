@@ -881,5 +881,16 @@ vertical_alignment = 2
 [node name="HideLabelTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Hour" type="Label" parent="."]
+offset_left = 182.0
+offset_top = -156.0
+offset_right = 284.0
+offset_bottom = -122.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.392157)
+theme_override_constants/outline_size = 13
+theme_override_font_sizes/font_size = 24
+text = "12 AM"
+horizontal_alignment = 2
+
 [connection signal="timeout" from="HealthRegeneration" to="." method="_on_health_regeneration_timeout"]
 [connection signal="timeout" from="HideLabelTimer" to="." method="_on_hide_label_timer_timeout"]

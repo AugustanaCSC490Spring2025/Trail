@@ -16,6 +16,7 @@ extends CharacterBody2D
 
 @onready var label = $StatChange/StatChangeLabel
 @onready var timer = $HideLabelTimer
+@onready var hour = $Hour
 
 var can_move = true
 
@@ -99,16 +100,17 @@ func _move(delta):
 	move_and_slide()
 
 func _input(event):
-	if Input.is_action_just_pressed("zoom_in"):
-		var zoom_val = camera_2d.zoom.x * 1.1
-		camera_2d.zoom = Vector2(zoom_val, zoom_val)
+	pass
+	#if Input.is_action_just_pressed("zoom_in"):
+		#var zoom_val = camera_2d.zoom.x * 1.1
+		#camera_2d.zoom = Vector2(zoom_val, zoom_val)
 		#print(camera_2d.zoom.x)
-	elif Input.is_action_just_pressed("zoom_out"):
-		var zoom_val = camera_2d.zoom.x / 1.1
-		if zoom_val == 0:
-			zoom_val = camera_2d.zoom.x - 0.2
+	#elif Input.is_action_just_pressed("zoom_out"):
+		#var zoom_val = camera_2d.zoom.x / 1.1
+		#if zoom_val == 0:
+			#zoom_val = camera_2d.zoom.x - 0.2
 			
-		camera_2d.zoom = Vector2(zoom_val, zoom_val)
+		#camera_2d.zoom = Vector2(zoom_val, zoom_val)
 		#print(camera_2d.zoom.x)
 
 @rpc("authority", "call_local", "reliable")
