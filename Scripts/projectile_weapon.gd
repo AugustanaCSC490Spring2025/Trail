@@ -124,8 +124,6 @@ func _ready() -> void:
 	swap_weapon(item)
 
 func _physics_process(delta: float) -> void:
-	if not can_move:
-		return
 	if (input_synchronizer.enable):
 		if input_synchronizer.shoot_input and can_fire:
 			if shotgun:
