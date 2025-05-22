@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://cg8raeodv61nv"]
+
+[ext_resource type="Script" uid="uid://5gcxiha1gfmg" path="res://Scripts/projectile_weapon.gd" id="1_8i013"]
+[ext_resource type="Texture2D" uid="uid://2ytpkx7dpsjy" path="res://Sprites/Weapons/firearm-ocal-scalable/scalable/pistol/colt_peacemaker.svg" id="2_pmofs"]
+[ext_resource type="Texture2D" uid="uid://46wmydu32xap" path="res://Sprites/Weapons/firearm-ocal-scalable/scalable/pistol/357_revolver.svg" id="3_vcw5u"]
+[ext_resource type="Texture2D" uid="uid://dbt30oy08upha" path="res://Sprites/Weapons/firearm-ocal-scalable/scalable/machine_pistol/mauser_c96.svg" id="4_gqd5a"]
+[ext_resource type="Texture2D" uid="uid://ketkqs6n8vr8" path="res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/musket.svg" id="5_fslq6"]
+[ext_resource type="Texture2D" uid="uid://k1gmx1cwid5n" path="res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/lever_action_shotgun.svg" id="6_hc3r6"]
+[ext_resource type="Texture2D" uid="uid://cfgkkyi57ic2c" path="res://Sprites/Weapons/firearm-ocal-scalable/scalable/rifle/twin_barrel_shotgun.svg" id="7_l6s3y"]
+
+[node name="Weapon Pivot" type="Node2D"]
+script = ExtResource("1_8i013")
+
+[node name="Weapon" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(16.645, 3.39)
+rotation = 0.785398
+scale = Vector2(0.1, 0.1)
+
+[node name="Tip" type="Node2D" parent="Weapon"]
+position = Vector2(77.5343, -125.476)
+
+[node name="Revolver" type="Sprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(16.645, 3.39)
+rotation = 0.785398
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_pmofs")
+
+[node name="357Revolver" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(17.045, 3.565)
+rotation = 0.785398
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_vcw5u")
+
+[node name="MauserC96" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(15.005, 3.5)
+rotation = 0.436332
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("4_gqd5a")
+
+[node name="Musket" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(30, 2.785)
+rotation = 0.698132
+scale = Vector2(0.17, 0.17)
+texture = ExtResource("5_fslq6")
+
+[node name="LeverActionShotgun" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(27, 4)
+rotation = 0.645772
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("6_hc3r6")
+
+[node name="TwinBarrelShotgun" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(27, 2)
+rotation = 0.680678
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("7_l6s3y")
+
+[node name="FlipTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Firerate" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="FlipTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Firerate" to="." method="_on_firerate_timeout"]

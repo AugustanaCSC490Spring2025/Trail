@@ -187,7 +187,7 @@ func use_hotbar_item(slot_index):
 			# Use item
 			if item["type"] == "Weapon":
 				weapon.swap_weapon(item)
-				show_stat_change(str(item["name"], " equiped"))
+				show_stat_change(str(item["name"], " equipped"))
 			else:
 				var progress_scene = preload("res://Scenes/ProgressBar.tscn")
 				var progress_ui = progress_scene.instantiate()

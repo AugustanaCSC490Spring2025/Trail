@@ -15,6 +15,8 @@ extends Node2D
 @onready var rate_of_fire_timer = $Firerate
 @export var rate_of_fire = .1
 @export var can_fire = true
+@export var bullet_speed = 1200
+@export var damage = 25
 var swap = true
 var right = true
 var can_move = true
@@ -137,6 +139,7 @@ func _physics_process(delta: float) -> void:
 		#pointing_tip.target_position = mouse_position
 
 func swap_weapon(weapon_info: Dictionary):
+	print("here da gun " + str(weapon_info))
 	if weapon_info["name"] == "Double Barrel Shotgun":
 		shotgun = true
 	else:
@@ -146,6 +149,8 @@ func swap_weapon(weapon_info: Dictionary):
 	sprite.scale = weapon_info["weapon_scale"]
 	sprite.rotation_degrees = weapon_info["weapon_rotation"]
 	sprite.position = weapon_info["weapon_position"]
+	damage = weapon_info["damage"]
+	bullet_speed = weapon_info["bullet_speed"]
 	if(!right):
 		flip()
 
@@ -161,6 +166,8 @@ func shoot(target):
 	rate_of_fire_timer.start(rate_of_fire)
 	#print("shooting " + str(randi_range(1, 10)))
 	var shot = bullet.instantiate()
+	shot.set_damage(damage)
+	shot.set_speed(bullet_speed)
 	bullets.add_child(shot, true)
 	shot.global_position = pivot_point.global_position
 	shot.look_at(target)
