@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://dmam81gw6tjq5"]
 
 [ext_resource type="Script" uid="uid://c6cvgv7rrskkp" path="res://Scripts/game.gd" id="1_gl6un"]
-[ext_resource type="PackedScene" uid="uid://djce7yajepss4" path="res://Scenes/Global.tscn" id="2_3dryh"]
+[ext_resource type="PackedScene" path="res://Scenes/Global.tscn" id="2_3dryh"]
 [ext_resource type="Script" uid="uid://yl7lem5c55yf" path="res://Scripts/network.gd" id="2_j5yw3"]
-[ext_resource type="PackedScene" uid="uid://b1w7m67rucpg5" path="res://Scenes/Transition.tscn" id="3_3dryh"]
+[ext_resource type="PackedScene" path="res://Scenes/Transition.tscn" id="3_3dryh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_j5yw3"]
 vertices = PackedVector2Array(4567.06, 5193.96, -5069.99, 5160.03, -5064, -5955.01, 4634.93, -5972.98)

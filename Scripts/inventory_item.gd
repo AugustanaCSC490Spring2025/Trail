@@ -53,8 +53,8 @@ func pickup_item():
 		"weapon_scale": item_weapon_scale,
 		"weapon_position": item_weapon_position,
 		"weapon_rotation": item_weapon_rotation,
-		"weapon_damage": item_weapon_damage,
-		"weapon_bullet_speed": item_weapon_bullet_speed
+		"damage": item_weapon_damage,
+		"bullet_speed": item_weapon_bullet_speed
 	}
 	# Add item to local player's inventory only
 	if Global.player_node:
@@ -79,8 +79,8 @@ func replace_item(index):
 		"weapon_scale": item_weapon_scale,
 		"weapon_position": item_weapon_position,
 		"weapon_rotation": item_weapon_rotation,
-		"weapon_damage": item_weapon_damage,
-		"weapon_bullet_speed": item_weapon_bullet_speed
+		"damage": item_weapon_damage,
+		"bullet_speed": item_weapon_bullet_speed
 	}
 	# Add item to local player's inventory only
 	if Global.player_node:
