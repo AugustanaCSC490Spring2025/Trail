@@ -12,6 +12,8 @@ var right = true
 @onready var timer = $Timer
 @onready var rate_of_fire_timer = $"../RateOfFire"
 @export var rate_of_fire = .1
+@export var bullet_speed = 1200
+@export var damage = 25
 @export var can_fire = true
 var can_move = true
 var weapons_dict
@@ -98,6 +100,13 @@ func swap_weapon(weapon_info: Dictionary):
 	sprite.scale = weapon_info["weapon_scale"]
 	sprite.rotation_degrees = weapon_info["weapon_rotation"]
 	sprite.position = weapon_info["weapon_position"]
+<<<<<<< Updated upstream
+=======
+	damage = weapon_info["damage"]
+	bullet_speed = weapon_info["bullet_speed"]
+	if(!right):
+		flip()
+>>>>>>> Stashed changes
 
 func flip():
 	sprite.rotation_degrees *= -1
@@ -112,6 +121,8 @@ func shoot(target):
 	rate_of_fire_timer.start(rate_of_fire)
 	#print("shooting " + str(randi_range(1, 10)))
 	var shot = bullet.instantiate()
+	shot.set_damage(damage)
+	shot.set_speed(bullet_speed)
 	bullets.add_child(shot, true)
 	shot.global_position = pivot_point.global_position
 	shot.look_at(target)
