@@ -3,7 +3,8 @@ extends Node
 signal OnConnectedToServer
 signal OnServerDisconnected
 
-@onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
+@onready var Game = get_node("/root/Game")
+@onready var Global = get_node("/root/Game/Global")
 
 const MAX_CLIENTS = 4
 
@@ -22,7 +23,7 @@ var localPlayer
 
 var all_addresses = IP.get_local_addresses()
 var lan_addresses = Array(all_addresses).filter(func(ip): 
-	return ip.begins_with("192.") or ip.begins_with("10.") or ip.begins_with("172.")
+	return ip.begins_with("192.") or ip.begins_with("10.") or ip.begins_with("172.") or ip.begins_with("25.")
 )
 
 func _ready():

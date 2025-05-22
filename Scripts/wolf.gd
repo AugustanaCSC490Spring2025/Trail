@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
+
 #https://www.youtube.com/watch?v=AGHtw8__oqw
 #^^ nav agent tutorial based on to start with
 

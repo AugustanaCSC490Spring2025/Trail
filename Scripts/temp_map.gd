@@ -1,7 +1,8 @@
 extends Node2D
 
-@onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
-@onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
 var radius = 30
 
 func setPlayerValues():

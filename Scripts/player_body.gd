@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
+
 @onready var player_sprite = $AnimatedSprite2D
 
 @onready var camera_2d = $Camera2D

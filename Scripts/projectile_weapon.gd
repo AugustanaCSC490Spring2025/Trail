@@ -1,5 +1,9 @@
 extends Node2D
 
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
+
 @onready var bullet = preload("res://Scenes/Weapons/Projectiles/bullet.tscn")
 @onready var weapon_tip = $Sprite2D/Tip
 @onready var pivot_point = $"."

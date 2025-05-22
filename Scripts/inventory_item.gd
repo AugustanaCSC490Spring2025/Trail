@@ -1,5 +1,9 @@
 extends Node2D
 
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
+
 @export var item_type = ""
 @export var item_name = ""
 @export var item_texture: Texture

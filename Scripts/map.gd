@@ -6,8 +6,10 @@ class_name Map
 @onready var wizard = preload("res://Scenes/Enemies/wizard.tscn")
 @onready var campfire = preload("res://Scenes/Campfire.tscn")
 @onready var wolf_spawn_locations = $"Wolf Spawns"
-@onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
-@onready var Network = get_tree().get_nodes_in_group("GameManager")[1]
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
+
 var radius = 30
 
 @onready var items = $Items
@@ -445,37 +447,38 @@ func get_random_position():
 	
 # Spawn random items from the Global list up until the max amount (10) has been reached
 func spawn_random_items(count):
-	if(Network.networkID == 1):
-		var attempts = 0
-		var spawned_count = 0
-		while spawned_count < count and attempts < 100:
-			var position = get_random_position()
-			spawn_item.rpc(Global.spawnable_items[rng.randi() % Global.spawnable_items.size()], position)
-			spawned_count += 1
-			attempts += 1
+	#if(Network.networkID == 1):
+	var attempts = 0
+	var spawned_count = 0
+	while spawned_count < count and attempts < 100:
+		var position = get_random_position()
+		spawn_item(Global.spawnable_items[rng.randi() % Global.spawnable_items.size()], position)
+		spawned_count += 1
+		attempts += 1
 
 # Create a physical instance of the Item scene on the map underneath /Items node
-@rpc("any_peer", "call_local", "reliable")
 func spawn_item(data, position):
-	if(Network.networkID == 1):
-		var item_scene = load("res://Scenes/Inventory/Inventory_Item.tscn")
-		var item_instance = item_scene.instantiate()
+	var item_scene = load("res://Scenes/Inventory/Inventory_Item.tscn")
+	var item_instance = item_scene.instantiate()
+	item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
+	if data["type"] == "Weapon":
+		item_instance.set_item_data(data)
+		item_instance.scale = data["weapon_scale"]
+	else:
 		item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
-		if data["type"] == "Weapon":
-			item_instance.set_item_data(data)
-			item_instance.scale = data["weapon_scale"]
-		else:
-			item_instance.initiate_items(data["type"], data["name"], data["effect"], data["texture"], data["duration"])
-		#item_instance.set_multiplayer_authority(1)
-		Network.items.add_child(item_instance, true)
-		item_instance.global_position = position
+	#item_instance.set_multiplayer_authority(1)
+	Network.items.add_child(item_instance, true)
+	item_instance.global_position = position
 
 func setPlayerValues():
 	var numPlayers = Network.players.get_child_count()
 	var count = 0
 	for player in Network.players.get_children():
-		player.playerBody.setPosition.rpc(cos(2 * PI * count / float(numPlayers)) * radius + world_position.x, sin(2 * PI * count / float(numPlayers)) * radius + world_position.y)
+		#campfire_scene.global_position
+		player.playerBody.setPosition.rpc(cos(2 * PI * count / float(numPlayers)) * radius + campfire_scene.global_position.x, sin(2 * PI * count / float(numPlayers)) * radius + campfire_scene.global_position.y)
+		#player.playerBody.setPosition.rpc(cos(2 * PI * count / float(numPlayers)) * radius + fire_pos.x, sin(2 * PI * count / float(numPlayers)) * radius + fire_pos.y)
 		player.playerBody.setVisible.rpc(true)
+		
 		Network.localPlayer.playerBody.inventory_hotbar.visible = true
 		count += 1
 	Network.setLocalPlayerCamera.rpc()

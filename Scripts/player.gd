@@ -1,5 +1,9 @@
 extends Node
 
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
+
 var playerBodyScene = preload("res://Scenes/PlayerBody.tscn")
 @export var gameReady = false
 @export var playerName = ""

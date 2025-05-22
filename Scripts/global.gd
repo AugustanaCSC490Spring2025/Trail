@@ -2,6 +2,9 @@
 
 extends Node
 
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+
 # Scene and node references
 @onready var inventory_slot_scene = preload("res://Scenes/Inventory/Inventory_Slot.tscn")
 var player_node: Node = null

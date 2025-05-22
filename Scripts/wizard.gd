@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
+
 # NOTE TO SELF, EXTEND GENERIC ENEMY CLASS
 @export var facing = ""
 @export var attacking = false

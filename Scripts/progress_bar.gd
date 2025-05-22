@@ -1,5 +1,9 @@
 extends Control
 
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
+
 @onready var progress_bar = $ProgressBar
 var duration = 2
 func _ready():

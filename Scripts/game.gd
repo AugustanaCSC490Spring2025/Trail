@@ -1,6 +1,7 @@
 extends Node
 
-@onready var network : Network = get_node("/root/Game/Network")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
 var menuScene = preload("res://Scenes/Menu.tscn")
 var menu
 var lobbyScene = preload("res://Scenes/Lobby.tscn")
@@ -84,6 +85,6 @@ func getSync():
 
 func _on_timer_timeout():
 	map.generate(getSync().getMapSeed(0))
-	if(network.networkID == 1):
+	if(Network.networkID == 1):
 		map.setPlayerValues()
 		map.spawn_test_wolf()

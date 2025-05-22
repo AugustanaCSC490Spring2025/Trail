@@ -1,7 +1,8 @@
 extends Node2D
 
-@onready var Game = get_tree().get_nodes_in_group("GameManager")[0]
-@onready var network : Network = get_node("/root/Game/Network")
+@onready var Game = get_node("/root/Game")
+@onready var Network = get_node("/root/Game/Network")
+@onready var Global = get_node("/root/Game/Global")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,13 +15,13 @@ func _process(delta: float) -> void:
 
 func create_lobby() -> void:
 	Game.openLobby()
-	network.startHost()
+	Network.startHost()
 	#Game.createMap()
 
 func join_lobby() -> void:
 	Game.openLobby()
-	network.startClient()
+	Network.startClient()
 	#Game.createMap()
 
 func _on_code_text_changed(new_text):
-	network._on_code_text_changed(new_text)
+	Network._on_code_text_changed(new_text)
