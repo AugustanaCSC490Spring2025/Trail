@@ -8,7 +8,7 @@ extends Node
 @export var gameStarted = false
 @export var day = 1
 @onready var mapTimer = $MapTimer
-var hourLength = 10
+var hourLength = 8
 var hour = 0
 var maxDays = 3
 
@@ -29,6 +29,7 @@ func getMapSeed(index):
 	return mapSeeds[index]
 
 func startDay():
+	mapTimer.stop()
 	mapTimer.wait_time = hourLength
 	mapTimer.start()
 	Network.localPlayer.playerBody.changeHour(hour)
@@ -36,15 +37,20 @@ func startDay():
 func _on_map_timer_timeout():
 	hour += 1
 	if hour >= 24:
-		day += 1
 		hour = 0
+		day += 1
 		mapTimer.stop()
 		if day > maxDays:
 			Game.finishGame()
 		else:
 			Game.closeMap()
 	else:
-		if (hour % 2 == 0):
+		if (hour % 3 == 0):
 			Game._new_hour_spawn()
 		Network.localPlayer.playerBody.changeHour(hour)
 		Game.map.setDayTexture(hour)
+
+@rpc("any_peer", "call_local", "reliable")
+func addDay():
+	if(Network.networkID == 1):
+		day += 1

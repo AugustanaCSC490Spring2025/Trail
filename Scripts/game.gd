@@ -43,6 +43,17 @@ func _process(delta):
 			fullscreen = true
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
+	if Input.is_action_just_pressed("skip day"):
+		var s = getSync()
+		if s != null:
+			if s.gameStarted:
+				skip.rpc()
+				
+@rpc("any_peer", "call_local", "reliable")
+func skip():
+	if(Network.networkID == 1):
+		getSync().addDay.rpc()
+	closeMap()
 
 func openLobby():
 	get_node("Menu").queue_free()

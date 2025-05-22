@@ -19,6 +19,8 @@ extends CharacterBody2D
 @onready var deathTimer = $DeathTimer
 @onready var hour = $Hour
 
+@onready var sprite = $AnimatedSprite2D
+
 var can_move = true
 
 const SPAWN_RADIUS: float = 100
@@ -166,14 +168,16 @@ func decreaseStats():
 func die():
 	if(Network.networkID == 1):
 		alive = false
-		visible = false
+		sprite.visible = false
+		weapon.visible = false
 		deathTimer.start(5)
 
 @rpc("any_peer", "call_local", "reliable")
 func respawn():
 	if(Network.networkID == 1):
 		alive = true
-		visible = true
+		sprite.visible = true
+		weapon.visible = true
 		position = respawnPoint
 		decreaseStats()
 
@@ -206,11 +210,12 @@ func damagePlayer(damage):
 			die.rpc()
 
 func _on_health_regeneration_timeout():
-	HP += 1
-	if HP >= maxHP:
-		HP = maxHP
+	if alive:
+		HP += 1
+		if HP >= maxHP:
+			HP = maxHP
 		
-# Use hotbar items on key 1 - 5 press		
+# Use hotbar items on key 1 - 5 press	
 func use_hotbar_item(slot_index):
 	if slot_index < Global.hotbar_inventory.size():
 		var item = Global.hotbar_inventory[slot_index]

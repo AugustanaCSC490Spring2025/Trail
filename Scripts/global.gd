@@ -149,7 +149,7 @@ func set_player_reference(player):
 	
 # Adds an item to the inventory, returns true if successful
 func add_item(item, to_hotbar = true):
-	if hotbar_size > hotbar_inventory.size():
+	if hotbar_size >= hotbar_inventory.size():
 		add_hotbar_item(item)
 		inventory_updated.emit()
 		
