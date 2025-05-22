@@ -15,11 +15,13 @@ var swap = true
 var right = true
 var can_move = true
 var weapons_dict
+var shotgun = false
+
 func _ready() -> void:
 	#var m16 = {
 	#"type": "Weapon", 
 	#"name": "m16", 
-	#"effect": "Gun", 
+	#"effect": "Gun", dd
 	#"texture": load("res://Sprites/Weapons/firearm-ocal-scalable/scalable/assault_rifle/m16.svg"),
 	#"rate_of_fire": .1,
 	#"weapon_scale": Vector2(0.1, 0.1),
@@ -120,14 +122,21 @@ func _physics_process(delta: float) -> void:
 		return
 	if (input_synchronizer.enable):
 		if input_synchronizer.shoot_input and can_fire:
-			rpc("shoot")
-	pointGun()
+			if shotgun:
+				shoot_shotgun(input_synchronizer.mouse_position)
+			else:
+				rpc("shoot", input_synchronizer.mouse_position)
+	pointGun()#.rpc()
 	
 			
 		#weapon_tip.position = mouse_position
 		#pointing_tip.target_position = mouse_position
 
 func swap_weapon(weapon_info: Dictionary):
+	if weapon_info["name"] == "Double Barrel Shotgun":
+		shotgun = true
+	else:
+		shotgun = false
 	rate_of_fire = weapon_info["rate_of_fire"]
 	sprite.texture = weapon_info["texture"]
 	sprite.scale = weapon_info["weapon_scale"]
@@ -142,15 +151,31 @@ func flip():
 	sprite.position.y *= -1
 
 @rpc("any_peer", "call_local", "reliable")
-func shoot():
-	can_fire = false
+func shoot(target):
+	print(str(shotgun) + " shooting")
+	can_fire =  false
 	rate_of_fire_timer.start(rate_of_fire)
 	#print("shooting " + str(randi_range(1, 10)))
 	var shot = bullet.instantiate()
 	bullets.add_child(shot, true)
 	shot.global_position = pivot_point.global_position
-	shot.look_at(input_synchronizer.mouse_position)
-	shot.fire(pivot_point.global_position, input_synchronizer.mouse_position)
+	shot.look_at(target)
+	shot.fire(pivot_point.global_position, target)
+
+func shoot_shotgun(target):
+	var player_position = global_position
+	var direction = (target - player_position).normalized()
+	var distance = (target - player_position).length()
+	var spread_angle = deg_to_rad(5)
+	var shot_count = 5
+	var center_index = shot_count / 2
+
+	for i in range(shot_count):
+		var angle_offset = (i - center_index) * spread_angle
+		var rotated_direction = direction.rotated(angle_offset)
+		var spread_target = player_position + rotated_direction * distance
+		rpc("shoot", spread_target)
+
 
 func pointGun():
 	#mouse_position = get_global_mouse_position()
