@@ -25,6 +25,9 @@ var used_spawn_positions = {}
 
 @export var noise_texture : NoiseTexture2D
 @export var tree_noise_texture : NoiseTexture2D
+@export var dayGradient : Gradient
+
+@onready var dayTexture = $DayTexture
 
 var width : int = 160
 var height : int = 160
@@ -82,6 +85,9 @@ var biomes = ["Plains", "Forest", "Snow", "Desert", "Swamp"]
 var biome
 
 var generated = false
+
+func _ready():
+	dayTexture.color = dayGradient.sample(0)
 
 func generate(seed):
 	mapSeed = seed
@@ -488,3 +494,7 @@ func addLatePlayer():
 	Network.localPlayer.playerBody.setVisible.rpc(true)
 	Network.localPlayer.playerBody.inventory_hotbar.visible = true
 	Network.setLocalPlayerCamera.rpc()
+
+func setDayTexture(hour):
+	dayTexture.color = dayGradient.sample(hour / 24.0)
+	

@@ -611,7 +611,7 @@ properties/6/spawn = true
 properties/6/replication_mode = 1
 
 [node name="Wizard" type="CharacterBody2D" groups=["Hurtable"]]
-z_index = 100
+z_index = 5
 collision_mask = 0
 script = ExtResource("1_d4ipx")
 

@@ -10,6 +10,8 @@ var mapScene = preload("res://Scenes/Map.tscn")
 var map
 var syncScene = preload("res://Scenes/Sync.tscn")
 var sync
+var transitionScene = preload("res://Scenes/Transition.tscn")
+var transition
 var fullscreen = false
 
 @onready var scene = $Scene
@@ -52,7 +54,7 @@ func createMap():
 	
 func startGame():
 	closeLobby.rpc()
-	createMap.rpc()
+	openMap()
 	getSync().gameStarted = true
 	#print(multiplayer.get_unique_id())
 	#get_node("/root/Game/Scene/Map").playerSet = false
@@ -79,12 +81,39 @@ func addGameSync():
 func getSync():
 	return scene.get_node("Sync")
 
+@rpc("authority", "call_local", "reliable")
+func openTransitionScreen():
+	transition = transitionScene.instantiate()
+	add_child(transition, true)
+	transition.setDay(getSync().day)
+
+@rpc("authority", "call_local", "reliable")
+func closeTransitionScreen():
+	transition.queue_free()
+
+func openMap():
+	openTransitionScreen.rpc()
+	createMap.rpc()
+
+func closeMap():
+	map.queue_free()
+	setCamera()
+	for enemy in Network.enemies.get_children():
+		enemy.queue_free()
+	for item in Network.items.get_children():
+		item.queue_free()
+	for player in Network.players.get_children():
+		player.playerBody.setVisible(false)
+	if(Network.networkID == 1):
+		openMap()
+	
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func isGameStarted():
 	#return gameStarted
 
 func _on_timer_timeout():
-	map.generate(getSync().getMapSeed(0))
+	map.generate(getSync().getMapSeed(getSync().day - 1))
+	closeTransitionScreen.rpc()
 	getSync().startDay()
 	if(Network.networkID == 1):
 		map.setPlayerValues()

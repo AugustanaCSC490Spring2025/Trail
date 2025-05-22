@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://b6ma8jw56tvak" path="res://Scripts/transition.gd" id="1_rr8bd"]
 
 [node name="Transition" type="ColorRect"]
+z_index = 1000
 offset_left = -640.0
 offset_top = -360.0
 offset_right = 640.0

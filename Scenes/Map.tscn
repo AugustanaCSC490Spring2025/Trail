@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://4wq4cgxvclco"]
+[gd_scene load_steps=23 format=3 uid="uid://4wq4cgxvclco"]
 
 [ext_resource type="Script" uid="uid://boii5jn8fxldf" path="res://Scripts/map.gd" id="1_gxtgv"]
 [ext_resource type="Texture2D" uid="uid://df8vj4bxe20b3" path="res://Sprites/wild_west_style/Generic Old West Graphicis/Atlas.png" id="1_w505k"]
@@ -28,6 +28,10 @@ frequency = 0.039
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uil6b"]
 color_ramp = SubResource("Gradient_mxdjg")
 noise = SubResource("FastNoiseLite_5lue7")
+
+[sub_resource type="Gradient" id="Gradient_r08cw"]
+offsets = PackedFloat32Array(0, 0.283133, 0.698795, 1)
+colors = PackedColorArray(0, 0, 0.3, 0.470588, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.470588)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pljqj"]
 size = Vector2(1, 100)
@@ -1276,6 +1280,7 @@ y_sort_enabled = true
 script = ExtResource("1_gxtgv")
 noise_texture = SubResource("NoiseTexture2D_d7lxr")
 tree_noise_texture = SubResource("NoiseTexture2D_uil6b")
+dayGradient = SubResource("Gradient_r08cw")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -1321,5 +1326,12 @@ autostart = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemSpawnArea"]
 shape = SubResource("RectangleShape2D_r08cw")
+
+[node name="DayTexture" type="ColorRect" parent="."]
+z_index = 10
+offset_left = -5000.0
+offset_top = -5000.0
+offset_right = 5000.0
+offset_bottom = 5000.0
 
 [connection signal="timeout" from="Wolf Timer" to="." method="spawn_wolves"]

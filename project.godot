@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/image="uid://dswqhpgjt4ro6"
 config/icon="res://Sprites/icon.svg"
 
+[autoload]
+
+Global="*res://Scripts/global.gd"
+
 [display]
 
 window/size/viewport_width=1280
