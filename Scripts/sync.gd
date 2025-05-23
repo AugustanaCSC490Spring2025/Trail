@@ -8,7 +8,7 @@ extends Node
 @export var gameStarted = false
 @export var day = 1
 @onready var mapTimer = $MapTimer
-var hourLength = 8
+var hourLength = 10
 var hour = 0
 var maxDays = 3
 
@@ -45,8 +45,7 @@ func _on_map_timer_timeout():
 		else:
 			Game.closeMap()
 	else:
-		if (hour % (4-day) == 0):
-			Game._new_hour_spawn()
+		Game._new_hour_spawn(hour, day)
 		Network.localPlayer.playerBody.changeHour(hour)
 		Game.map.setDayTexture(hour)
 

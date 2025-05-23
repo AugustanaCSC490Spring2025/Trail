@@ -130,6 +130,6 @@ func damageEnemy(damage):
 	if(Network.networkID == 1):
 		if not dead:
 			HP -= damage
-			print(str(HP))
+			#print(str(HP))
 			if HP <= 0:
 				wiz_die.rpc()

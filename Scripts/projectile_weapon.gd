@@ -138,7 +138,7 @@ func _physics_process(delta: float) -> void:
 		#pointing_tip.target_position = mouse_position
 
 func swap_weapon(weapon_info: Dictionary):
-	print("here da gun " + str(weapon_info))
+	#print("here da gun " + str(weapon_info))
 	if weapon_info["name"] == "Double Barrel Shotgun":
 		shotgun = true
 	else:
@@ -160,7 +160,7 @@ func flip():
 
 #@rpc("any_peer", "call_local", "reliable")
 func shoot(target):
-	print(str(shotgun) + " shooting")
+	#print(str(shotgun) + " shooting")
 	can_fire = false
 	rate_of_fire_timer.start(rate_of_fire)
 	#print("shooting " + str(randi_range(1, 10)))

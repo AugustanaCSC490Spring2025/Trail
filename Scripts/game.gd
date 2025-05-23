@@ -152,11 +152,14 @@ func closeWinScreen():
 #@rpc("any_peer", "call_remote", "reliable", 1)
 #func isGameStarted():
 	#return gameStarted
-func _new_hour_spawn():
-	hours_passed += .5
-	for x in hours_passed:
-		map.spawn_test_wolf()
-		map.spawn_random_items(5)
+func _new_hour_spawn(hour, day):
+	if(Network.networkID == 1):
+		if(hour % 2 == 0):
+			var newSpawns = (log(hour) + 1) / log(2) * (log(day) + 1) / log(3) * (sin(hour) * 0.5 + 0.5) * 0.25 - 0.5
+			print(newSpawns)
+			for x in newSpawns:
+				map.spawn_test_wolf()
+				map.spawn_random_items(5)
 
 func _on_timer_timeout():
 	map.generate(getSync().getMapSeed(getSync().day - 1))
